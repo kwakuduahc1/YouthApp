@@ -1,34 +1,45 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { ChartsModule } from 'ng2-charts';
 
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
-import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
-import { CounterComponent } from './components/counter/counter.component';
+import { HttpClientModule } from '@angular/common/http';
+import { BillItemHttpService } from './http/bill-items/bill-item.service';
+import { AddBillItemComponent } from './components/bill-items/add-bill-item/add-bill-item.component';
+import { EditItemComponent } from './components/bill-items/edit-item/edit-item.component';
+import { BillItemsResolver } from './resolvers/bill-items/ListResolver';
+import { FindItemResolver } from './resolvers/bill-items/FindResolver';
 
 @NgModule({
     declarations: [
         AppComponent,
         NavMenuComponent,
-        CounterComponent,
-        FetchDataComponent,
-        HomeComponent
+        HomeComponent,
+        AddBillItemComponent,
+        EditItemComponent
     ],
     imports: [
         CommonModule,
-        HttpModule,
         FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        ChartsModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
-            { path: 'counter', component: CounterComponent },
-            { path: 'fetch-data', component: FetchDataComponent },
+            { path: 'bill-items', component: AddBillItemComponent, resolve: { items: BillItemsResolver } },
+            { path: 'edit-bill-item/:id', component: EditItemComponent, resolve: { item: FindItemResolver } },
             { path: '**', redirectTo: 'home' }
         ])
+    ],
+    providers: [
+        BillItemHttpService,
+        BillItemsResolver,
+        FindItemResolver
     ]
 })
 export class AppModuleShared {

@@ -1,0 +1,25 @@
+﻿<meta name="description" content="Edit {{item.billItem}}" />
+<title>Edit {{item.billItem}}</title>
+<h1 class="h1">Edit {{item.billItem}}</h1>
+<form id="form" name="form" [formGroup]="form" (submit)="edit(form.value)">
+    <fieldset>
+        <legend>Add new bill item</legend>
+        <div class="form-group form-row">
+            <label class="col-md-2 control-label" for="billItem">Bill Item</label>
+            <div class="col-md-6" [ngClass]="form.controls.billItem?.errors ? 'has-error' : 'has-success'">
+                <input type="text"
+                       class="form-control"
+                       id="billItem"
+                       title="your billing item here"
+                       formControlName="billItem"
+                       placeholder="bill item">
+            </div>
+            <span [ngClass]="form.controls.billItem.errors?.maxlength ? 'text-danger' : ''" *ngIf="form.controls.billItem.errors?.maxlength">The maximum length is {{form.controls.billItem.errors.maxlength.requiredLength}} characters: Current is {{form.controls.billItem.errors.maxlength.actualLength}}</span>
+            <span [ngClass]="form.controls.billItem.errors?.required ? 'text-danger' : ''" *ngIf="form.controls.billItem.errors?.required">Input a bill item</span>
+            <span [ngClass]="form.controls.billItem.errors?.minlength ? 'text-danger' : ''" *ngIf="form.controls.billItem.errors?.minlength">The minimum length is {{form.controls.billItem.errors.minlength.requiredLength}} characters: Current is {{form.controls.billItem.errors.minlength.actualLength}}</span>
+        </div>
+        <div class="offset-md-2">
+            <button [disabled]="form.invalid || processing" type="submit" [ngClass]="form.invalid ? 'btn-danger' : 'btn-success'" class="btn"><span class="glyphicon glyphicon-credit-card"> Edit</span></button>
+        </div>
+    </fieldset>
+</form>

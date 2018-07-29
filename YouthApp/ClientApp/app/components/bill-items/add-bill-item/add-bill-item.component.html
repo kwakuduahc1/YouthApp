@@ -1,0 +1,47 @@
+﻿<h1 class="h1">Manage Bill Items</h1>
+<form id="form" name="form" [formGroup]="form" (submit)="add(form.value)">
+    <fieldset>
+        <legend>Add new bill item</legend>
+        <div class="form-group form-row">
+            <label class="col-md-2 control-label" for="billItem">Bill Item</label>
+            <div class="col-md-6" [ngClass]="form.controls.billItem?.errors ? 'has-error' : 'has-success'">
+                <input type="text"
+                       class="form-control"
+                       id="billItem"
+                       title="your billing item here"
+                       formControlName="billItem"
+                       placeholder="bill item">
+            </div>
+            <span [ngClass]="form.controls.billItem.errors?.maxlength ? 'text-danger' : ''" *ngIf="form.controls.billItem.errors?.maxlength">The maximum length is {{form.controls.billItem.errors.maxlength.requiredLength}} characters: Current is {{form.controls.billItem.errors.maxlength.actualLength}}</span>
+            <span [ngClass]="form.controls.billItem.errors?.required ? 'text-danger' : ''" *ngIf="form.controls.billItem.errors?.required">Input a bill item</span>
+            <span [ngClass]="form.controls.billItem.errors?.minlength ? 'text-danger' : ''" *ngIf="form.controls.billItem.errors?.minlength">The minimum length is {{form.controls.billItem.errors.minlength.requiredLength}} characters: Current is {{form.controls.billItem.errors.minlength.actualLength}}</span>
+        </div>
+        <div class="offset-md-2">
+            <button [disabled]="form.invalid || processing" type="submit" [ngClass]="form.invalid ? 'btn-danger' : 'btn-success'" class="btn"><span class="glyphicon glyphicon-credit-card"> Add</span></button>
+        </div>
+    </fieldset>
+</form>
+
+<div>
+    <h2>Bill Items</h2>
+    <table class="table table-hover table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Item</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let i of items">
+                <td>{{i.billItem}}</td>
+                <td>
+                    <button class="btn btn-outline-primary" [routerLink]="['/edit-bill-item',i.billItemsID]">Edit</button>
+                </td>
+                <td>
+                    <button class="btn btn-outline-danger" (click)="delete(i)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
