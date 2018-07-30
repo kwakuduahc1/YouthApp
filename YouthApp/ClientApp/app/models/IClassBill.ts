@@ -6,8 +6,7 @@ export interface IClassBills {
     billItem: string;
     classesID: number;
     amount: number;
-    terms: eTerms;
-    year: string;
+    termsID: number;
     datePrepared: Date
     concurrency: string;
 }

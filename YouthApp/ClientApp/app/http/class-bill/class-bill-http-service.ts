@@ -19,6 +19,10 @@ export class ClassBillHttpService implements IHttpMethods<IClassBills> {
         return this.http.post<IClassBills>(`/ClassBills/Create`, item)
     }
 
+    addBill(item: IClassBills[]): Observable<IClassBills> {
+        return this.http.post<IClassBills>(`/ClassBills/Create`, item)
+    }
+
     edit(item: IClassBills): Observable<IClassBills> {
         return this.http.put<IClassBills>(`/ClassBills/Edit`, item)
     }

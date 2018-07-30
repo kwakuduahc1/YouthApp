@@ -20,9 +20,6 @@ namespace YouthApp.Models
         [Required]
         public byte TermsID { get; set; }
 
-        [Required]
-        public string Year { get; set; }
-
         public DateTime DatePrepared { get; set; }
 
         [Timestamp]

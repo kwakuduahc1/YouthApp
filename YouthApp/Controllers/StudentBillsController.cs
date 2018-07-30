@@ -22,10 +22,9 @@ namespace bStudioSchoolManager.Controllers
                 if (std == null)
                     return NotFound(new { message = "No student id matched" });
                 var bill = await db.ClassBills.Where(x => x.ClassesID == std.ClassesID && x.DatePrepared > std.DateRegistered)
-                    .GroupBy(x => new { x.Year, x.Terms }, (k, v) => new
+                    .GroupBy(x => new { x.Terms }, (k, v) => new
                     {
                         k.Terms,
-                        k.Year,
                         Amount = v.Sum(x => x.Amount)
                     })
                     .ToListAsync();

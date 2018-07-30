@@ -10,7 +10,6 @@ using YouthApp.Models;
 
 namespace bStudioSchoolManager.Controllers
 {
-    [AutoValidateAntiforgeryToken]
     public class ClassBillsController : Controller
     {
         private readonly DbContextOptions<ApplicationDbContext> dco;
@@ -39,21 +38,20 @@ namespace bStudioSchoolManager.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([Bind("BillItemsID", "Amount", "ClassesID", "Term", "Year"), FromBody]List<ClassBills> bill)
+        public async Task<IActionResult> Create([FromBody]List<ClassBills> bill)
         {
             if (!ModelState.IsValid)
                 return BadRequest(new { Error = "Invalid data was submitted", Message = ModelState.Values.First(x => x.Errors.Count > 0).Errors.Select(t => t.ErrorMessage).First() });
-            var term = bill[0].Terms;
-            var year = bill[0].Year;
+            var term = bill.First().TermsID;
             using (var db = new ApplicationDbContext(dco))
             {
-                if (await db.ClassBills.AnyAsync(x => x.Terms == term && x.Year == year))
-                    return BadRequest(new { message = $"Bill for this class already exits for term: {term} and year: {year}" });
+                if (await db.ClassBills.AnyAsync(x => x.TermsID == term))
+                    return BadRequest(new { message = $"Bill for this class already exits for term" });
                 bill.ForEach(x => x.DatePrepared = DateTime.Now);
                 db.AddRange(bill);
                 await db.SaveChangesAsync();
             }
-            return Created($"/ClassBills/Bill?class={bill.First().ClassesID}&term={term}&year={year}", bill);
+            return Created($"/ClassBills/Bill?class={bill.First().ClassesID}&term={term}", bill);
         }
 
         //[HttpPost]
