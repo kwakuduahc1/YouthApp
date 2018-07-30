@@ -3,7 +3,7 @@ import { Observable } from "rxjs/Observable";
 import { Injectable } from "@angular/core";
 import { HttpErrorResponse } from "@angular/common/http";
 import { IBillItems } from "../../models/IBillItems";
-import { BillItemHttpService } from "../../http/bill-items/bill-item.service";
+import { BillItemHttpService } from "../../http/bill-items/bill-items-service";
 
 @Injectable()
 export class FindItemResolver implements Resolve<IBillItems> {

@@ -8,8 +8,8 @@ namespace YouthApp.Models
     {
         public int ClassesID { get; set; }
 
-        [StringLength(20)]
-        [Required(AllowEmptyStrings =false)]
+        [StringLength(20, MinimumLength = 5)]
+        [Required(AllowEmptyStrings = false)]
         public string ClassName { get; set; }
 
         [DefaultValue(true)]

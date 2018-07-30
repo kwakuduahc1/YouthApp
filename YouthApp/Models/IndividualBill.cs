@@ -15,8 +15,7 @@ namespace YouthApp.Models
         public double Amount { get; set; }
 
         [Required]
-        [Range(1.0,3.3)]
-        public float Term { get; set; }
+        public byte TermsID { get; set; }
 
         [DefaultValue(false)]
         public bool IsPaid { get; set; }

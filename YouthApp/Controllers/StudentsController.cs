@@ -28,9 +28,6 @@ namespace bStudioSchoolManager.Controllers
         public async Task<IEnumerable> List(int id) => await new ApplicationDbContext(dco).Students.Where(x => x.ClassesID == id).OrderByDescending(x => x.UniqueID).ToListAsync();
 
         [HttpGet]
-        public async Task<IEnumerable> SubList(string id) => await new ApplicationDbContext(dco).Students.Where(x => x.SubClass == id).ToListAsync();
-
-        [HttpGet]
         public async Task<IActionResult> Find(Guid id)
         {
             var std = await new ApplicationDbContext(dco).Students.FindAsync(id);
@@ -77,7 +74,7 @@ namespace bStudioSchoolManager.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([Bind("Surname", "OtherNames", "DateOfBirth", "SubClass", "ClassesID"), FromBody]Students std)
+        public async Task<IActionResult> Create([FromBody]Students std)
         {
             if (!ModelState.IsValid)
                 return BadRequest(new { Error = "Invalid data was submitted", Message = ModelState.Values.First(x => x.Errors.Count > 0).Errors.Select(t => t.ErrorMessage).First() });
@@ -90,7 +87,7 @@ namespace bStudioSchoolManager.Controllers
                 db.Add(std);
                 await db.SaveChangesAsync();
             }
-            return Created($"/Students/Find?id={std.StudentsID}", new { std.Surname, std.OtherNames, std.Concurrency, std.SubClass, std.StudentsID, std.UniqueID, std.DateOfBirth });
+            return Created($"/Students/Find?id={std.StudentsID}", new { std.Surname, std.OtherNames, std.Concurrency, std.StudentsID, std.UniqueID, std.DateOfBirth });
         }
 
         async Task<string> GetNextNumber(Classes classes)
@@ -99,13 +96,13 @@ namespace bStudioSchoolManager.Controllers
             using (var db = new ApplicationDbContext(dco))
             {
                 int count = await db.Students.Where(x => x.ClassesID == classes.ClassesID).CountAsync();
-                inx = $"SCH/{classes.ClassName}/{count + 1}";
+                inx = $"NYLTC/{classes.ClassName}/{count + 1}";
                 if (await db.Students.AnyAsync(t => t.UniqueID == inx))
                 {
                     var counter = 1;
                     while (await db.Students.AnyAsync(x => x.UniqueID == inx))
                     {
-                        inx = $"SCH/{classes.ClassName}/{counter}";
+                        inx = $"NYLTC/{classes.ClassName}/{counter}";
                         if (!await db.Students.AnyAsync(x => x.UniqueID == inx))
                             break;
                         counter++;

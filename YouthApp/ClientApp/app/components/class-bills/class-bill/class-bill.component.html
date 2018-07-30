@@ -1,0 +1,19 @@
+﻿<h1>Prepare a bill for {{class.className}}</h1>
+<form name="termForm" [formGroup]="termForm">
+    <fieldset>
+        <legend>Select a term</legend>
+        <div class="form-group form-row">
+            <label class="col-form-label col-md-2" for="term">Tern</label>
+            <div class="col-md-5">
+                <select name="term" id="term" formControlName="term" class="form-control">
+                    <option *ngFor="let t of terms" [ngValue]="t">{{t.description}}</option>
+                </select>
+            </div>
+        </div>
+    </fieldset>
+</form>
+<h2>List of bill items</h2>
+<div class="row" *ngFor="let i of items">
+    <div class="col-md-5">{{i.billItem}}</div>
+    <div class="col-md-1"><button (click)="add(i)" class="btn btn-primary">Add</button></div>
+</div>

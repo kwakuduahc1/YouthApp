@@ -3,8 +3,8 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { IBillItems } from '../../../models/IBillItems';
-import { BillItemHttpService } from '../../../http/bill-items/bill-item.service';
 import { IHttpHelper } from '../../../http/IHttpHelper';
+import { BillItemHttpService } from '../../../http/bill-items/bill-items-service';
 
 
 @Component({

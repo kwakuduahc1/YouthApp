@@ -22,9 +22,6 @@ namespace YouthApp.Models
         [StringLength(50, MinimumLength = 3)]
         public string OtherNames { get; set; }
 
-        [StringLength(3)]
-        public string SubClass { get; set; }
-
         [Required]
         public DateTime DateOfBirth { get; set; }
 
@@ -40,19 +37,5 @@ namespace YouthApp.Models
         public virtual ICollection<Payments> Payments { get; set; }
 
         public virtual ICollection<IndividualBills> IndividualBills { get; set; }
-
-        //public void Promote(bsConapptext context)
-        //{
-        //    if (ClassesID <= 6)
-        //    {
-        //        ClassesID++;
-        //        context.Entry(this).State = EntityState.Modified;
-        //    }
-        //    else
-        //    {
-        //        context.Graduates.Add(new Graduates(this));
-        //        context.Entry(this).State = EntityState.Deleted;
-        //    }
-        //}
     }
 }

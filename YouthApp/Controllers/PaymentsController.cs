@@ -20,9 +20,9 @@ namespace bStudioSchoolManager.Controllers
         public async Task<IEnumerable> Student(Guid id) => await new ApplicationDbContext(dco).Payments.Where(x => x.StudentsID == id).OrderByDescending(x => x.DatePaid).ToListAsync();
 
         [HttpPost]
-        public async Task<IActionResult> Create([Bind("StudentsID","Amount", "Receiver"),FromBody]Payments payment)
+        public async Task<IActionResult> Create([Bind("StudentsID", "Amount", "Receiver"), FromBody]Payments payment)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
                 return BadRequest(new { Error = "Invalid data was submitted", Message = ModelState.Values.First(x => x.Errors.Count > 0).Errors.Select(t => t.ErrorMessage).First() });
             using (var db = new ApplicationDbContext(dco))
             {

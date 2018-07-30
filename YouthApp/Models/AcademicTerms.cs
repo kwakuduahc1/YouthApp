@@ -16,8 +16,7 @@ namespace YouthApp.Models
             { 2.3F, "Year 2 term 3"},
              {3.1F, "Year 3 term 1"},
             {3.2F, "Year 3 term 2"},
-            { 3.3F, "Year 3 term 3"},
-
+            { 3.3F, "Year 3 term 3"}
         };
 
         public static string GetTerm(float term) => Terms[term];
