@@ -19,6 +19,10 @@ namespace YouthApp.Models
         [StringLength(50, MinimumLength = 10)]
         public string Receiver { get; set; }
 
+        [StringLength(20, MinimumLength = 5)]
+        [Required(AllowEmptyStrings = false)]
+        public string GCR { get; set; }
+
         [Timestamp]
         public byte[] Concurrency { get; set; }
 

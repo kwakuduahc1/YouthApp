@@ -83,13 +83,13 @@ export class BillStudentsComponent implements IHttpHelper<IIndividualBills> {
 
     receive(sb: IIndividualBills) {
         if (confirm('Have you received payment for this item?\nIt may not be reversible.\nDo you wish to continue?')) {
-            if (sb.gCr) {
+            if (!sb.gCr) {
                 let gcr = prompt("Enter the GCR number. 5 characters minimum");
                 sb.gCr = gcr as string;
             }
             this.http.receive(sb).subscribe(res => {
                 let ix = this.stdBill.findIndex(x => x.individualBillsID === res.individualBillsID);
-                this.stdBill.splice(ix, 1);
+                this.stdBill[ix].isPaid = true;
                 alert("Bill was marked as received");
             }, (err: HttpErrorResponse) => this.onError(err));
         }

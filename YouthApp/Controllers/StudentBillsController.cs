@@ -96,7 +96,7 @@ namespace bStudioSchoolManager.Controllers
                     return BadRequest(new { Message = "Bill for student does not exists" });
                 s_bill.IsPaid = true;
                 s_bill.GCR = bill.GCR;
-                db.Entry(bill).State = EntityState.Modified;
+                db.Entry(s_bill).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return Created($"/StudentBills/Statement?id={bill.StudentsID}", s_bill);
             }

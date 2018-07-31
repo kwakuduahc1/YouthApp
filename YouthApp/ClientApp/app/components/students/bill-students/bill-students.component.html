@@ -86,7 +86,7 @@
                        placeholder="enter GCR Number" />
             </td>
             <td>
-                <button (click)="receive(sb)" class="btn btn-outline-info">Receive</button>
+                <button [disabled]="sb.isPaid" (click)="receive(sb)" class="btn btn-outline-info">Receive</button>
             </td>
         </tr>
     </tbody>
