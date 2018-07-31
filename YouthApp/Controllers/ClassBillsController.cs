@@ -72,7 +72,7 @@ namespace bStudioSchoolManager.Controllers
 
     class Debtors
     {
-        public Guid StudentsID { get; set; }
+        public long StudentsID { get; set; }
 
         public double Arrears { get; set; }
 

@@ -56,6 +56,8 @@ namespace YouthApp.Context
         public virtual DbSet<IndividualBills> IndividualBills { get; set; }
 
         public virtual DbSet<Classes> Classes { get; set; }
+
+        public virtual DbSet<StudentsInfo> StudentsInfo { get; set; }
     }
 
     public class ApplicationUser : IdentityUser

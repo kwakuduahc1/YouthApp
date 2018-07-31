@@ -9,22 +9,27 @@ namespace YouthApp.Models
         public long IndividualBillsID { get; set; }
 
         [Required]
-        public Guid StudentsID { get; set; }
+        public long StudentsID { get; set; }
 
         [Required]
         public double Amount { get; set; }
 
         [Required]
-        public byte TermsID { get; set; }
+        [StringLength(50, MinimumLength = 5)]
+        public string Description { get; set; }
 
         [DefaultValue(false)]
         public bool IsPaid { get; set; }
+
+        [StringLength(20,MinimumLength =5)]
+        public string GCR { get; set; }
 
         public DateTime DateBilled { get; set; }
 
         [Timestamp]
         public byte[] Concurrency { get; set; }
-             
+
         public virtual Students Students { get; set; }
+
     }
 }

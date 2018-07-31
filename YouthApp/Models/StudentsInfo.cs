@@ -8,7 +8,7 @@ namespace YouthApp.Models
     {
         [ForeignKey("Students")]
         [Key]
-        public Guid StudentsID { get; set; }
+        public long StudentsID { get; set; }
 
         [Required(AllowEmptyStrings = false)]
         [StringLength(100)]

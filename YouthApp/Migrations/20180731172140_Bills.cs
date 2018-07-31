@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace YouthApp.Migrations
 {
-    public partial class Initial : Migration
+    public partial class Bills : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -199,7 +199,8 @@ namespace YouthApp.Migrations
                 name: "Students",
                 columns: table => new
                 {
-                    StudentsID = table.Column<Guid>(nullable: false),
+                    StudentsID = table.Column<long>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     UniqueID = table.Column<string>(maxLength: 20, nullable: true),
                     Surname = table.Column<string>(maxLength: 50, nullable: false),
                     ClassesID = table.Column<int>(nullable: false),
@@ -261,10 +262,11 @@ namespace YouthApp.Migrations
                 {
                     IndividualBillsID = table.Column<long>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    StudentsID = table.Column<Guid>(nullable: false),
+                    StudentsID = table.Column<long>(nullable: false),
                     Amount = table.Column<double>(nullable: false),
-                    TermsID = table.Column<byte>(nullable: false),
+                    Description = table.Column<string>(maxLength: 50, nullable: false),
                     IsPaid = table.Column<bool>(nullable: false),
+                    DateBilled = table.Column<DateTime>(nullable: false),
                     Concurrency = table.Column<byte[]>(rowVersion: true, nullable: true)
                 },
                 constraints: table =>
@@ -283,7 +285,7 @@ namespace YouthApp.Migrations
                 columns: table => new
                 {
                     PaymentsID = table.Column<Guid>(nullable: false),
-                    StudentsID = table.Column<Guid>(nullable: false),
+                    StudentsID = table.Column<long>(nullable: false),
                     Amount = table.Column<double>(nullable: false),
                     DatePaid = table.Column<DateTime>(nullable: false),
                     Receiver = table.Column<string>(maxLength: 50, nullable: true),
@@ -304,7 +306,7 @@ namespace YouthApp.Migrations
                 name: "StudentsInfo",
                 columns: table => new
                 {
-                    StudentsID = table.Column<Guid>(nullable: false),
+                    StudentsID = table.Column<long>(nullable: false),
                     Mother = table.Column<string>(maxLength: 100, nullable: false),
                     Father = table.Column<string>(maxLength: 100, nullable: false),
                     PlaceOfBirth = table.Column<string>(maxLength: 100, nullable: false),

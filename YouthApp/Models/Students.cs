@@ -6,7 +6,8 @@ namespace YouthApp.Models
 
     public class Students
     {
-        public Guid StudentsID { get; set; }
+        [Key]
+        public long StudentsID { get; set; }
 
         [StringLength(20, MinimumLength = 6)]
         public string UniqueID { get; set; }
@@ -30,7 +31,7 @@ namespace YouthApp.Models
         [Timestamp]
         public byte[] Concurrency { get; set; }
 
-        public virtual StudentsInfo StudentsInfo { get; set; }
+        //public virtual StudentsInfo StudentsInfo { get; set; }
 
         public virtual Classes Classes { get; set; }
 

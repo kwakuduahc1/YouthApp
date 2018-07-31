@@ -9,8 +9,8 @@ using YouthApp.Context;
 namespace YouthApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180731040452_Initial")]
-    partial class Initial
+    [Migration("20180731181825_GCR")]
+    partial class GCR
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -269,11 +269,18 @@ namespace YouthApp.Migrations
                         .IsConcurrencyToken()
                         .ValueGeneratedOnAddOrUpdate();
 
+                    b.Property<DateTime>("DateBilled");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<string>("GCR")
+                        .HasMaxLength(20);
+
                     b.Property<bool>("IsPaid");
 
-                    b.Property<Guid>("StudentsID");
-
-                    b.Property<byte>("TermsID");
+                    b.Property<long>("StudentsID");
 
                     b.HasKey("IndividualBillsID");
 
@@ -298,7 +305,7 @@ namespace YouthApp.Migrations
                     b.Property<string>("Receiver")
                         .HasMaxLength(50);
 
-                    b.Property<Guid>("StudentsID");
+                    b.Property<long>("StudentsID");
 
                     b.HasKey("PaymentsID");
 
@@ -309,7 +316,7 @@ namespace YouthApp.Migrations
 
             modelBuilder.Entity("YouthApp.Models.Students", b =>
                 {
-                    b.Property<Guid>("StudentsID")
+                    b.Property<long>("StudentsID")
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("ClassesID");
@@ -342,7 +349,7 @@ namespace YouthApp.Migrations
 
             modelBuilder.Entity("YouthApp.Models.StudentsInfo", b =>
                 {
-                    b.Property<Guid>("StudentsID");
+                    b.Property<long>("StudentsID");
 
                     b.Property<byte[]>("Concurrency")
                         .IsConcurrencyToken()
@@ -481,8 +488,8 @@ namespace YouthApp.Migrations
             modelBuilder.Entity("YouthApp.Models.StudentsInfo", b =>
                 {
                     b.HasOne("YouthApp.Models.Students", "Students")
-                        .WithOne("StudentsInfo")
-                        .HasForeignKey("YouthApp.Models.StudentsInfo", "StudentsID")
+                        .WithMany()
+                        .HasForeignKey("StudentsID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

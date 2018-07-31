@@ -26,6 +26,7 @@ import { EditBillComponent } from './components/class-bills/edit-bill/edit-bill.
 import { ViewBillComponent } from './components/class-bills/view-bill/view-bill.component';
 import { BillStudentsComponent } from './components/students/bill-students/bill-students.component';
 import { StudentsResolver } from './resolvers/students/StudentsResolver';
+import { StudentsHttpService } from './http/students/students-http-service';
 
 @NgModule({
     declarations: [
@@ -70,7 +71,8 @@ import { StudentsResolver } from './resolvers/students/StudentsResolver';
         ClassBillHttpService,
         HelperHttpService,
         TermsResolver,
-        StudentsResolver
+        StudentsResolver,
+        StudentsHttpService
     ]
 })
 export class AppModuleShared {

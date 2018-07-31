@@ -6,7 +6,7 @@
     concurrency: string;
     subClass: string;
     classesID: number;
-    studentsID: string;
+    studentsID: number;
     uniqueID: string;
     isPromoted: boolean;
 }

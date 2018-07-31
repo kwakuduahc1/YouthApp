@@ -8,7 +8,7 @@ namespace YouthApp.Models
         public Guid PaymentsID { get; set; }
 
         [Required]
-        public Guid StudentsID { get; set; }
+        public long StudentsID { get; set; }
 
         [Range(minimum: 0, maximum: double.MaxValue)]
         [Required]

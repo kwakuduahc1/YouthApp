@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using YouthApp.Context;
 using YouthApp.Models;
@@ -15,7 +17,11 @@ namespace bStudioSchoolManager.Controllers
         public StudentBillsController(DbContextOptions<ApplicationDbContext> options) => dco = options;
 
         [HttpGet]
-        public async Task<IActionResult> Statement(Guid id)
+        public async Task<IEnumerable> GetBill(long id) => await new ApplicationDbContext(dco).IndividualBills.Where(x => x.StudentsID == id && !x.IsPaid).ToListAsync();
+
+
+        [HttpGet]
+        public async Task<IActionResult> Statement(long id)
         {
             using (var db = new ApplicationDbContext(dco))
             {
@@ -42,7 +48,7 @@ namespace bStudioSchoolManager.Controllers
             using (var db = new ApplicationDbContext(dco))
             {
                 bill.DateBilled = DateTime.Now;
-                db.Add(bill);
+                db.IndividualBills.Add(bill);
                 await db.SaveChangesAsync();
                 return Created($"/StudentBills/Statement?id={bill.StudentsID}", bill);
             }
@@ -79,18 +85,20 @@ namespace bStudioSchoolManager.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> ChangeStatus([FromBody]IndividualBills bill)
+        public async Task<IActionResult> Receive([FromBody]ReceiveModel bill)
         {
             if (!ModelState.IsValid)
                 return BadRequest(new { Error = "Invalid data was submitted", Message = ModelState.Values.First(x => x.Errors.Count > 0).Errors.Select(t => t.ErrorMessage).First() });
             using (var db = new ApplicationDbContext(dco))
             {
-                if (!await db.IndividualBills.AnyAsync(x => x.IndividualBillsID == bill.IndividualBillsID))
+                var s_bill = await db.IndividualBills.SingleOrDefaultAsync(x => x.IndividualBillsID == bill.IndividualBillsID);
+                if (s_bill == null)
                     return BadRequest(new { Message = "Bill for student does not exists" });
-                bill.IsPaid = true;
-                db.Entry(bill).Property(t => t.IsPaid).IsModified = true;
+                s_bill.IsPaid = true;
+                s_bill.GCR = bill.GCR;
+                db.Entry(bill).State = EntityState.Modified;
                 await db.SaveChangesAsync();
-                return Created($"/StudentBills/Statement?id={bill.StudentsID}", bill);
+                return Created($"/StudentBills/Statement?id={bill.StudentsID}", s_bill);
             }
         }
     }

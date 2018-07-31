@@ -17,7 +17,7 @@ namespace bStudioSchoolManager.Controllers
         public PaymentsController(DbContextOptions<ApplicationDbContext> options) => dco = options;
 
         [HttpGet]
-        public async Task<IEnumerable> Student(Guid id) => await new ApplicationDbContext(dco).Payments.Where(x => x.StudentsID == id).OrderByDescending(x => x.DatePaid).ToListAsync();
+        public async Task<IEnumerable> Student(long id) => await new ApplicationDbContext(dco).Payments.Where(x => x.StudentsID == id).OrderByDescending(x => x.DatePaid).ToListAsync();
 
         [HttpPost]
         public async Task<IActionResult> Create([Bind("StudentsID", "Amount", "Receiver"), FromBody]Payments payment)

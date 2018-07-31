@@ -6,5 +6,6 @@
     description: string;
     isPaid: boolean;
     dateBilled: Date;
+    gCr: string;
     concurrency: string;
 }

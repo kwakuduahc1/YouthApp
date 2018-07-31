@@ -14,15 +14,18 @@
 
     </div>
 </form>
-<div class="card" *ngIf="_std">
+<div class="card col-md-3" *ngIf="_std">
     <div class="card-header">Student information</div>
     <div class="card-body">
         <div class="card-text">Name: {{_std!.surname}} {{_std!.otherNames}}</div>
         <div class="card-text">Index Number: {{_std!.uniqueID}}</div>
+        <div class="card-img-bottom">
+            <img height="100" width="120" src="../../../../dist/ghcoin.png" alt="Image of {{_std!.surname}} {{_std!.otherNames}}" />
+        </div>
     </div>
 </div>
 
-<form *ngIf="billForm" name="bform" id="bform" [formGroup]="billForm">
+<form *ngIf="billForm" name="bform" id="bform" [formGroup]="billForm" (submit)="bill(billForm.value)">
     <fieldset>
         <legend>Add billing information</legend>
         <!-- Description -->
@@ -41,7 +44,7 @@
             <span [ngClass]="billForm.controls.description.errors?.minlength ? 'text-danger' : ''" *ngIf="billForm.controls.description.errors?.minlength">The minimum length is {{billForm.controls.description.errors.minlength.requiredLength}} characters: Current is {{billForm.controls.description.errors.minlength.actualLength}}</span>
         </div>
 
-        <!-- Contract sum -->
+        <!-- Amount -->
         <div class="form-group form-row">
             <label class="col-md-2 col-billForm-label" for="amount" aria-label="amount to bill student with">Amount</label>
             <div class="col-md-6" aria-labelledby="amount" [ngClass]="billForm.controls.amount?.errors ? 'has-error' : 'has-success'">
@@ -57,8 +60,34 @@
             <span [ngClass]="billForm.controls.amount.errors?.min ? 'text-danger' : ''" *ngIf="billForm.controls.amount.errors?.min">The minimum is {{billForm.controls.amount.errors.min.min}}</span>
         </div>
     </fieldset>
-    <div class="col-sm-2">
-        <button class="btn offset-md-2" [ngClass]="form.valid ? 'btn-outline-success' : 'btn-outline-danger'" [disabled]="billForm.invalid || processing || !_std">Add Billing</button>
+    <div class="offset-md-2">
+        <button class="btn" [ngClass]="form.valid ? 'btn-outline-success' : 'btn-outline-danger'" [disabled]="billForm.invalid || processing || !_std">Add Billing</button>
     </div>
-
 </form>
+<h2>Previous Bills</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Bill Item</th>
+            <th>Amount</th>
+            <th>Date Billed</th>
+            <th>GCR</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let sb of stdBill">
+            <td>{{sb.description}}</td>
+            <td>{{sb.amount}}</td>
+            <td>{{sb.dateBilled |date}}</td>
+            <td *ngIf="sb.isPaid">{{sb.gCr}}</td>
+            <td *ngIf="!sb.isPaid">
+                <input type="text" [(ngModel)]="sb.gCr" class="form-control"
+                       placeholder="enter GCR Number" />
+            </td>
+            <td>
+                <button (click)="receive(sb)" class="btn btn-outline-info">Receive</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
