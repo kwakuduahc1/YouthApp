@@ -35,6 +35,9 @@ export class ClassBillHttpService implements IHttpMethods<IClassBills> {
         return this.http.put<IClassBills>(`/ClassBills/Change`, item)
     }
 
+    termly(i: { term: number, classid: number }):Observable<IClassBills[]> {
+        return this.http.get<IClassBills[]>(`/ClassBills/Bill?term=${i.term}&classid=${i.classid}`)
+    }
     constructor(private http: HttpClient) {
 
     }

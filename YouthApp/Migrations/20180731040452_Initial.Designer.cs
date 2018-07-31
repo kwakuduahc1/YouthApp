@@ -9,8 +9,8 @@ using YouthApp.Context;
 namespace YouthApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180730074216_Terms")]
-    partial class Terms
+    [Migration("20180731040452_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -220,9 +220,6 @@ namespace YouthApp.Migrations
                     b.Property<DateTime>("DatePrepared");
 
                     b.Property<byte>("TermsID");
-
-                    b.Property<string>("Year")
-                        .IsRequired();
 
                     b.HasKey("ClassBillsID");
 

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { IHttpMethods } from '../IHttpMethods';
 import { Observable } from 'rxjs/Observable';
 import { IMainClasses } from '../../models/IClasses';
+import { IStudents } from '../../models/IStudents';
 
 @Injectable()
 export class ClassesHttpService implements IHttpMethods<IMainClasses> {
@@ -29,6 +30,10 @@ export class ClassesHttpService implements IHttpMethods<IMainClasses> {
 
     change(item: IMainClasses): Observable<IMainClasses> {
         return this.http.put<IMainClasses>(`/Classes/Change`, item)
+    }
+
+    students(cid: number): Observable<IStudents[]> {
+        return this.http.get<IStudents[]>(`Students/List/${cid}`);
     }
 
     constructor(private http: HttpClient) {

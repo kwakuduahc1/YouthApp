@@ -1,0 +1,64 @@
+﻿<form class="" name="form" id="form" [formGroup]="form">
+    <fieldset>
+        <legend>Select a student</legend>
+        <div class="form-group form-row">
+            <label for="std" class="col-sm-2 col-form-label">Student</label>
+            <div class="col-sm-4">
+                <select name="std" class="form-control" (change)="change(form.controls.student.value)" id="std" formControlName="student">
+                    <option *ngFor="let s of stds" [ngValue]="s">{{s!.surname}} {{s!.otherNames}}</option>
+                </select>
+            </div>
+        </div>
+    </fieldset>
+    <div class="btn-group">
+
+    </div>
+</form>
+<div class="card" *ngIf="_std">
+    <div class="card-header">Student information</div>
+    <div class="card-body">
+        <div class="card-text">Name: {{_std!.surname}} {{_std!.otherNames}}</div>
+        <div class="card-text">Index Number: {{_std!.uniqueID}}</div>
+    </div>
+</div>
+
+<form *ngIf="billForm" name="bform" id="bform" [formGroup]="billForm">
+    <fieldset>
+        <legend>Add billing information</legend>
+        <!-- Description -->
+        <div class="form-group form-row">
+            <label class="col-md-2 col-billForm-label" for="description" aria-label="Description of the item">Description</label>
+            <div class="col-md-6" aria-labelledby="description" [ngClass]="billForm.controls.description?.errors ? 'has-error' : 'has-success'">
+                <input type="text"
+                       class="form-control"
+                       id="description"
+                       title="Description of the bill item"
+                       formControlName="description"
+                       placeholder="Description">
+            </div>
+            <span [ngClass]="billForm.controls.description.errors?.maxlength ? 'text-danger' : ''" *ngIf="billForm.controls.description.errors?.maxlength">The maximum length is {{billForm.controls.description.errors.maxlength.requiredLength}} characters: Current is {{billForm.controls.description.errors.maxlength.actualLength}}</span>
+            <span [ngClass]="billForm.controls.description.errors?.required ? 'text-danger' : ''" *ngIf="billForm.controls.description.errors?.required">Add a description</span>
+            <span [ngClass]="billForm.controls.description.errors?.minlength ? 'text-danger' : ''" *ngIf="billForm.controls.description.errors?.minlength">The minimum length is {{billForm.controls.description.errors.minlength.requiredLength}} characters: Current is {{billForm.controls.description.errors.minlength.actualLength}}</span>
+        </div>
+
+        <!-- Contract sum -->
+        <div class="form-group form-row">
+            <label class="col-md-2 col-billForm-label" for="amount" aria-label="amount to bill student with">Amount</label>
+            <div class="col-md-6" aria-labelledby="amount" [ngClass]="billForm.controls.amount?.errors ? 'has-error' : 'has-success'">
+                <input type="number"
+                       class="form-control"
+                       id="amount"
+                       title="Amount to bill student with"
+                       formControlName="amount"
+                       placeholder="Billing amount">
+            </div>
+            <span [ngClass]="billForm.controls.amount.errors?.max ? 'text-danger' : ''" *ngIf="billForm.controls.amount.errors?.max">The maximum  {{billForm.controls.amount.errors.max.max}}</span>
+            <span [ngClass]="billForm.controls.amount.errors?.required ? 'text-danger' : ''" *ngIf="billForm.controls.amount.errors?.required">Add the amount</span>
+            <span [ngClass]="billForm.controls.amount.errors?.min ? 'text-danger' : ''" *ngIf="billForm.controls.amount.errors?.min">The minimum is {{billForm.controls.amount.errors.min.min}}</span>
+        </div>
+    </fieldset>
+    <div class="col-sm-2">
+        <button class="btn offset-md-2" [ngClass]="form.valid ? 'btn-outline-success' : 'btn-outline-danger'" [disabled]="billForm.invalid || processing || !_std">Add Billing</button>
+    </div>
+
+</form>

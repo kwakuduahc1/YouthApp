@@ -1,0 +1,34 @@
+﻿<title>View Class Bills</title>
+<h1>View Bills</h1>
+<form [formGroup]="form">
+    <div class="form-group form-row">
+        <label class="col-form-label col-sm-1" for="term">Term</label>
+        <div class="col-sm-4">
+            <select name="term" id="term" formControlName="term" class="form-control" (change)="change(form.controls['term'].value)">
+                <option *ngFor="let t of terms" [ngValue]="t">{{t.description}}</option>
+            </select>
+        </div>
+    </div>
+</form>
+<div class="alert alert-info" [hidden]="bill.length>0">Search returned no results</div>
+<table [hidden]="bill.length===0" class="table table-hover table-striped table-active table-bordered">
+    <caption>Class bill for {{_class.className}}</caption>
+    <thead class="thead-light">
+        <tr>
+            <th>Bill Item</th>
+            <th>Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let b of bill">
+            <td>{{b.billItem}}</td>
+            <td>{{b.amount}}</td>
+        </tr>
+    </tbody>
+    <tfoot class="thead-dark">
+        <tr>
+            <th>Total</th>
+            <th>{{total()}}</th>
+        </tr>
+    </tfoot>
+</table>

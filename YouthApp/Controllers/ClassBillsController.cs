@@ -17,7 +17,7 @@ namespace bStudioSchoolManager.Controllers
         public ClassBillsController(DbContextOptions<ApplicationDbContext> options) => dco = options;
 
         [HttpGet]
-        public async Task<IEnumerable> Bill(int classid, Terms term) => await new ApplicationDbContext(dco).ClassBills.Where(x => x.ClassesID == classid && x.TermsID == term.TermsID).Include(x => x.BillItems).Select(x => new { x.BillItemsID, x.ClassBillsID, x.Amount, x.BillItems.BillItem }).ToListAsync();
+        public async Task<IEnumerable> Bill(int classid, byte term) => await new ApplicationDbContext(dco).ClassBills.Where(x => x.ClassesID == classid && x.TermsID == term).Include(x => x.BillItems).Select(x => new { x.BillItemsID, x.ClassBillsID, x.Amount, x.BillItems.BillItem }).ToListAsync();
 
         [HttpGet]
         public async Task<IEnumerable> Debtors(int id)

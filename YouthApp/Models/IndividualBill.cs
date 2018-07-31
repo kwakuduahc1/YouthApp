@@ -20,6 +20,8 @@ namespace YouthApp.Models
         [DefaultValue(false)]
         public bool IsPaid { get; set; }
 
+        public DateTime DateBilled { get; set; }
+
         [Timestamp]
         public byte[] Concurrency { get; set; }
              

@@ -219,9 +219,6 @@ namespace YouthApp.Migrations
 
                     b.Property<byte>("TermsID");
 
-                    b.Property<string>("Year")
-                        .IsRequired();
-
                     b.HasKey("ClassBillsID");
 
                     b.HasIndex("BillItemsID");

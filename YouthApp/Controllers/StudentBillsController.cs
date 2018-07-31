@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using YouthApp.Context;
+using YouthApp.Models;
 
 namespace bStudioSchoolManager.Controllers
 {
@@ -30,6 +31,66 @@ namespace bStudioSchoolManager.Controllers
                     .ToListAsync();
                 var payments = await db.Payments.Where(x => x.StudentsID == std.StudentsID).Select(x => new { x.DatePaid, x.Amount, x.Receiver }).ToListAsync();
                 return Ok(new { bill, payments });
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddBill([FromBody]IndividualBills bill)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(new { Error = "Invalid data was submitted", Message = ModelState.Values.First(x => x.Errors.Count > 0).Errors.Select(t => t.ErrorMessage).First() });
+            using (var db = new ApplicationDbContext(dco))
+            {
+                bill.DateBilled = DateTime.Now;
+                db.Add(bill);
+                await db.SaveChangesAsync();
+                return Created($"/StudentBills/Statement?id={bill.StudentsID}", bill);
+            }
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> EditBill([FromBody]IndividualBills bill)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(new { Error = "Invalid data was submitted", Message = ModelState.Values.First(x => x.Errors.Count > 0).Errors.Select(t => t.ErrorMessage).First() });
+            using (var db = new ApplicationDbContext(dco))
+            {
+                if (!await db.IndividualBills.AnyAsync(x => x.IndividualBillsID == bill.IndividualBillsID))
+                    return BadRequest(new { Message = "Bill for student does not exists" });
+                db.Entry(bill).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return Created($"/StudentBills/Statement?id={bill.StudentsID}", bill);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteBill([FromBody]IndividualBills bill)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(new { Error = "Invalid data was submitted", Message = ModelState.Values.First(x => x.Errors.Count > 0).Errors.Select(t => t.ErrorMessage).First() });
+            using (var db = new ApplicationDbContext(dco))
+            {
+                if (!await db.IndividualBills.AnyAsync(x => x.IndividualBillsID == bill.IndividualBillsID))
+                    return BadRequest(new { Message = "Bill for student does not exists" });
+                db.Entry(bill).State = EntityState.Deleted;
+                await db.SaveChangesAsync();
+                return Ok(bill);
+            }
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> ChangeStatus([FromBody]IndividualBills bill)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(new { Error = "Invalid data was submitted", Message = ModelState.Values.First(x => x.Errors.Count > 0).Errors.Select(t => t.ErrorMessage).First() });
+            using (var db = new ApplicationDbContext(dco))
+            {
+                if (!await db.IndividualBills.AnyAsync(x => x.IndividualBillsID == bill.IndividualBillsID))
+                    return BadRequest(new { Message = "Bill for student does not exists" });
+                bill.IsPaid = true;
+                db.Entry(bill).Property(t => t.IsPaid).IsModified = true;
+                await db.SaveChangesAsync();
+                return Created($"/StudentBills/Statement?id={bill.StudentsID}", bill);
             }
         }
     }

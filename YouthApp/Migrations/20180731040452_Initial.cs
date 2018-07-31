@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace YouthApp.Migrations
 {
-    public partial class Terms : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -229,7 +229,6 @@ namespace YouthApp.Migrations
                     ClassesID = table.Column<int>(nullable: false),
                     Amount = table.Column<double>(nullable: false),
                     TermsID = table.Column<byte>(nullable: false),
-                    Year = table.Column<string>(nullable: false),
                     DatePrepared = table.Column<DateTime>(nullable: false),
                     Concurrency = table.Column<byte[]>(rowVersion: true, nullable: true)
                 },

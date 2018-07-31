@@ -15,7 +15,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 /** class-bill component*/
 export class ClassBillComponent {
-    processing: boolean=false;
+    processing: boolean = false;
     class: IMainClasses;
     items: IBillItems[];
     terms: ITerms[];
@@ -63,7 +63,7 @@ export class ClassBillComponent {
         return this.termForm.valid && this.classBills.length > 0 && this.classBills.every(t => t.valid);
     }
     save() {
-       if (this.bill.length < 1) {
+        if (this.bill.length < 1) {
             alert("A class bill must contain at least one bill item");
             return;
         }
@@ -72,11 +72,11 @@ export class ClassBillComponent {
             return;
         }
         else {
-            this.bill.forEach(x => {
-                x.classesID = this.class.classesID;
-                x.termsID = this.termForm.controls['term'].value['termsID'];
-                amount=this.classBills
-            });
+            for (var i = 0; i < this.bill.length; i++) {
+                this.bill[i].classesID = this.class.classesID;
+                this.bill[i].termsID = this.termForm.controls['term'].value['termsID'];
+                this.bill[i].amount = this.classBills[i].controls['amount'].value
+            }
             this.http.addBill(this.bill).subscribe(res => {
                 alert("Bill preparation was successful");
                 this.processing = false;
