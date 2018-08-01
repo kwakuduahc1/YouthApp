@@ -9,7 +9,6 @@ using YouthApp.Models;
 
 namespace bStudioSchoolManager.Controllers
 {
-    [AutoValidateAntiforgeryToken]
     public class PaymentsController : Controller
     {
         private readonly DbContextOptions<ApplicationDbContext> dco;

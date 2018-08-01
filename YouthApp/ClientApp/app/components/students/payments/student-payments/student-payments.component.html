@@ -1,0 +1,96 @@
+﻿<h1>Receive Payments from students</h1>
+<form class="" name="form" id="form" [formGroup]="form">
+    <fieldset>
+        <legend>Select class and student</legend>
+        <div class="form-group form-row">
+            <label for="_class" class="col-sm-2 col-form-label">Select Class</label>
+            <div class="col-sm-4">
+                <select name="_class" class="form-control" (change)="classChange(form.controls._class.value)" id="_class" formControlName="_class">
+                    <option *ngFor="let s of classes" [ngValue]="s">{{s.className}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group form-row">
+            <label for="std" class="col-sm-2 col-form-label">Select Student</label>
+            <div class="col-sm-4">
+                <select name="std" class="form-control" (change)="stdChange(form.controls.std.value)" id="_class" formControlName="std">
+                    <option *ngFor="let st of stds" [ngValue]="st">{{st.surname}} {{st.otherNames}} : {{st.uniqueID}}</option>
+                </select>
+            </div>
+        </div>
+    </fieldset>
+</form>
+<div class="form-row" *ngIf="std">
+    <div class="card col-sm-3">
+        <div class="card-header">Student information</div>
+        <div class="card-body">
+            <div class="card-text">Name: {{std!.surname}} {{std!.otherNames}}</div>
+            <div class="card-text">Index Number: {{std!.uniqueID}}</div>
+            <div class="card-img-bottom">
+                <img height="100" width="120" src="../../../../../dist/ghcoin.png" alt="Image of {{std!.surname}} {{std!.otherNames}}" />
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-9">
+        <form [formGroup]="bForm" (submit)="receive(bForm.value)">
+            <fieldset>
+                <legend class="text-center">Enter GCR and amount</legend>
+                <!-- GCR -->
+                <div class="form-group form-row">
+                    <label class="col-md-2 col-bForm-label" for="gCr" aria-label="GCR">GCR</label>
+                    <div class="col-md-6" aria-labelledby="gCr" [ngClass]="bForm.controls.gCr?.errors ? 'has-error' : 'has-success'">
+                        <input type="text"
+                               class="form-control"
+                               id="gCr"
+                               title="GCR issued for this payment"
+                               formControlName="gCr"
+                               placeholder="GCR number">
+                    </div>
+                    <span [ngClass]="bForm.controls.gCr.errors?.maxlength ? 'text-danger' : ''" *ngIf="bForm.controls.gCr.errors?.maxlength">The maximum length is {{bForm.controls.gCr.errors.maxlength.requiredLength}} characters: Current is {{bForm.controls.gCr.errors.maxlength.actualLength}}</span>
+                    <span [ngClass]="bForm.controls.gCr.errors?.required ? 'text-danger' : ''" *ngIf="bForm.controls.gCr.errors?.required">Add a GCR</span>
+                    <span [ngClass]="bForm.controls.gCr.errors?.minlength ? 'text-danger' : ''" *ngIf="bForm.controls.gCr.errors?.minlength">The minimum length is {{bForm.controls.gCr.errors.minlength.requiredLength}} characters: Current is {{bForm.controls.gCr.errors.minlength.actualLength}}</span>
+                </div>
+
+                <!-- Amount -->
+                <div class="form-group form-row">
+                    <label class="col-md-2 col-bForm-label" for="amount" aria-label="amount paid by the student">Amount</label>
+                    <div class="col-md-6" aria-labelledby="amount" [ngClass]="bForm.controls.amount?.errors ? 'has-error' : 'has-success'">
+                        <input type="number"
+                               class="form-control"
+                               id="amount"
+                               title="Amount paid by the student"
+                               formControlName="amount"
+                               placeholder="Amount paid">
+                    </div>
+                    <span [ngClass]="bForm.controls.amount.errors?.max ? 'text-danger' : ''" *ngIf="bForm.controls.amount.errors?.max">The maximum  {{bForm.controls.amount.errors.max.max}}</span>
+                    <span [ngClass]="bForm.controls.amount.errors?.required ? 'text-danger' : ''" *ngIf="bForm.controls.amount.errors?.required">Add the amount</span>
+                    <span [ngClass]="bForm.controls.amount.errors?.min ? 'text-danger' : ''" *ngIf="bForm.controls.amount.errors?.min">The minimum is {{bForm.controls.amount.errors.min.min}}</span>
+                </div>
+            </fieldset>
+            <div class="offset-md-2"> <button class="btn" [ngClass]="bForm.valid ? 'btn-success' : 'btn-danger'" [disabled]="bForm.invalid">Receive</button></div>
+        </form>
+    </div>
+</div>
+<h2 *ngIf="std" class="h2">Previous Payments</h2>
+<div class="btn-group" *ngIf="std">
+    <button class="btn btn-outline-primary" (click)="print()">Print</button>
+</div>
+<table id="print" *ngIf="std" class="table table-hover table-striped table-dark">
+    <caption>List of payments made by {{std!.surname}} {{std!.otherNames}}</caption>
+    <thead class="thead-light">
+        <tr>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>GCR</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let p of payments">
+            <td>{{p.datePaid |date}}</td>
+            <td>{{p.amount}}</td>
+            <td>{{p.gcr}}</td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>

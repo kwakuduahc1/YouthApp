@@ -4,8 +4,9 @@ export interface IPayments {
     datePaid: Date;
     receiver: string;
     amount: number;
-    studentsID: string;
+    studentsID: number;
     paymentsID: string;
     concurrency: string;
     students: IStudents;
+    gcr: string;
 }

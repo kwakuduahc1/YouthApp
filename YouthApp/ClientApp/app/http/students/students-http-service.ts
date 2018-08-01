@@ -4,6 +4,7 @@ import { IHttpMethods } from '../IHttpMethods';
 import { Observable } from 'rxjs/Observable';
 import { IStudents } from '../../models/IStudents';
 import { IIndividualBills } from '../../models/IIndBill';
+import { not } from '@angular/compiler/src/output/output_ast';
 
 @Injectable()
 export class StudentsHttpService implements IHttpMethods<IStudents> {
@@ -17,9 +18,13 @@ export class StudentsHttpService implements IHttpMethods<IStudents> {
     }
 
     list(): Observable<IStudents[]> {
-        return this.http.get<IStudents[]>(`/Students/List`)
+        throw new Error("Not implemented");
+        //return this.http.get<IStudents[]>(`/Students/List`)
     }
 
+    classList(id: number): Observable<IStudents[]> {
+        return this.http.get<IStudents[]>(`/Students/List/${id}`);
+    }
     add(item: IStudents): Observable<IStudents> {
         return this.http.post<IStudents>(`/Students/Create`, item)
     }

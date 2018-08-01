@@ -1,36 +1,36 @@
-﻿<title>Classes manager</title>
-<h1 class="h1 text-md-center">Manage Classes in the School</h1>
+﻿<title>Departments manager</title>
+<h1 class="h1 text-md-center">Manage Departments in the School</h1>
 <form id="form" name="form" [formGroup]="form" (submit)="add(form.value)" class="form-horizontal">
     <fieldset>
         <legend class="h2">Add a new class</legend>
         <div class="form-group">
-            <label class="col-md-2 control-label" for="className">Class Name</label>
+            <label class="col-md-2 control-label" for="className">Department Name</label>
             <div class="col-md-6" [ngClass]="form.controls.className?.errors ? 'has-error' : 'has-success'">
                 <input type="text"
                        class="form-control"
                        id="className"
-                       title="your class name here"
+                       title="the name of the department you wish to add"
                        formControlName="className"
-                       placeholder="class name">
+                       placeholder="department name">
             </div>
             <span [ngClass]="form.controls.className.errors?.maxlength ? 'text-danger' : ''" *ngIf="form.controls.className.errors?.maxlength">The maximum length is {{form.controls.className.errors.maxlength.requiredLength}} characters: Current is {{form.controls.className.errors.maxlength.actualLength}}</span>
-            <span [ngClass]="form.controls.className.errors?.required ? 'text-danger' : ''" *ngIf="form.controls.className.errors?.required">Enter the class name</span>
+            <span [ngClass]="form.controls.className.errors?.required ? 'text-danger' : ''" *ngIf="form.controls.className.errors?.required">Department name is required</span>
             <span [ngClass]="form.controls.className.errors?.minlength ? 'text-danger' : ''" *ngIf="form.controls.className.errors?.minlength">The minimum length is {{form.controls.className.errors.minlength.requiredLength}} characters: Current is {{form.controls.className.errors.minlength.actualLength}}</span>
             <span [ngClass]="form.controls.className.errors?.pattern ? 'text-danger' : ''" *ngIf="form.controls.className.errors?.pattern">Phone number can only contain numbers</span>
         </div>
         <div class="col-md-offset-3">
-            <button [disabled]="form.invalid || processing" type="submit" [ngClass]="form.invalid ? 'btn-danger' : 'btn-success'" class="btn"><span class="glyphicon glyphicon-plus"> Add Class</span></button>
+            <button [disabled]="form.invalid || processing" type="submit" [ngClass]="form.invalid ? 'btn-danger' : 'btn-success'" class="btn"><span class="glyphicon glyphicon-plus"> Add Department</span></button>
         </div>
     </fieldset>
 </form>
 <div class="row">
     <span [hidden]="!dismiss" class="alert" [ngClass]="error ? 'alert-warning' : 'alert-info'">{{message}} <button class="btn btn-secondary btn-sm" (click)="this.dismiss=!this.dismiss">Dismiss</button></span>
 </div>
-<h2>List of classes</h2>
+<h2>List of Departments</h2>
 <table class="table table-hover table-condensed table-striped">
     <thead>
         <tr>
-            <th>Class</th>
+            <th>Department</th>
             <th>Status</th>
             <th>Edit</th>
             <th>Delete</th>

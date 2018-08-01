@@ -28,6 +28,9 @@ public Startup(IConfiguration configuration)
                 x.SuppressForeignKeyEnforcement(false);
                 x.UseRelationalNulls(true);
             }));
+
+            //services.AddDbContext<ApplicationDbContext>(o =>
+            //     o.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc();
         }
 

@@ -12,6 +12,7 @@ export class HelperHttpService {
         return this.http.get<ITerms[]>(`/Helpers/Terms`)
     }
 
+    payments():Observable<
     constructor(private http: HttpClient) {
 
     }

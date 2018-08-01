@@ -27,6 +27,9 @@ import { ViewBillComponent } from './components/class-bills/view-bill/view-bill.
 import { BillStudentsComponent } from './components/students/bill-students/bill-students.component';
 import { StudentsResolver } from './resolvers/students/StudentsResolver';
 import { StudentsHttpService } from './http/students/students-http-service';
+import { StudentPaymentsComponent } from './components/students/payments/student-payments/student-payments.component';
+import { StudentPaymentsHttpService } from './http/students/payments-http-service';
+import { PrintProviderService } from './providers/print-provider.service';
 
 @NgModule({
     declarations: [
@@ -40,7 +43,8 @@ import { StudentsHttpService } from './http/students/students-http-service';
         ClassBillComponent,
         EditBillComponent,
         ViewBillComponent,
-        BillStudentsComponent
+        BillStudentsComponent,
+        StudentPaymentsComponent
     ],
     imports: [
         CommonModule,
@@ -58,6 +62,7 @@ import { StudentsHttpService } from './http/students/students-http-service';
             { path: 'class-bills/:id', component: ClassBillComponent, resolve: { 'class': FindClassResolver, 'items': BillItemsResolver, 'terms': TermsResolver } },
             { path: 'view-class-bill/:id', component: ViewBillComponent, resolve: { 'class': FindClassResolver, 'terms': TermsResolver } },
             { path: 'bill-student/:id', component: BillStudentsComponent, resolve: { students: StudentsResolver } },
+            { path: 'student-payments', component: StudentPaymentsComponent, resolve: { classes: ClassesListResolver } },
             { path: '**', redirectTo: 'home' }
         ])
     ],
@@ -72,7 +77,9 @@ import { StudentsHttpService } from './http/students/students-http-service';
         HelperHttpService,
         TermsResolver,
         StudentsResolver,
-        StudentsHttpService
+        StudentPaymentsHttpService,
+        StudentsHttpService,
+        PrintProviderService
     ]
 })
 export class AppModuleShared {
