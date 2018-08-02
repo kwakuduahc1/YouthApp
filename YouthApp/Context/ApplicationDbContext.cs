@@ -30,16 +30,24 @@ namespace YouthApp.Context
                 new Terms { Term = 3.1F, Description = "Year 3 term 1", TermsID = 7 },
                 new Terms { Term = 3.2F, Description = "Year 3 term 2", TermsID = 8 },
                 new Terms { Term = 3.3F, Description = "Year 3 term 3", TermsID = 9 }));
+
             builder.Entity<Classes>(x => x.HasData(
                 new Classes { ClassesID = 1, ClassName = "Tech 2017", IsActive = true },
-                 new Classes { ClassesID = 2, ClassName = "Tech 2018", IsActive = true },
-                  new Classes { ClassesID = 3, ClassName = "Tech 2019", IsActive = true }
+                new Classes { ClassesID = 2, ClassName = "Tech 2018", IsActive = true },
+                new Classes { ClassesID = 3, ClassName = "Tech 2019", IsActive = true }
                 ));
+
             builder.Entity<BillItems>(x => x.HasData(
                 new BillItems { BillItem = "Feeding", BillItemsID = 1 },
                 new BillItems { BillItem = "PTA Dues", BillItemsID = 2 },
                 new BillItems { BillItem = "Boarding fees", BillItemsID = 3 }
                 ));
+
+            builder.Entity<TransactionsTypes>(x => x.HasData(
+                new TransactionsTypes { TransactionsTypesID = 1, TransactionType = "Revenue" },
+                new TransactionsTypes { TransactionsTypesID = 2, TransactionType = "Expenditure" }
+                ));
+
             base.OnModelCreating(builder);
         }
 
@@ -58,6 +66,12 @@ namespace YouthApp.Context
         public virtual DbSet<Classes> Classes { get; set; }
 
         public virtual DbSet<StudentsInfo> StudentsInfo { get; set; }
+
+        public virtual DbSet<Revenues> Revenues { get; set; }
+
+        public virtual DbSet<Transactions> Transactions { get; set; }
+
+        public virtual DbSet<TransactionsTypes> TransactionsTypes { get; set; }
     }
 
     public class ApplicationUser : IdentityUser

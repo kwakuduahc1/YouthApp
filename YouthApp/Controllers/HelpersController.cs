@@ -18,6 +18,9 @@ namespace YouthApp.Controllers
         public HelpersController(DbContextOptions<ApplicationDbContext> options) => dco = options;
 
         [HttpGet]
+        public async Task<IEnumerable> TransactionTypes() => await new ApplicationDbContext(dco).TransactionsTypes.ToListAsync();
+
+        [HttpGet]
         public async Task<IEnumerable<Terms>> Terms() => await new ApplicationDbContext(dco).Terms.ToListAsync();
 
         [HttpGet]
