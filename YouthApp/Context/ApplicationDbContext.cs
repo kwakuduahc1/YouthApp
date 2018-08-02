@@ -14,7 +14,7 @@ namespace YouthApp.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=database.db;", (o => o.UseRelationalNulls(true).SuppressForeignKeyEnforcement(false)));
+            //optionsBuilder.UseSqlite("Data Source=database.db;", (o => o.UseRelationalNulls(true).SuppressForeignKeyEnforcement(false)));
             base.OnConfiguring(optionsBuilder);
         }
 

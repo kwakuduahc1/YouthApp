@@ -54,7 +54,4 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ClientApp\app\components\dashboard\" />
-  </ItemGroup>
 </Project>

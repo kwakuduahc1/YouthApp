@@ -19,16 +19,17 @@ namespace bStudioSchoolManager.Controllers
         [HttpGet]
         public async Task<IEnumerable> Bill(int classid, byte term) => await new ApplicationDbContext(dco).ClassBills.Where(x => x.ClassesID == classid && x.TermsID == term).Include(x => x.BillItems).Select(x => new { x.BillItemsID, x.ClassBillsID, x.Amount, x.BillItems.BillItem }).ToListAsync();
 
+
         [HttpGet]
-        public async Task<IEnumerable> Debtors(int id)
+        public async Task<IEnumerable> Debtors(int cid)
         {
             var model = new List<Debtors>();
             using (var db = new ApplicationDbContext(dco))
             {
-                var stds = await db.Students.Where(x => x.ClassesID == id).ToListAsync();
+                var stds = await db.Students.Where(x => x.ClassesID == cid).ToListAsync();
                 foreach (var std in stds)
                 {
-                    var bill = await db.ClassBills.Where(x => x.ClassesID == id && x.DatePrepared >= std.DateRegistered).SumAsync(t => t.Amount);
+                    var bill = await db.ClassBills.Where(x => x.ClassesID == std.ClassesID).SumAsync(t => t.Amount);
                     var payments = await db.Payments.Where(x => x.StudentsID == std.StudentsID).SumAsync(t => t.Amount);
                     if (payments < bill)
                         model.Add(new Debtors { StudentsID = std.StudentsID, Arrears = bill - payments, Name = $"{std.Surname} {std.OtherNames}" });
@@ -77,5 +78,7 @@ namespace bStudioSchoolManager.Controllers
         public double Arrears { get; set; }
 
         public string Name { get; set; }
+
+        public string ClassName { get; set; }
     }
 }

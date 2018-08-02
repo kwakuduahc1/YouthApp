@@ -1,0 +1,17 @@
+﻿<h3>Top 15 debtors</h3>
+<table class="table table-warning">
+    <thead class="thead-light">
+        <tr>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Arrears</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let d of debtors">
+            <td>{{d.name}}</td>
+            <td>{{d.className}}</td>
+            <th>{{d.arrears}}</th>
+        </tr>
+    </tbody>
+</table>

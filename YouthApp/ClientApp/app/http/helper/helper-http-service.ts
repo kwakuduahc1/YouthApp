@@ -4,6 +4,8 @@ import { IHttpMethods } from '../IHttpMethods';
 import { Observable } from 'rxjs/Observable';
 import { IMainClasses } from '../../models/IClasses';
 import { ITerms } from '../../models/Iterms';
+import { IPaymentsSum } from '../../models/IPaymentsSum';
+import { IDebtors } from '../../models/IDebtors';
 
 @Injectable()
 export class HelperHttpService {
@@ -12,7 +14,13 @@ export class HelperHttpService {
         return this.http.get<ITerms[]>(`/Helpers/Terms`)
     }
 
-    payments():Observable<
+    payments(): Observable<IPaymentsSum[]> {
+        return this.http.get<IPaymentsSum[]>("/Helpers/Payments/");
+    }
+
+    debtors(): Observable<IDebtors[]> {
+        return this.http.get<IDebtors[]>("/Helpers/Debtors");
+    }
     constructor(private http: HttpClient) {
 
     }

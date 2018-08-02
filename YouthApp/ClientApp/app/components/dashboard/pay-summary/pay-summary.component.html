@@ -1,0 +1,24 @@
+﻿<h5>{{getYear()}} Revenue Statement</h5>
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>Item</th>
+            <th>Payments</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let p of payments">
+            <td>{{p.billItem}}</td>
+            <td>{{p.payments |currency:'GH¢ '}}</td>
+        </tr>
+    </tbody>
+    <tfoot class="thead-dark">
+        <tr>
+            <td>
+                Total
+            </td>
+            <td>{{total() |currency:['GH¢']}}</td>
+        </tr>
+    </tfoot>
+</table>

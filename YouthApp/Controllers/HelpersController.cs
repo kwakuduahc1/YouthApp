@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using bStudioSchoolManager.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using YouthApp.Context;
@@ -28,15 +29,33 @@ namespace YouthApp.Controllers
                 {
                     k.BillItem,
                     k.BillItemsID,
-                    Total = v.Sum(t => t.Amount)
-                }).Select(x => new { x.BillItem, x.BillItemsID, x.Total })
+                    Amount = v.Sum(t => t.Amount)
+                }).Select(x => new { x.BillItem, x.BillItemsID, x.Amount })
                 .ToListAsync();
-                var total = list.Sum(x => x.Total);
+                var total = list.Sum(x => x.Amount);
                 var payments = await db.Payments.Where(x => x.DatePaid.Year == DateTime.Now.Year).SumAsync(x => x.Amount);
-                var list2 =  list.Select(x => new { x.BillItem, x.BillItemsID, x.Total, Percent = (x.Total / total) });
-                return list2.Select(x => new { x.BillItem, x.BillItemsID, x.Total, x.Percent, Payments = x.Percent * payments });
+                var list2 = list.Select(x => new { x.BillItem, x.BillItemsID, x.Amount, Percent = (x.Amount / total) });
+                return list2.Select(x => new { x.BillItem, x.BillItemsID, x.Amount, x.Percent, Payments = x.Percent * payments });
             }
 
+        }
+
+        [HttpGet]
+        public async Task<IEnumerable> Debtors()
+        {
+            var model = new List<Debtors>();
+            using (var db = new ApplicationDbContext(dco))
+            {
+                var stds = await db.Students.Include(x => x.Classes).Where(x => x.Classes.IsActive).ToListAsync();
+                foreach (var std in stds)
+                {
+                    var bill = await db.ClassBills.Where(x => x.ClassesID == std.ClassesID).SumAsync(t => t.Amount);
+                    var payments = await db.Payments.Where(x => x.StudentsID == std.StudentsID).SumAsync(t => t.Amount);
+                    if (payments < bill)
+                        model.Add(new Debtors { StudentsID = std.StudentsID, Arrears = bill - payments, Name = $"{std.Surname} {std.OtherNames}", ClassName = std.Classes.ClassName });
+                }
+            }
+            return model.OrderByDescending(x => x.Arrears).Take(15);
         }
     }
 }

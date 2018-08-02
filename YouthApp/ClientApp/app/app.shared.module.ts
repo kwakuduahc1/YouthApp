@@ -30,6 +30,10 @@ import { StudentsHttpService } from './http/students/students-http-service';
 import { StudentPaymentsComponent } from './components/students/payments/student-payments/student-payments.component';
 import { StudentPaymentsHttpService } from './http/students/payments-http-service';
 import { PrintProviderService } from './providers/print-provider.service';
+import { PaymentSummaryResolver } from './resolvers/payments/PaySummaryResolver';
+import { PaySummaryComponent } from './components/dashboard/pay-summary/pay-summary.component';
+import { DebtorsResolver } from './resolvers/payments/DebtorsResolvery';
+import { TopDebtorsComponent } from './components/dashboard/top-debtors/top-debtors.component';
 
 @NgModule({
     declarations: [
@@ -44,7 +48,9 @@ import { PrintProviderService } from './providers/print-provider.service';
         EditBillComponent,
         ViewBillComponent,
         BillStudentsComponent,
-        StudentPaymentsComponent
+        StudentPaymentsComponent,
+        PaySummaryComponent,
+        TopDebtorsComponent
     ],
     imports: [
         CommonModule,
@@ -54,7 +60,7 @@ import { PrintProviderService } from './providers/print-provider.service';
         ChartsModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
-            { path: 'home', component: HomeComponent },
+            { path: 'home', component: HomeComponent, resolve: { 'payments': PaymentSummaryResolver, debtors: DebtorsResolver } },
             { path: 'bill-items', component: AddBillItemComponent, resolve: { items: BillItemsResolver } },
             { path: 'edit-bill-item/:id', component: EditItemComponent, resolve: { item: FindItemResolver } },
             { path: 'classes', component: AddClassComponent, resolve: { classes: ClassesListResolver } },
@@ -79,7 +85,9 @@ import { PrintProviderService } from './providers/print-provider.service';
         StudentsResolver,
         StudentPaymentsHttpService,
         StudentsHttpService,
-        PrintProviderService
+        PrintProviderService,
+        PaymentSummaryResolver,
+        DebtorsResolver
     ]
 })
 export class AppModuleShared {
