@@ -1,0 +1,72 @@
+﻿<h1 class="h1 text-xl-center">Revenue Items</h1>
+<form id="form" name="form" [formGroup]="form" (submit)="edit(form.value)">
+    <fieldset>
+        <legend class="text-center">Add bank information</legend>
+        <!-- Account Name -->
+        <div class="form-row form-group">
+            <label class="col-form-label col-sm-2">Account Name</label>
+            <div class="col-md-6" [ngClass]="form.controls.accountName?.errors ? 'has-error' : 'has-success'">
+                <input type="text"
+                       class="form-control"
+                       id="accountName"
+                       title="The name of the account"
+                       formControlName="accountName"
+                       placeholder="account name">
+            </div>
+            <span [ngClass]="form.controls.accountName.errors?.maxlength ? 'text-danger' : ''" *ngIf="form.controls.accountName.errors?.maxlength">The maximum length is {{form.controls.accountName.errors.maxlength.requiredLength}} characters: Current is {{form.controls.accountName.errors.maxlength.actualLength}}</span>
+            <span [ngClass]="form.controls.accountName.errors?.required ? 'text-danger' : ''" *ngIf="form.controls.accountName.errors?.required">Add an account Name</span>
+            <span [ngClass]="form.controls.accountName.errors?.minlength ? 'text-danger' : ''" *ngIf="form.controls.accountName.errors?.minlength">The minimum length is {{form.controls.accountName.errors.minlength.requiredLength}} characters: Current is {{form.controls.accountName.errors.minlength.actualLength}}</span>
+        </div>
+
+        <!-- Account Number -->
+        <div class="form-row form-group">
+            <label class="col-form-label col-sm-2">Account Number</label>
+            <div class="col-md-6" [ngClass]="form.controls.accountNumber?.errors ? 'has-error' : 'has-success'">
+                <input type="text"
+                       class="form-control"
+                       id="accountNumber"
+                       title="account number"
+                       formControlName="accountNumber"
+                       placeholder="account number">
+            </div>
+            <span [ngClass]="form.controls.accountNumber.errors?.maxlength ? 'text-danger' : ''" *ngIf="form.controls.accountNumber.errors?.maxlength">The maximum length is {{form.controls.accountNumber.errors.maxlength.requiredLength}} characters: Current is {{form.controls.accountNumber.errors.maxlength.actualLength}}</span>
+            <span [ngClass]="form.controls.accountNumber.errors?.required ? 'text-danger' : ''" *ngIf="form.controls.accountNumber.errors?.required">Add account number</span>
+            <span [ngClass]="form.controls.accountNumber.errors?.minlength ? 'text-danger' : ''" *ngIf="form.controls.accountNumber.errors?.minlength">The minimum length is {{form.controls.accountNumber.errors.minlength.requiredLength}} characters: Current is {{form.controls.accountNumber.errors.minlength.actualLength}}</span>
+        </div>
+
+        <!-- Source -->
+        <div class="form-row form-group">
+            <label class="col-form-label col-sm-2">Source</label>
+            <div class="col-md-6" [ngClass]="form.controls.source?.errors ? 'has-error' : 'has-success'">
+                <select class="form-control"
+                        id="source"
+                        title="Source of expenditure"
+                        formControlName="source">
+                    <option *ngFor="let s of ['IGF','GOG']" [ngValue]="s">{{s}}</option>
+                </select>
+            </div>
+            <span [ngClass]="form.controls.source.errors?.maxlength ? 'text-danger' : ''" *ngIf="form.controls.source.errors?.maxlength">The maximum length is {{form.controls.source.errors.maxlength.requiredLength}} characters: Current is {{form.controls.source.errors.maxlength.actualLength}}</span>
+            <span [ngClass]="form.controls.source.errors?.required ? 'text-danger' : ''" *ngIf="form.controls.source.errors?.required">Account source</span>
+            <span [ngClass]="form.controls.source.errors?.minlength ? 'text-danger' : ''" *ngIf="form.controls.source.errors?.minlength">The minimum length is {{form.controls.source.errors.minlength.requiredLength}} characters: Current is {{form.controls.source.errors.minlength.actualLength}}</span>
+        </div>
+
+        <!-- Bank -->
+        <div class="form-row form-group">
+            <label class="col-form-label col-sm-2">Bank</label>
+            <div class="col-md-6" [ngClass]="form.controls.bank?.errors ? 'has-error' : 'has-success'">
+                <input type="text"
+                       class="form-control"
+                       id="bank"
+                       title="The name of the bank where this account is where"
+                       formControlName="bank"
+                       placeholder="bank">
+            </div>
+            <span [ngClass]="form.controls.bank.errors?.maxlength ? 'text-danger' : ''" *ngIf="form.controls.bank.errors?.maxlength">The maximum length is {{form.controls.bank.errors.maxlength.requiredLength}} characters: Current is {{form.controls.bank.errors.maxlength.actualLength}}</span>
+            <span [ngClass]="form.controls.bank.errors?.required ? 'text-danger' : ''" *ngIf="form.controls.bank.errors?.required">Account bank</span>
+            <span [ngClass]="form.controls.bank.errors?.minlength ? 'text-danger' : ''" *ngIf="form.controls.bank.errors?.minlength">The minimum length is {{form.controls.bank.errors.minlength.requiredLength}} characters: Current is {{form.controls.bank.errors.minlength.actualLength}}</span>
+        </div>
+        <div class="btn btn-group offset-sm-2">
+            <button class="btn" [disabled]="form.invalid || processing" [ngClass]="form.valid ? 'btn-success' : 'btn-danger'">Save</button>
+        </div>
+    </fieldset>
+</form>

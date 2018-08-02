@@ -6,8 +6,8 @@ declare var $: any;
 @Injectable()
 export class PrintProviderService {
 
-    print(title?:string) {
-        let table = $("#print");
+    print(selector: string, title?: string) {
+        let table = $(`#${selector}`);
         table.printThis({
             debug: false,               // show the iframe for debugging
             importCSS: true,            // import page CSS

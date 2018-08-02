@@ -18,7 +18,7 @@ namespace YouthApp.Controllers
         public async Task<IEnumerable> List() => await new ApplicationDbContext(dco).Revenues.Take(20).ToListAsync();
 
         [HttpGet]
-        public async Task<IActionResult> Find(int id)
+        public async Task<IActionResult> Find(short id)
         {
             var rev = await new ApplicationDbContext(dco).Revenues.FindAsync(id);
             if (rev == null)
@@ -49,7 +49,7 @@ namespace YouthApp.Controllers
             using (var db = new ApplicationDbContext(dco))
             {
                 if (!await db.Revenues.AnyAsync(x => x.RevenuesID == item.RevenuesID))
-                    return BadRequest(new { message = "Class does not exist" });
+                    return BadRequest(new { message = "The account could not be found" });
                 db.Entry(item).State = EntityState.Modified;
                 await db.SaveChangesAsync();
             }

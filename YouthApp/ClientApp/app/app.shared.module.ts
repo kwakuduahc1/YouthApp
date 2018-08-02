@@ -34,6 +34,11 @@ import { PaymentSummaryResolver } from './resolvers/payments/PaySummaryResolver'
 import { PaySummaryComponent } from './components/dashboard/pay-summary/pay-summary.component';
 import { DebtorsResolver } from './resolvers/payments/DebtorsResolvery';
 import { TopDebtorsComponent } from './components/dashboard/top-debtors/top-debtors.component';
+import { RevenueHttpService } from './http/revenues/revenues-http-service';
+import { RevenueListResolver } from './resolvers/revenues/RevenueListResolver';
+import { FindRevenueResolver } from './resolvers/revenues/FindRevenueResolver';
+import { AddRevenueComponent } from './components/revenues/add-revenue/add-revenue.component';
+import { EditRevenueComponent } from './components/revenues/edit-revenue/edit-revenue.component';
 
 @NgModule({
     declarations: [
@@ -50,7 +55,9 @@ import { TopDebtorsComponent } from './components/dashboard/top-debtors/top-debt
         BillStudentsComponent,
         StudentPaymentsComponent,
         PaySummaryComponent,
-        TopDebtorsComponent
+        TopDebtorsComponent,
+        AddRevenueComponent,
+        EditRevenueComponent
     ],
     imports: [
         CommonModule,
@@ -67,6 +74,8 @@ import { TopDebtorsComponent } from './components/dashboard/top-debtors/top-debt
             { path: 'edit-class/:id', component: EditClassComponent, resolve: { 'class': FindClassResolver } },
             { path: 'class-bills/:id', component: ClassBillComponent, resolve: { 'class': FindClassResolver, 'items': BillItemsResolver, 'terms': TermsResolver } },
             { path: 'view-class-bill/:id', component: ViewBillComponent, resolve: { 'class': FindClassResolver, 'terms': TermsResolver } },
+            { path: 'add-revenue', component: AddRevenueComponent, resolve: { 'revenues': RevenueListResolver } },
+            { path: 'edit-revenue/:id', component: EditRevenueComponent, resolve: { 'revenue': FindRevenueResolver } },
             { path: 'bill-student/:id', component: BillStudentsComponent, resolve: { students: StudentsResolver } },
             { path: 'student-payments', component: StudentPaymentsComponent, resolve: { classes: ClassesListResolver } },
             { path: '**', redirectTo: 'home' }
@@ -87,7 +96,10 @@ import { TopDebtorsComponent } from './components/dashboard/top-debtors/top-debt
         StudentsHttpService,
         PrintProviderService,
         PaymentSummaryResolver,
-        DebtorsResolver
+        DebtorsResolver,
+        RevenueHttpService,
+        RevenueListResolver,
+        FindRevenueResolver
     ]
 })
 export class AppModuleShared {
