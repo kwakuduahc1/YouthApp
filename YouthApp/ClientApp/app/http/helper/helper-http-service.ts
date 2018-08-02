@@ -6,6 +6,8 @@ import { IMainClasses } from '../../models/IClasses';
 import { ITerms } from '../../models/Iterms';
 import { IPaymentsSum } from '../../models/IPaymentsSum';
 import { IDebtors } from '../../models/IDebtors';
+import { ITransactionsTypes } from '../../models/ITransactionTypes';
+import { ITransactions } from '../../models/ITransactions';
 
 @Injectable()
 export class HelperHttpService {
@@ -21,6 +23,11 @@ export class HelperHttpService {
     debtors(): Observable<IDebtors[]> {
         return this.http.get<IDebtors[]>("/Helpers/Debtors");
     }
+
+    types(): Observable<ITransactionsTypes[]> {
+        return this.http.get<ITransactionsTypes[]>("/Helpers/TransactionTypes");
+    }
+
     constructor(private http: HttpClient) {
 
     }
