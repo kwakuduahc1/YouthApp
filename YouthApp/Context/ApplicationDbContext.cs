@@ -20,6 +20,33 @@ namespace YouthApp.Context
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<Programs>(x => x.HasData(
+                new Programs { ProgramsID = 1, ProgramName = "Dress Making" },
+                new Programs { ProgramsID = 2, ProgramName = "Masonry" },
+                new Programs { ProgramsID = 3, ProgramName = "CARPENTRY & JOINERY DEPARTMENT" },
+                new Programs { ProgramsID = 4, ProgramName = "COOKERY DEPARTMENT" },
+                new Programs { ProgramsID = 5, ProgramName = "AGRICULTURE DEPARTMENT" },
+                new Programs { ProgramsID = 6, ProgramName = "HANDWEAVING DEPARTMENT" },
+                new Programs { ProgramsID = 7, ProgramName = "ELECTRICAL DEPARTMENT" }
+                ));
+
+            builder.Entity<Classes>(x => x.HasData(
+                new Classes { ClassesID = 1, ClassName = "DM17", IsActive = true, ProgramsID = 1 },
+                new Classes { ClassesID = 2, ClassName = "DM18", IsActive = true, ProgramsID = 1 },
+                new Classes { ClassesID = 3, ClassName = "MS17", IsActive = true, ProgramsID = 2 },
+                new Classes { ClassesID = 4, ClassName = "MS18", IsActive = true, ProgramsID = 2 },
+                new Classes { ClassesID = 5, ClassName = "CJ17", IsActive = true, ProgramsID = 3 },
+                new Classes { ClassesID = 6, ClassName = "CJ18", IsActive = true, ProgramsID = 3 },
+                new Classes { ClassesID = 7, ClassName = "COOK17", IsActive = true, ProgramsID = 4 },
+                new Classes { ClassesID = 8, ClassName = "COOK18", IsActive = true, ProgramsID = 4 },
+                new Classes { ClassesID = 9, ClassName = "AG17", IsActive = true, ProgramsID = 5 },
+                new Classes { ClassesID = 10, ClassName = "AG18", IsActive = true, ProgramsID = 5 },
+                new Classes { ClassesID = 11, ClassName = "HND17", IsActive = true, ProgramsID = 6 },
+                new Classes { ClassesID = 12, ClassName = "HND18", IsActive = true, ProgramsID = 6 },
+                new Classes { ClassesID = 13, ClassName = "ELEC17", IsActive = true, ProgramsID = 7 },
+                new Classes { ClassesID = 14, ClassName = "ELEC18", IsActive = true, ProgramsID = 7 },
+                new Classes { ClassesID = 15, ClassName = "AG16", IsActive = true, ProgramsID = 5 }
+                ));
             builder.Entity<Terms>(x => x.HasData(
                 new Terms { Term = 1.1F, Description = "Year 1 term 1", TermsID = 1 },
                 new Terms { Term = 1.2F, Description = "Year 1 term 2", TermsID = 2 },
@@ -31,11 +58,6 @@ namespace YouthApp.Context
                 new Terms { Term = 3.2F, Description = "Year 3 term 2", TermsID = 8 },
                 new Terms { Term = 3.3F, Description = "Year 3 term 3", TermsID = 9 }));
 
-            builder.Entity<Classes>(x => x.HasData(
-                new Classes { ClassesID = 1, ClassName = "Tech 2017", IsActive = true },
-                new Classes { ClassesID = 2, ClassName = "Tech 2018", IsActive = true },
-                new Classes { ClassesID = 3, ClassName = "Tech 2019", IsActive = true }
-                ));
 
             builder.Entity<BillItems>(x => x.HasData(
                 new BillItems { BillItem = "Feeding", BillItemsID = 1 },
@@ -50,6 +72,8 @@ namespace YouthApp.Context
 
             base.OnModelCreating(builder);
         }
+
+        public virtual DbSet<Programs> Programs { get; set; }
 
         public virtual DbSet<Students> Students { get; set; }
 
