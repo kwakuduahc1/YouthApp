@@ -63,5 +63,8 @@ namespace YouthApp.Controllers
 
         [HttpGet]
         public async Task<IEnumerable> YearGroups() => await new ApplicationDbContext(dco).Classes.Where(x => x.IsActive).Select(x => x.AddYear).Distinct().ToListAsync();
+
+        [HttpGet]
+        public async Task<IEnumerable> TransactionItems() => await new ApplicationDbContext(dco).TransactionItems.ToListAsync();
     }
 }

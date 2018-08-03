@@ -27,6 +27,14 @@ namespace bStudioSchoolManager.Controllers
             {
                 payment.DatePaid = DateTime.Now;
                 db.Add(payment);
+                var rev = await db.Revenues.Where(x => x.Source == "IGF").FirstOrDefaultAsync();
+                db.Transactions.Add(new Transactions
+                {
+                    RevenuesID = rev.RevenuesID,
+                    Amount = payment.Amount,
+                    TransactionDate = DateTime.Now,
+                    TransactionsTypesID = 1
+                });
                 await db.SaveChangesAsync();
             }
             return Created($"/Payments/Payment?id={payment.PaymentsID}", payment);

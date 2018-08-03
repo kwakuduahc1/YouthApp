@@ -11,11 +11,16 @@ namespace YouthApp.Models
         [Required]
         public double Amount { get; set; }
 
+        public string Reference { get; set; }
+
         [Required]
         public short RevenuesID { get; set; }
 
         [Required]
         public short TransactionsTypesID { get; set; }
+
+        [Required]
+        public short TransactionItemsID { get; set; }
 
         public DateTime TransactionDate { get; set; }
 
@@ -25,5 +30,7 @@ namespace YouthApp.Models
         public virtual Revenues Revenues { get; set; }
 
         public virtual TransactionsTypes TransactionsTypes { get; set; }
+
+        public virtual TransactionItems TransactionItems { get; set; }
     }
 }

@@ -70,6 +70,20 @@ namespace YouthApp.Context
                 new TransactionsTypes { TransactionsTypesID = 2, TransactionType = "Expenditure" }
                 ));
 
+            builder.Entity<Revenues>(x => x.HasData(
+                new Revenues { AccountName = "NYLSTC", AccountNumber = "558964523", Bank = "Agricultural Development Bank", RevenuesID = 1, Source = "GOG" },
+                 new Revenues { AccountName = "NYLSTC", AccountNumber = "09876547", Bank = "Tisungtaba", RevenuesID = 2, Source = "IGF" }
+                ));
+
+            builder.Entity<TransactionItems>(x => x.HasData(
+                new TransactionItems { TransactionItem = "T&T", TransactionItemsID = 1 },
+                new TransactionItems { TransactionItem = "Fuel", TransactionItemsID = 2 },
+                new TransactionItems { TransactionItem = "Bank Charges", TransactionItemsID = 3 },
+                new TransactionItems { TransactionItem = "Maintenance", TransactionItemsID = 4 },
+                new TransactionItems { TransactionItem = "Staff Allowances", TransactionItemsID = 5 },
+                new TransactionItems { TransactionItem = "Stationery", TransactionItemsID = 6 }
+                ));
+
             base.OnModelCreating(builder);
         }
 
@@ -96,6 +110,8 @@ namespace YouthApp.Context
         public virtual DbSet<Transactions> Transactions { get; set; }
 
         public virtual DbSet<TransactionsTypes> TransactionsTypes { get; set; }
+
+        public virtual DbSet<TransactionItems> TransactionItems { get; set; }
     }
 
     public class ApplicationUser : IdentityUser

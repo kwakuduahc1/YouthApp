@@ -40,6 +40,15 @@ import { FindRevenueResolver } from './resolvers/revenues/FindRevenueResolver';
 import { AddRevenueComponent } from './components/revenues/add-revenue/add-revenue.component';
 import { EditRevenueComponent } from './components/revenues/edit-revenue/edit-revenue.component';
 import { YearGroupsResolver } from './resolvers/transactions/YearGroupsResolver';
+import { IssueTransactionComponent } from './components/transactions/issue-transaction/issue-transaction.component';
+import { ReceiveTransactionComponent } from './components/transactions/receive-transaction/receive-transaction.component';
+import { EditTransactionComponent } from './components/transactions/edit-transaction/edit-transaction.component';
+import { TransactionItemsHttpService } from './http/tran-items/tran-items-http-service';
+import { TransactionsHttpService } from './http/transactions/payments-http-service';
+import { TransactionsResolver } from './resolvers/transactions/TransactionsResolver';
+import { FindTransactionResolver } from './resolvers/transactions/FindTransactionResolver';
+import { FindTransactionItemResolver } from './resolvers/transaction-item/find-tran-item-resolver';
+import { TransactionItemsResolver } from './resolvers/transaction-item/tran-items-resolver';
 
 @NgModule({
     declarations: [
@@ -58,7 +67,10 @@ import { YearGroupsResolver } from './resolvers/transactions/YearGroupsResolver'
         PaySummaryComponent,
         TopDebtorsComponent,
         AddRevenueComponent,
-        EditRevenueComponent
+        EditRevenueComponent,
+        IssueTransactionComponent,
+        ReceiveTransactionComponent,
+        EditTransactionComponent
     ],
     imports: [
         CommonModule,
@@ -79,29 +91,36 @@ import { YearGroupsResolver } from './resolvers/transactions/YearGroupsResolver'
             { path: 'edit-revenue/:id', component: EditRevenueComponent, resolve: { 'revenue': FindRevenueResolver } },
             { path: 'bill-student/:id', component: BillStudentsComponent, resolve: { students: StudentsResolver } },
             { path: 'student-payments', component: StudentPaymentsComponent, resolve: { classes: ClassesListResolver } },
+            { path: 'issue-transaction', component: IssueTransactionComponent, resolve: { 'items': TransactionItemsResolver,types: } },
             { path: '**', redirectTo: 'home' }
         ])
     ],
     providers: [
         BillItemHttpService,
         BillItemsResolver,
-        FindItemResolver,
+        ClassBillHttpService,
         ClassesHttpService,
         ClassesListResolver,
-        FindClassResolver,
-        ClassBillHttpService,
-        HelperHttpService,
-        TermsResolver,
-        StudentsResolver,
-        StudentPaymentsHttpService,
-        StudentsHttpService,
-        PrintProviderService,
-        PaymentSummaryResolver,
         DebtorsResolver,
+        FindClassResolver,
+        FindItemResolver,
+        FindRevenueResolver,
+        FindTransactionItemResolver,
+        FindTransactionResolver,
+        HelperHttpService,
+        PaymentSummaryResolver,
+        PrintProviderService,
         RevenueHttpService,
         RevenueListResolver,
-        FindRevenueResolver,
-        YearGroupsResolver
+        StudentPaymentsHttpService,
+        StudentsHttpService,
+        StudentsResolver,
+        TermsResolver,
+        TransactionItemsHttpService,
+        TransactionItemsHttpService,
+        TransactionsHttpService,
+        TransactionsResolver,
+        YearGroupsResolver,
     ]
 })
 export class AppModuleShared {
