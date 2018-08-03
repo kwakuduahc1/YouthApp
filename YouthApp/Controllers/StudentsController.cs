@@ -25,7 +25,7 @@ namespace bStudioSchoolManager.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable> List(int id) => await new ApplicationDbContext(dco).Students.Where(x => x.ClassesID == id).OrderByDescending(x => x.UniqueID).ToListAsync();
+        public async Task<IEnumerable> List(int id) => await new ApplicationDbContext(dco).Students.Where(x => x.ClassesID == id).OrderByDescending(x => x.Surname).ToListAsync();
 
         [HttpGet]
         public async Task<IActionResult> Find(Guid id)

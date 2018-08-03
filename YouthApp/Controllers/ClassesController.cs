@@ -15,7 +15,7 @@ namespace bStudioSchoolManager.Controllers
         public ClassesController(DbContextOptions<ApplicationDbContext> options) => dco = options;
 
         [HttpGet]
-        public async Task<IEnumerable> List() => await new ApplicationDbContext(dco).Classes.Where(x => x.IsActive).ToListAsync();
+        public async Task<IEnumerable> List() => await new ApplicationDbContext(dco).Classes.Where(x => x.IsActive).OrderBy(x => x.ClassName).ThenBy(x => x.AddYear).ToListAsync();
 
         [HttpGet]
         public async Task<IActionResult> Find(int id)

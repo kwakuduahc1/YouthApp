@@ -55,6 +55,7 @@ export class StudentPaymentsComponent {
             this.pay_http.add(pay).subscribe(res => {
                 this.payments.unshift(res);
                 this.bForm!.reset();
+                this.form.controls['std'].reset();
             }, (err: HttpErrorResponse) => {
                 this.onError(err);
             })

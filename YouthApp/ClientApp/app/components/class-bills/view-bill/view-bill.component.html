@@ -2,10 +2,10 @@
 <h1>View Bills</h1>
 <form [formGroup]="form">
     <div class="form-group form-row">
-        <label class="col-form-label col-sm-1" for="term">Term</label>
+        <label class="col-form-label col-sm-3" for="year">Academic Year</label>
         <div class="col-sm-4">
-            <select name="term" id="term" formControlName="term" class="form-control" (change)="change(form.controls['term'].value)">
-                <option *ngFor="let t of terms" [ngValue]="t">{{t.description}}</option>
+            <select name="year" id="year" formControlName="year" class="form-control" (change)="change(form.controls['year'].value)">
+                <option *ngFor="let y of years" [ngValue]="y">{{y}}</option>
             </select>
         </div>
     </div>

@@ -34,9 +34,7 @@
             <th>Status</th>
             <th>Edit</th>
             <th>Delete</th>
-            <th>Print</th>
             <th>View Bill</th>
-            <th>Add Bill</th>
             <th>Students</th>
         </tr>
     </thead>
@@ -51,12 +49,6 @@
             </td>
             <td>
                 <button (click)="delete(c)" class="btn btn-outline-danger">Delete</button>
-            </td>
-            <td>
-                <button class="btn btn-outline-secondary" [routerLink]="['/print-bill']">Print Bill</button>
-            </td>
-            <td>
-                <button class="btn btn-link" title="Prepare new bill for {{c.className}}" [routerLink]="['/class-bills',c.classesID]">New Bill</button>
             </td>
             <td>
                 <button class="btn btn-link" title="View the bill prepared for {{c.className}}" [routerLink]="['/view-class-bill',c.classesID]">View Bill</button>

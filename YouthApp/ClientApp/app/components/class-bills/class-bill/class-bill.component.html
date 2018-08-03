@@ -1,32 +1,25 @@
-﻿<h1>Prepare a bill for {{class.className}}</h1>
+﻿<h1>Prepare a bill for students</h1>
 <form name="termForm" [formGroup]="termForm">
     <fieldset>
-        <legend>Select a term</legend>
+        <legend>Select a year</legend>
         <div class="form-group form-row">
-            <label class="col-form-label col-md-2" for="term">Tern</label>
+            <label class="col-form-label col-md-2" for="year">Year Group</label>
             <div class="col-md-5">
-                <select name="term" id="term" formControlName="term" class="form-control">
-                    <option *ngFor="let t of terms" [ngValue]="t">{{t.description}}</option>
+                <select name="year" id="year" formControlName="year"  class="form-control">
+                    <option *ngFor="let y of years" [ngValue]="y">{{y}} Year Group</option>
                 </select>
             </div>
         </div>
     </fieldset>
 </form>
-<h2 [hidden]="termForm.invalid">List of bill items</h2>
-<ul class="list-group-flush" [hidden]="termForm.invalid">
-    <li *ngFor="let i of items" class="list-group-item row">
-        <div class="col-md-3">{{i.billItem}}</div>
-        <div class="col-md-1"><button (click)="add(i)" class="btn btn-sm btn-primary">Add</button></div>
-    </li>
-</ul>
-
+<div class="alert alert-info">Zero bill items will be removed on save</div>
 <form [hidden]="termForm.invalid" class="" *ngFor="let f of classBills;let ix=index" [formGroup]="f" name="form{{ix}}">
     <fieldset>
-        <legend>Details for {{bill[ix].billItem}}</legend>
+        <legend></legend>
         <div class="form-group form-row" [ngClass]="f.valid ? 'border-warning' : 'border-warning'">
-            <label for="item_id{{ix}}" class="col-form-label col-sm-1">Item ID</label>
+            <label hidden for="item_id{{ix}}" class="col-form-label col-sm-1">Item ID</label>
             <div class="col-sm-1">
-                <input type="number" id="item_id{{ix}}" class="form-control" formControlName="billItemsID" />
+                <input hidden type="number" id="item_id{{ix}}" class="form-control" formControlName="billItemsID" />
             </div>
             <label for="item_name{{ix}}" class="col-form-label col-sm-1">Item</label>
             <div class="col-sm-3">
@@ -36,17 +29,15 @@
             <div class="col-sm-3">
                 <input type="number" id="item_amount{{ix}}" class="form-control" formControlName="amount" />
             </div>
-            <div class="col-sm-2 btn-group-sm">
-                <button type="button" (click)="remove(ix)" class="btn btn-outline-warning">Remove</button>
+            <div class="row offset-sm-7">
+                <span [ngClass]="f.controls.amount.errors?.max ? 'text-danger' : ''" *ngIf="f.controls.amount.errors?.max">The maximum  {{f.controls.amount.errors.max.max}}</span>
+                <span [ngClass]="f.controls.amount.errors?.required ? 'text-danger' : ''" *ngIf="f.controls.amount.errors?.required">Amount is required</span>
+                <span [ngClass]="f.controls.amount.errors?.min ? 'text-danger' : ''" *ngIf="f.controls.amount.errors?.min">The minimum is {{f.controls.amount.errors.min.min}}</span>
             </div>
         </div>
-        <div class="row offset-sm-7">
-            <span [ngClass]="f.controls.amount.errors?.max ? 'text-danger' : ''" *ngIf="f.controls.amount.errors?.max">The maximum  {{f.controls.amount.errors.max.max}}</span>
-            <span [ngClass]="f.controls.amount.errors?.required ? 'text-danger' : ''" *ngIf="f.controls.amount.errors?.required">Amount is required</span>
-            <span [ngClass]="f.controls.amount.errors?.min ? 'text-danger' : ''" *ngIf="f.controls.amount.errors?.min">The minimum is {{f.controls.amount.errors.min.min}}</span>
-        </div>
     </fieldset>
+
 </form>
-<div class="btn-group" [hidden]="termForm.invalid">
-    <button (click)="save()" [ngClass]="hasError() ? 'btn-success' : 'btn-danger'" [disabled]="!hasError() ||processing" class="btn" title="Save bill for class">Save bill</button>
+<div class="btn-group offset-sm-1" [hidden]="!hasError()">
+    <button class="btn" (click)="save()" [ngClass]="hasError() ? 'btn-success' : 'btn-danger'" [disabled]="!hasError() ||processing" title="Save bill for class">Save bill</button>
 </div>

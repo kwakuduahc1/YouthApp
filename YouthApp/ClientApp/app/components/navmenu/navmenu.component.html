@@ -21,10 +21,16 @@
             <li class="nav-item">
                 <a class="nav-link" [routerLink]="['/classes']">Departments</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]="['/bill-items']">Bill Items</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="billMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Bills
+                </a>
+                <div class="dropdown-menu" aria-labelledby="billMenuLink">
+                    <a class="dropdown-item" [routerLink]="['/class-bills']">Prepare Bill</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item"  [routerLink]="['/bill-items']">Billing Items</a>
+                </div>
             </li>
-
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Payments

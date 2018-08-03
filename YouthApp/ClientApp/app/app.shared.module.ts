@@ -39,6 +39,7 @@ import { RevenueListResolver } from './resolvers/revenues/RevenueListResolver';
 import { FindRevenueResolver } from './resolvers/revenues/FindRevenueResolver';
 import { AddRevenueComponent } from './components/revenues/add-revenue/add-revenue.component';
 import { EditRevenueComponent } from './components/revenues/edit-revenue/edit-revenue.component';
+import { YearGroupsResolver } from './resolvers/transactions/YearGroupsResolver';
 
 @NgModule({
     declarations: [
@@ -72,8 +73,8 @@ import { EditRevenueComponent } from './components/revenues/edit-revenue/edit-re
             { path: 'edit-bill-item/:id', component: EditItemComponent, resolve: { item: FindItemResolver } },
             { path: 'classes', component: AddClassComponent, resolve: { classes: ClassesListResolver } },
             { path: 'edit-class/:id', component: EditClassComponent, resolve: { 'class': FindClassResolver } },
-            { path: 'class-bills/:id', component: ClassBillComponent, resolve: { 'class': FindClassResolver, 'items': BillItemsResolver, 'terms': TermsResolver } },
-            { path: 'view-class-bill/:id', component: ViewBillComponent, resolve: { 'class': FindClassResolver, 'terms': TermsResolver } },
+            { path: 'class-bills', component: ClassBillComponent, resolve: { 'years': YearGroupsResolver, 'items': BillItemsResolver } },
+            { path: 'view-class-bill/:id', component: ViewBillComponent, resolve: { 'class': FindClassResolver, 'years': YearGroupsResolver } },
             { path: 'add-revenue', component: AddRevenueComponent, resolve: { 'revenues': RevenueListResolver } },
             { path: 'edit-revenue/:id', component: EditRevenueComponent, resolve: { 'revenue': FindRevenueResolver } },
             { path: 'bill-student/:id', component: BillStudentsComponent, resolve: { students: StudentsResolver } },
@@ -99,7 +100,8 @@ import { EditRevenueComponent } from './components/revenues/edit-revenue/edit-re
         DebtorsResolver,
         RevenueHttpService,
         RevenueListResolver,
-        FindRevenueResolver
+        FindRevenueResolver,
+        YearGroupsResolver
     ]
 })
 export class AppModuleShared {

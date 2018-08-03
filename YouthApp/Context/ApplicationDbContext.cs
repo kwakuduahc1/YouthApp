@@ -31,21 +31,21 @@ namespace YouthApp.Context
                 ));
 
             builder.Entity<Classes>(x => x.HasData(
-                new Classes { ClassesID = 1, ClassName = "DM17", IsActive = true, ProgramsID = 1 },
-                new Classes { ClassesID = 2, ClassName = "DM18", IsActive = true, ProgramsID = 1 },
-                new Classes { ClassesID = 3, ClassName = "MS17", IsActive = true, ProgramsID = 2 },
-                new Classes { ClassesID = 4, ClassName = "MS18", IsActive = true, ProgramsID = 2 },
-                new Classes { ClassesID = 5, ClassName = "CJ17", IsActive = true, ProgramsID = 3 },
-                new Classes { ClassesID = 6, ClassName = "CJ18", IsActive = true, ProgramsID = 3 },
-                new Classes { ClassesID = 7, ClassName = "COOK17", IsActive = true, ProgramsID = 4 },
-                new Classes { ClassesID = 8, ClassName = "COOK18", IsActive = true, ProgramsID = 4 },
-                new Classes { ClassesID = 9, ClassName = "AG17", IsActive = true, ProgramsID = 5 },
-                new Classes { ClassesID = 10, ClassName = "AG18", IsActive = true, ProgramsID = 5 },
-                new Classes { ClassesID = 11, ClassName = "HND17", IsActive = true, ProgramsID = 6 },
-                new Classes { ClassesID = 12, ClassName = "HND18", IsActive = true, ProgramsID = 6 },
-                new Classes { ClassesID = 13, ClassName = "ELEC17", IsActive = true, ProgramsID = 7 },
-                new Classes { ClassesID = 14, ClassName = "ELEC18", IsActive = true, ProgramsID = 7 },
-                new Classes { ClassesID = 15, ClassName = "AG16", IsActive = true, ProgramsID = 5 }
+                new Classes { ClassesID = 1, ClassName = "DM17", IsActive = true, ProgramsID = 1, AddYear = 2017 },
+                new Classes { ClassesID = 2, ClassName = "DM18", IsActive = true, ProgramsID = 1, AddYear = 2018 },
+                new Classes { ClassesID = 3, ClassName = "MS17", IsActive = true, ProgramsID = 2, AddYear = 2017 },
+                new Classes { ClassesID = 4, ClassName = "MS18", IsActive = true, ProgramsID = 2, AddYear = 2018 },
+                new Classes { ClassesID = 5, ClassName = "CJ17", IsActive = true, ProgramsID = 3, AddYear = 2017 },
+                new Classes { ClassesID = 6, ClassName = "CJ18", IsActive = true, ProgramsID = 3, AddYear = 2018 },
+                new Classes { ClassesID = 7, ClassName = "COOK17", IsActive = true, ProgramsID = 4, AddYear = 2018 },
+                new Classes { ClassesID = 8, ClassName = "COOK18", IsActive = true, ProgramsID = 4, AddYear = 2017 },
+                new Classes { ClassesID = 9, ClassName = "AG17", IsActive = true, ProgramsID = 5, AddYear = 2018 },
+                new Classes { ClassesID = 10, ClassName = "AG18", IsActive = true, ProgramsID = 5, AddYear = 2017 },
+                new Classes { ClassesID = 11, ClassName = "HND17", IsActive = true, ProgramsID = 6, AddYear = 2018 },
+                new Classes { ClassesID = 12, ClassName = "HND18", IsActive = true, ProgramsID = 6, AddYear = 2017 },
+                new Classes { ClassesID = 13, ClassName = "ELEC17", IsActive = true, ProgramsID = 7, AddYear = 2018 },
+                new Classes { ClassesID = 14, ClassName = "ELEC18", IsActive = true, ProgramsID = 7, AddYear = 2017 },
+                new Classes { ClassesID = 15, ClassName = "AG16", IsActive = true, ProgramsID = 5, AddYear = 2016 }
                 ));
             builder.Entity<Terms>(x => x.HasData(
                 new Terms { Term = 1.1F, Description = "Year 1 term 1", TermsID = 1 },

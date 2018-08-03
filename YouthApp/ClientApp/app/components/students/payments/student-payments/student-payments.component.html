@@ -10,7 +10,7 @@
                 </select>
             </div>
         </div>
-        <div class="form-group form-row">
+        <div class="form-group form-row" [hidden]="form.controls['_class'].invalid">
             <label for="std" class="col-sm-2 col-form-label">Select Student</label>
             <div class="col-sm-4">
                 <select name="std" class="form-control" (change)="stdChange(form.controls.std.value)" id="_class" formControlName="std">

@@ -60,5 +60,8 @@ namespace YouthApp.Controllers
             }
             return model.OrderByDescending(x => x.Arrears).Take(15);
         }
+
+        [HttpGet]
+        public async Task<IEnumerable> YearGroups() => await new ApplicationDbContext(dco).Classes.Where(x => x.IsActive).Select(x => x.AddYear).Distinct().ToListAsync();
     }
 }

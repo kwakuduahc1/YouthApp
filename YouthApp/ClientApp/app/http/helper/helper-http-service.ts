@@ -28,6 +28,9 @@ export class HelperHttpService {
         return this.http.get<ITransactionsTypes[]>("/Helpers/TransactionTypes");
     }
 
+    yearGroups(): Observable<number[]> {
+        return this.http.get<number[]>("/Helpers/YearGroups");
+    }
     constructor(private http: HttpClient) {
 
     }

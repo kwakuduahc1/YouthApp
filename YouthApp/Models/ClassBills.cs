@@ -18,7 +18,8 @@ namespace YouthApp.Models
         public double Amount { get; set; }
 
         [Required]
-        public byte TermsID { get; set; }
+        [Range(2016, 2050)]
+        public short YearGroup { get; set; }
 
         public DateTime DatePrepared { get; set; }
 

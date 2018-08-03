@@ -17,7 +17,7 @@ namespace bStudioSchoolManager.Controllers
         public ClassBillsController(DbContextOptions<ApplicationDbContext> options) => dco = options;
 
         [HttpGet]
-        public async Task<IEnumerable> Bill(int classid, byte term) => await new ApplicationDbContext(dco).ClassBills.Where(x => x.ClassesID == classid && x.TermsID == term).Include(x => x.BillItems).Select(x => new { x.BillItemsID, x.ClassBillsID, x.Amount, x.BillItems.BillItem }).ToListAsync();
+        public async Task<IEnumerable> Bill(int classid, short year) => await new ApplicationDbContext(dco).ClassBills.Where(x => x.ClassesID == classid && x.DatePrepared.Year == year).Select(x => new { x.BillItemsID, x.ClassBillsID, x.Amount, x.BillItems.BillItem, x.YearGroup, x.DatePrepared, x.ClassesID }).ToListAsync();
 
 
         [HttpGet]
@@ -39,20 +39,30 @@ namespace bStudioSchoolManager.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody]List<ClassBills> bill)
+        public async Task<IActionResult> Create([FromBody]List<BillsVm> bills)
         {
             if (!ModelState.IsValid)
                 return BadRequest(new { Error = "Invalid data was submitted", Message = ModelState.Values.First(x => x.Errors.Count > 0).Errors.Select(t => t.ErrorMessage).First() });
-            var term = bill.First().TermsID;
+            var item = bills.First();
             using (var db = new ApplicationDbContext(dco))
             {
-                if (await db.ClassBills.AnyAsync(x => x.TermsID == term))
-                    return BadRequest(new { message = $"Bill for this class already exits for term" });
-                bill.ForEach(x => x.DatePrepared = DateTime.Now);
-                db.AddRange(bill);
+                if (await db.ClassBills.AnyAsync(x => x.YearGroup == item.YearGroup))
+                    return BadRequest(new { message = $"Bill already exits for the year group" });
+                var classes = await db.Classes.Where(x => x.AddYear == item.YearGroup).ToListAsync();
+                bills.ForEach(x =>
+                {
+                    classes.ForEach(t => db.ClassBills.Add(new ClassBills
+                    {
+                        Amount = x.Amount,
+                        BillItemsID = x.BillItemsID,
+                        ClassesID = t.ClassesID,
+                        DatePrepared = DateTime.Now,
+                        YearGroup = x.YearGroup,
+                    }));
+                });
                 await db.SaveChangesAsync();
             }
-            return Created($"/ClassBills/Bill?class={bill.First().ClassesID}&term={term}", bill);
+            return Created($"/ClassBills/Bill?class={item.YearGroup}", bills);
         }
 
         //[HttpPost]

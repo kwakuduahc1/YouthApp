@@ -13,20 +13,20 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 /** view-bill component*/
 export class ViewBillComponent {
-    terms: ITerms[];
+    years: number[];
     bill: IClassBills[] = [];
     _class: IMainClasses;
     form: FormGroup;
     constructor(route: ActivatedRoute, private http: ClassBillHttpService) {
-        this.terms = route.snapshot.data['terms'];
+        this.years = route.snapshot.data['years'];
         this._class = route.snapshot.data['class'];
         this.form = new FormBuilder().group({
-            term: ["", Validators.required]
+            year: ["", Validators.required]
         });
     }
 
-    change(t: ITerms) {
-        let i = { term: t.termsID, classid: this._class.classesID };
+    change(t: number) {
+        let i = { year: t, classid: this._class.classesID };
         this.http.termly(i).subscribe(res => this.bill = res);
     }
 

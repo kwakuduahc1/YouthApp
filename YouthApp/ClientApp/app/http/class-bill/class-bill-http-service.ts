@@ -3,9 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { IHttpMethods } from '../IHttpMethods';
 import { Observable } from 'rxjs/Observable';
 import { IClassBills } from '../../models/IClassBill';
+import { IBillsVm } from '../../models/IBill';
 
 @Injectable()
-export class ClassBillHttpService implements IHttpMethods<IClassBills> {
+export class ClassBillHttpService {
 
     find(id: string): Observable<IClassBills> | null {
         return this.http.get<IClassBills>(`/ClassBills/Find?id=${id}`)
@@ -19,7 +20,7 @@ export class ClassBillHttpService implements IHttpMethods<IClassBills> {
         return this.http.post<IClassBills>(`/ClassBills/Create`, item)
     }
 
-    addBill(item: IClassBills[]): Observable<IClassBills> {
+    addBill(item: IBillsVm[]): Observable<IClassBills> {
         return this.http.post<IClassBills>(`/ClassBills/Create`, item)
     }
 
@@ -35,8 +36,8 @@ export class ClassBillHttpService implements IHttpMethods<IClassBills> {
         return this.http.put<IClassBills>(`/ClassBills/Change`, item)
     }
 
-    termly(i: { term: number, classid: number }):Observable<IClassBills[]> {
-        return this.http.get<IClassBills[]>(`/ClassBills/Bill?term=${i.term}&classid=${i.classid}`)
+    termly(i: { year: number, classid: number }): Observable<IClassBills[]> {
+        return this.http.get<IClassBills[]>(`/ClassBills/Bill?year=${i.year}&classid=${i.classid}`)
     }
     constructor(private http: HttpClient) {
 
