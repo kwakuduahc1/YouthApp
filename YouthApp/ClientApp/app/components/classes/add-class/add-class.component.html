@@ -3,7 +3,7 @@
 <form id="form" name="form" [formGroup]="form" (submit)="add(form.value)" class="form-horizontal">
     <fieldset>
         <legend class="h2">Add a new class</legend>
-        <div class="form-group">
+        <div class="form-group form-row">
             <label class="col-md-2 control-label" for="className">Department Name</label>
             <div class="col-md-6" [ngClass]="form.controls.className?.errors ? 'has-error' : 'has-success'">
                 <input type="text"

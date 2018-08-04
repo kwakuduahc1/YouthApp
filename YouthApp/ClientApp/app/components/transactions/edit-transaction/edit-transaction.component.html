@@ -1,1 +1,71 @@
-﻿<div style="border: 1px solid red">edit-transaction Component</div>
+﻿<h1>Issue funds</h1>
+<form id="form" name="form" [formGroup]="form" (submit)="add(form.value)" class="form-horizontal">
+    <fieldset>
+        <legend class="h-100">Fill in the details</legend>
+        <!-- Bank Account -->
+        <div class="form-group form-row">
+            <label class="col-sm-2 control-label" for="revenuesID">Account</label>
+            <div class="col-sm-6" [ngClass]="form.controls.revenuesID?.errors ? 'has-error' : 'has-success'">
+                <select title="Account to which to charge this transaction against" class="form-control" formControlName="revenuesID" id="revenuesID" name="revenuesID">
+                    <option *ngFor="let r of revs" [ngValue]="r.revenuesID">{{r.bank}} ({{r.accountNumber}}):</option>
+                </select>
+            </div>
+            <span [ngClass]="form.controls.revenuesID.errors?.maxlength ? 'text-danger' : ''" *ngIf="form.controls.revenuesID.errors?.maxlength">The maximum length is {{form.controls.revenuesID.errors.maxlength.requiredLength}} characters: Current is {{form.controls.revenuesID.errors.maxlength.actualLength}}</span>
+            <span [ngClass]="form.controls.revenuesID.errors?.required ? 'text-danger' : ''" *ngIf="form.controls.revenuesID.errors?.required">Account Number is required</span>
+            <span [ngClass]="form.controls.revenuesID.errors?.minlength ? 'text-danger' : ''" *ngIf="form.controls.revenuesID.errors?.minlength">The minimum length is {{form.controls.revenuesID.errors.minlength.requiredLength}} characters: Current is {{form.controls.revenuesID.errors.minlength.actualLength}}</span>
+        </div>
+
+        <!-- Item -->
+        <div class="form-group form-row">
+            <label class="col-sm-2 control-label" for="transactionItemsID">Transaction Item</label>
+            <div class="col-sm-6" [ngClass]="form.controls.transactionItemsID?.errors ? 'has-error' : 'has-success'">
+                <select class="form-control" formControlName="transactionItemsID" id="transactionItemsID" name="transactionItemsID">
+                    <option *ngFor="let t of items" [ngValue]="t.transactionItemsID">{{t.transactionItem}}</option>
+                </select>
+            </div>
+            <span [ngClass]="form.controls.transactionItemsID.errors?.maxlength ? 'text-danger' : ''" *ngIf="form.controls.transactionItemsID.errors?.maxlength">The maximum length is {{form.controls.transactionItemsID.errors.maxlength.requiredLength}} characters: Current is {{form.controls.transactionItemsID.errors.maxlength.actualLength}}</span>
+            <span [ngClass]="form.controls.transactionItemsID.errors?.required ? 'text-danger' : ''" *ngIf="form.controls.transactionItemsID.errors?.required">Transaction item is required</span>
+            <span [ngClass]="form.controls.transactionItemsID.errors?.minlength ? 'text-danger' : ''" *ngIf="form.controls.transactionItemsID.errors?.minlength">The minimum length is {{form.controls.transactionItemsID.errors.minlength.requiredLength}} characters: Current is {{form.controls.transactionItemsID.errors.minlength.actualLength}}</span>
+        </div>
+
+        <!-- Amount -->
+        <div class="form-group form-row">
+            <label class="col-sm-2 control-label" for="amount">Amount</label>
+            <div class="col-sm-6" [ngClass]="form.controls.amount?.errors ? 'has-error' : 'has-success'">
+                <input type="number"
+                       class="form-control"
+                       id="amount"
+                       title="Amount to expend"
+                       formControlName="amount"
+                       placeholder="Amount to expend">
+            </div>
+            <span [ngClass]="form.controls.amount.errors?.maxlength ? 'text-danger' : ''" *ngIf="form.controls.amount.errors?.maxlength">The maximum length is {{form.controls.amount.errors.maxlength.requiredLength}} characters: Current is {{form.controls.amount.errors.maxlength.actualLength}}</span>
+            <span [ngClass]="form.controls.amount.errors?.required ? 'text-danger' : ''" *ngIf="form.controls.amount.errors?.required">Amount is required</span>
+            <span [ngClass]="form.controls.amount.errors?.minlength ? 'text-danger' : ''" *ngIf="form.controls.amount.errors?.minlength">The minimum length is {{form.controls.amount.errors.minlength.requiredLength}} characters: Current is {{form.controls.amount.errors.minlength.actualLength}}</span>
+        </div>
+
+        <!-- Purpose -->
+        <div class="form-group form-row">
+            <label class="col-sm-2 control-label" for="purpose">Purpose</label>
+            <div class="col-sm-6" [ngClass]="form.controls.purpose?.errors ? 'has-error' : 'has-success'">
+                <input type="text"
+                       class="form-control"
+                       id="purpose"
+                       title="Reason for which you are expending"
+                       formControlName="purpose"
+                       placeholder="Purpose for issuance">
+            </div>
+            <span [ngClass]="form.controls.purpose.errors?.maxlength ? 'text-danger' : ''" *ngIf="form.controls.purpose.errors?.maxlength">The maximum length is {{form.controls.purpose.errors.maxlength.requiredLength}} characters: Current is {{form.controls.purpose.errors.maxlength.actualLength}}</span>
+            <span [ngClass]="form.controls.purpose.errors?.required ? 'text-danger' : ''" *ngIf="form.controls.purpose.errors?.required">Purpose is required</span>
+            <span [ngClass]="form.controls.purpose.errors?.minlength ? 'text-danger' : ''" *ngIf="form.controls.purpose.errors?.minlength">The minimum length is {{form.controls.purpose.errors.minlength.requiredLength}} characters: Current is {{form.controls.purpose.errors.minlength.actualLength}}</span>
+        </div>
+
+        <!-- Button -->
+        <div class="offset-sm-2">
+            <button [disabled]="form.invalid || processing" type="submit" [ngClass]="form.invalid ? 'btn-danger' : 'btn-success'" class="btn"><span class="glyphicon glyphicon-plus"> Add </span></button>
+        </div>
+    </fieldset>
+</form>
+<div class="row">
+    <span [hidden]="!dismiss" class="alert" [ngClass]="error ? 'alert-warning' : 'alert-info'">{{message}} <button class="btn btn-secondary btn-sm" (click)="this.dismiss=!this.dismiss">Dismiss</button></span>
+</div>

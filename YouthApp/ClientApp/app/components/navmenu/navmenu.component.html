@@ -28,7 +28,7 @@
                 <div class="dropdown-menu" aria-labelledby="billMenuLink">
                     <a class="dropdown-item" [routerLink]="['/class-bills']">Prepare Bill</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item"  [routerLink]="['/bill-items']">Billing Items</a>
+                    <a class="dropdown-item" [routerLink]="['/bill-items']">Billing Items</a>
                 </div>
             </li>
             <li class="nav-item dropdown">
@@ -37,11 +37,10 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" [routerLink]="['/student-payments']"><span class="glyphicon glyphicon-suitcase"></span>Student Payments</a>
-                </div>
-                <div class="dropdown-menu">
+                    <div class="dropdown-divider"></div>
                     <a class="dropdown-item" [routerLink]="['/receive-transaction']">Receive Funds</a>
-                </div>
-                <div class="dropdown-menu">
+                    <div class="dropdown-divider"></div>
+
                     <a class="dropdown-item" [routerLink]="['/issue-transaction']">Issue Funds</a>
                 </div>
             </li>

@@ -11,7 +11,11 @@ namespace YouthApp.Models
         [Required]
         public double Amount { get; set; }
 
-        public string Reference { get; set; }
+        public bool IsStudent { get; set; }
+
+        [Required]
+        [StringLength(100, MinimumLength = 5)]
+        public string Purpose { get; set; }
 
         [Required]
         public short RevenuesID { get; set; }

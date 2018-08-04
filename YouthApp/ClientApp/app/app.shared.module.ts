@@ -47,8 +47,8 @@ import { TransactionItemsHttpService } from './http/tran-items/tran-items-http-s
 import { TransactionsHttpService } from './http/transactions/payments-http-service';
 import { TransactionsResolver } from './resolvers/transactions/TransactionsResolver';
 import { FindTransactionResolver } from './resolvers/transactions/FindTransactionResolver';
-import { FindTransactionItemResolver } from './resolvers/transaction-item/find-tran-item-resolver';
-import { TransactionItemsResolver } from './resolvers/transaction-item/tran-items-resolver';
+import { TransactionItemsResolver } from './resolvers/transaction-item - Copy/tran-items-resolver';
+import { FindTransactionItemResolver } from './resolvers/transaction-item - Copy/find-tran-item-resolver';
 
 @NgModule({
     declarations: [
@@ -91,7 +91,8 @@ import { TransactionItemsResolver } from './resolvers/transaction-item/tran-item
             { path: 'edit-revenue/:id', component: EditRevenueComponent, resolve: { 'revenue': FindRevenueResolver } },
             { path: 'bill-student/:id', component: BillStudentsComponent, resolve: { students: StudentsResolver } },
             { path: 'student-payments', component: StudentPaymentsComponent, resolve: { classes: ClassesListResolver } },
-            { path: 'issue-transaction', component: IssueTransactionComponent, resolve: { 'items': TransactionItemsResolver,types: } },
+            { path: 'issue-transaction', component: IssueTransactionComponent, resolve: { 'items': TransactionItemsResolver, trans: TransactionsResolver, revs: RevenueListResolver } },
+            { path: 'edit-transaction/:id', component: EditTransactionComponent, resolve: { 'items': TransactionItemsResolver, revs: RevenueListResolver, tran: FindTransactionResolver } },
             { path: '**', redirectTo: 'home' }
         ])
     ],
@@ -121,6 +122,7 @@ import { TransactionItemsResolver } from './resolvers/transaction-item/tran-item
         TransactionsHttpService,
         TransactionsResolver,
         YearGroupsResolver,
+        TransactionItemsResolver
     ]
 })
 export class AppModuleShared {

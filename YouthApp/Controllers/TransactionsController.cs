@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -15,10 +16,13 @@ namespace YouthApp.Controllers
         public TransactionsController(DbContextOptions<ApplicationDbContext> options) => dco = options;
 
         [HttpGet]
-        public async Task<IEnumerable> List() => await new ApplicationDbContext(dco).Transactions.OrderBy(x => x.TransactionDate).Take(20).ToListAsync();
+        public async Task<IEnumerable> List() => await new ApplicationDbContext(dco).Transactions.Select(x => new { x.Amount, x.IsStudent, x.Purpose, x.Revenues.Bank, x.TransactionDate, x.TransactionsID, x.Revenues.Source, x.TransactionsTypes.TransactionType, x.TransactionItems.TransactionItem }).OrderByDescending(x => x.TransactionDate).Take(20).ToListAsync();
 
         [HttpGet]
-        public async Task<IActionResult> Find(int id)
+        public async Task<IEnumerable> Search(string qry) => await new ApplicationDbContext(dco).Transactions.Where(x => EF.Functions.Like(x.Purpose, $"%{qry}%")).Select(x => new { x.Amount, x.IsStudent, x.Purpose, x.Revenues.Bank, x.TransactionDate, x.TransactionsID, x.Revenues.Source, x.TransactionsTypes.TransactionType, x.TransactionItems.TransactionItem }).OrderBy(x => x.TransactionDate).Take(20).ToListAsync();
+
+        [HttpGet]
+        public async Task<IActionResult> Find(long id)
         {
             var tran = await new ApplicationDbContext(dco).Transactions.FindAsync(id);
             if (tran == null)
@@ -33,6 +37,7 @@ namespace YouthApp.Controllers
                 return BadRequest(new { Error = "Invalid data was submitted", Message = ModelState.Values.First(x => x.Errors.Count > 0).Errors.Select(t => t.ErrorMessage).First() });
             using (var db = new ApplicationDbContext(dco))
             {
+                transaction.TransactionDate = DateTime.Now;
                 db.Add(transaction);
                 await db.SaveChangesAsync();
             }
@@ -47,6 +52,7 @@ namespace YouthApp.Controllers
             using (var db = new ApplicationDbContext(dco))
             {
                 transaction.Amount = transaction.Amount * -1;
+                transaction.TransactionDate = DateTime.Now;
                 db.Add(transaction);
                 await db.SaveChangesAsync();
             }

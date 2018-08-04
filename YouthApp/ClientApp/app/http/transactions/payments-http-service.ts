@@ -5,22 +5,33 @@ import { Observable } from 'rxjs/Observable';
 import { ITransactions } from '../../models/ITransactions';
 
 @Injectable()
-export class TransactionsHttpService implements IHttpMethods<ITransactions>  {
+export class TransactionsHttpService  {
 
 
     find(id: string): Observable<ITransactions> | null {
        return this.http.get<ITransactions>(`/Transactions/Find/${id}`)
     }
 
+    search(qry: string): Observable<ITransactions[]> {
+        return this.http.get<ITransactions[]>(`/Transactions/Search?qry=${qry}`);
+    }
+
     list(): Observable<ITransactions[]> {
         return this.http.get<ITransactions[]>(`/Transactions/List`);
     }
-    add(item: ITransactions): Observable<ITransactions> {
-        return this.http.post<ITransactions>('/Transactions/Create', item);
+
+    issue(item: ITransactions): Observable<ITransactions> {
+        return this.http.post<ITransactions>('/Transactions/Issue', item);
     }
+
+    receive(item: ITransactions): Observable<ITransactions> {
+        return this.http.post<ITransactions>('/Transactions/Receive', item);
+    }
+
     edit(item: ITransactions): Observable<ITransactions> {
         throw new Error("Method not implemented.");
     }
+
     delete(item: ITransactions): Observable<void> {
         throw new Error("Method not implemented.");
     }
