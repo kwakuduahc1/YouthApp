@@ -38,6 +38,7 @@ namespace YouthApp.Controllers
             using (var db = new ApplicationDbContext(dco))
             {
                 transaction.TransactionDate = DateTime.Now;
+                transaction.TransactionsTypesID = (byte)TranTypes.Revenue;
                 db.Add(transaction);
                 await db.SaveChangesAsync();
             }
@@ -52,6 +53,7 @@ namespace YouthApp.Controllers
             using (var db = new ApplicationDbContext(dco))
             {
                 transaction.Amount = transaction.Amount * -1;
+                transaction.TransactionsTypesID = (byte)TranTypes.Expenditure;
                 transaction.TransactionDate = DateTime.Now;
                 db.Add(transaction);
                 await db.SaveChangesAsync();

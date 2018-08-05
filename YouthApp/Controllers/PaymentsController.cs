@@ -33,7 +33,8 @@ namespace bStudioSchoolManager.Controllers
                     RevenuesID = rev.RevenuesID,
                     Amount = payment.Amount,
                     TransactionDate = DateTime.Now,
-                    TransactionsTypesID = 1
+                    TransactionsTypesID = (byte)TranTypes.Revenue,
+                    TransactionItemsID = 7
                 });
                 await db.SaveChangesAsync();
             }

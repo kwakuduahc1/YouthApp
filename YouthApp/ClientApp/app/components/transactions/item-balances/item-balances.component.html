@@ -1,0 +1,17 @@
+﻿<h4>Revenue and expenditure for the year</h4>
+<table class="table table-striped table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>Item</th>
+            <th>Expenditure</th>
+            <th>Revenue</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let l of balances">
+            <td>{{l.item}}</td>
+            <td>{{l.expenditure |currency:'GH¢ '}}</td>
+            <td>{{l.revenue |currency:'GH¢ '}}</td>
+        </tr>
+    </tbody>
+</table>

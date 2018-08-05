@@ -1,1 +1,118 @@
-﻿<div style="border: 1px solid red">receive-transaction Component</div>
+﻿<h1>Receive funds</h1>
+<form id="form" name="form" [formGroup]="form" (submit)="add(form.value)" class="form-horizontal">
+    <fieldset>
+        <legend class="h-100">Fill in the details</legend>
+        <!-- Bank Account -->
+        <div class="form-group form-row">
+            <label class="col-sm-2 control-label" for="revenuesID">Receiving Account</label>
+            <div class="col-sm-6" [ngClass]="form.controls.revenuesID?.errors ? 'has-error' : 'has-success'">
+                <select title="Account to which to charge this transaction against" class="form-control" formControlName="revenuesID" id="revenuesID" name="revenuesID">
+                    <option *ngFor="let r of revs" [ngValue]="r.revenuesID">{{r.bank}} ({{r.accountNumber}}):</option>
+                </select>
+            </div>
+            <span [ngClass]="form.controls.revenuesID.errors?.maxlength ? 'text-danger' : ''" *ngIf="form.controls.revenuesID.errors?.maxlength">The maximum length is {{form.controls.revenuesID.errors.maxlength.requiredLength}} characters: Current is {{form.controls.revenuesID.errors.maxlength.actualLength}}</span>
+            <span [ngClass]="form.controls.revenuesID.errors?.required ? 'text-danger' : ''" *ngIf="form.controls.revenuesID.errors?.required">Account Number is required</span>
+            <span [ngClass]="form.controls.revenuesID.errors?.minlength ? 'text-danger' : ''" *ngIf="form.controls.revenuesID.errors?.minlength">The minimum length is {{form.controls.revenuesID.errors.minlength.requiredLength}} characters: Current is {{form.controls.revenuesID.errors.minlength.actualLength}}</span>
+        </div>
+
+        <!-- Item -->
+        <div class="form-group form-row">
+            <label class="col-sm-2 control-label" for="transactionItemsID">Item</label>
+            <div class="col-sm-6" [ngClass]="form.controls.transactionItemsID?.errors ? 'has-error' : 'has-success'">
+                <select class="form-control" formControlName="transactionItemsID" id="transactionItemsID" name="transactionItemsID">
+                    <option *ngFor="let t of items" [ngValue]="t.transactionItemsID">{{t.transactionItem}}</option>
+                </select>
+            </div>
+            <span [ngClass]="form.controls.transactionItemsID.errors?.maxlength ? 'text-danger' : ''" *ngIf="form.controls.transactionItemsID.errors?.maxlength">The maximum length is {{form.controls.transactionItemsID.errors.maxlength.requiredLength}} characters: Current is {{form.controls.transactionItemsID.errors.maxlength.actualLength}}</span>
+            <span [ngClass]="form.controls.transactionItemsID.errors?.required ? 'text-danger' : ''" *ngIf="form.controls.transactionItemsID.errors?.required">Transaction item is required</span>
+            <span [ngClass]="form.controls.transactionItemsID.errors?.minlength ? 'text-danger' : ''" *ngIf="form.controls.transactionItemsID.errors?.minlength">The minimum length is {{form.controls.transactionItemsID.errors.minlength.requiredLength}} characters: Current is {{form.controls.transactionItemsID.errors.minlength.actualLength}}</span>
+        </div>
+
+        <!-- Amount -->
+        <div class="form-group form-row">
+            <label class="col-sm-2 control-label" for="amount">Amount</label>
+            <div class="col-sm-6" [ngClass]="form.controls.amount?.errors ? 'has-error' : 'has-success'">
+                <input type="number"
+                       class="form-control"
+                       id="amount"
+                       title="Amount received"
+                       formControlName="amount"
+                       placeholder="Amount received">
+            </div>
+            <span [ngClass]="form.controls.amount.errors?.maxlength ? 'text-danger' : ''" *ngIf="form.controls.amount.errors?.maxlength">The maximum length is {{form.controls.amount.errors.maxlength.requiredLength}} characters: Current is {{form.controls.amount.errors.maxlength.actualLength}}</span>
+            <span [ngClass]="form.controls.amount.errors?.required ? 'text-danger' : ''" *ngIf="form.controls.amount.errors?.required">Amount is required</span>
+            <span [ngClass]="form.controls.amount.errors?.minlength ? 'text-danger' : ''" *ngIf="form.controls.amount.errors?.minlength">The minimum length is {{form.controls.amount.errors.minlength.requiredLength}} characters: Current is {{form.controls.amount.errors.minlength.actualLength}}</span>
+        </div>
+
+        <!-- Purpose -->
+        <div class="form-group form-row">
+            <label class="col-sm-2 control-label" for="purpose">Purpose</label>
+            <div class="col-sm-6" [ngClass]="form.controls.purpose?.errors ? 'has-error' : 'has-success'">
+                <input type="text"
+                       class="form-control"
+                       id="purpose"
+                       title="Reason for which you are expending"
+                       formControlName="purpose"
+                       placeholder="Purpose for this transaction">
+            </div>
+            <span [ngClass]="form.controls.purpose.errors?.maxlength ? 'text-danger' : ''" *ngIf="form.controls.purpose.errors?.maxlength">The maximum length is {{form.controls.purpose.errors.maxlength.requiredLength}} characters: Current is {{form.controls.purpose.errors.maxlength.actualLength}}</span>
+            <span [ngClass]="form.controls.purpose.errors?.required ? 'text-danger' : ''" *ngIf="form.controls.purpose.errors?.required">Purpose is required</span>
+            <span [ngClass]="form.controls.purpose.errors?.minlength ? 'text-danger' : ''" *ngIf="form.controls.purpose.errors?.minlength">The minimum length is {{form.controls.purpose.errors.minlength.requiredLength}} characters: Current is {{form.controls.purpose.errors.minlength.actualLength}}</span>
+        </div>
+
+        <!-- Button -->
+        <div class="offset-sm-2">
+            <button [disabled]="form.invalid || processing" type="submit" [ngClass]="form.invalid ? 'btn-danger' : 'btn-success'" class="btn"><span class="glyphicon glyphicon-plus"> Add </span></button>
+        </div>
+    </fieldset>
+</form>
+<div class="row">
+    <span [hidden]="!dismiss" class="alert" [ngClass]="error ? 'alert-warning' : 'alert-info'">{{message}} <button class="btn btn-secondary btn-sm" (click)="this.dismiss=!this.dismiss">Dismiss</button></span>
+</div>
+
+<form name="findForm" id="findForm" [formGroup]="findForm" (submit)="search(findForm.controls.qry.value)">
+    <fieldset>
+        <legend>Enter search information</legend>
+        <div class="form-group form-row">
+            <label class="col-form-label col-sm-1" for="qry">Search term</label>
+            <div class="col-sm-3">
+                <input title="Search information can be GCR or purpose" formControlName="qry" class="form-control" type="search" name="qry" value="" />
+            </div>
+            <div class="col-sm-4 btn-group form-group form-row">
+                <button class="btn" [ngClass]="findForm.valid ? 'btn-outline-success' : 'btn-outline-warning'" [disabled]="findForm.invalid || processing">Search</button>
+                <button (click)="reset()" class="btn btn-outline-info">Reset results</button>
+            </div>
+        </div>
+    </fieldset>
+</form>
+<h2>Transactions History</h2>
+<table class="table table-active table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th>Account</th>
+            <th>Transaction Type</th>
+            <th>Item</th>
+            <th>Amount</th>
+            <th>Purpose</th>
+            <th>Date</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let t of trans" [ngClass]="t.amount > 0 ?  'text-success' : 'text-danger'">
+            <td>{{t.bank}} {{t.source}}</td>
+            <td>{{t.transactionType}}</td>
+            <td>{{t.transactionItem}}</td>
+            <td>{{t.amount}}</td>
+            <td>{{t.purpose}}</td>
+            <td>{{t.transactionDate |date}}</td>
+            <td>
+                <button class="btn btn-outline-primary" [routerLink]="['/edit-transaction', t.transactionsID]">Edit</button>
+            </td>
+            <td>
+                <button class="btn btn-danger" (click)="delete(t)">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -66,5 +66,32 @@ namespace YouthApp.Controllers
 
         [HttpGet]
         public async Task<IEnumerable> TransactionItems() => await new ApplicationDbContext(dco).TransactionItems.ToListAsync();
+
+        [HttpGet]
+        public async Task<IActionResult> Balances()
+        {
+            using (var db = new ApplicationDbContext(dco))
+            {
+                var exp = await db.Transactions.Where(x => x.TransactionsTypesID == (byte)TranTypes.Expenditure && x.TransactionDate.Year == DateTime.Now.Year).SumAsync(x => x.Amount);
+                var rev = await db.Transactions.Where(x => x.TransactionsTypesID == (byte)TranTypes.Revenue && x.TransactionDate.Year == DateTime.Now.Year).SumAsync(x => x.Amount);
+                return Ok(new { exp, rev });
+            }
+        }
+
+        public async Task<IEnumerable> ItemBalances()
+        {
+            using (var db = new ApplicationDbContext(dco))
+            {
+                var exps = await db.TransactionItems
+                    .Select(x => new
+                    {
+                        Item = x.TransactionItem,
+                        Expenditure = x.Transactions.Where(t => t.TransactionsTypesID == (short)TranTypes.Expenditure && t.TransactionDate.Year == DateTime.Now.Year).Sum(t => t.Amount),
+                        Revenue = x.Transactions.Where(t => t.TransactionsTypesID == (short)TranTypes.Revenue && t.TransactionDate.Year == DateTime.Now.Year).Sum(t => t.Amount)
+                    })
+                    .ToListAsync();
+                return exps;
+            }
+        }
     }
 }

@@ -49,6 +49,8 @@ import { TransactionsResolver } from './resolvers/transactions/TransactionsResol
 import { FindTransactionResolver } from './resolvers/transactions/FindTransactionResolver';
 import { TransactionItemsResolver } from './resolvers/transaction-item - Copy/tran-items-resolver';
 import { FindTransactionItemResolver } from './resolvers/transaction-item - Copy/find-tran-item-resolver';
+import { ItemBalancesComponent } from './components/transactions/item-balances/item-balances.component';
+import { ItemBalancesResolver } from './resolvers/transactions/ItemBalancesResolver';
 
 @NgModule({
     declarations: [
@@ -70,7 +72,8 @@ import { FindTransactionItemResolver } from './resolvers/transaction-item - Copy
         EditRevenueComponent,
         IssueTransactionComponent,
         ReceiveTransactionComponent,
-        EditTransactionComponent
+        EditTransactionComponent,
+        ItemBalancesComponent
     ],
     imports: [
         CommonModule,
@@ -80,7 +83,7 @@ import { FindTransactionItemResolver } from './resolvers/transaction-item - Copy
         ChartsModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
-            { path: 'home', component: HomeComponent, resolve: { 'payments': PaymentSummaryResolver, debtors: DebtorsResolver } },
+            { path: 'home', component: HomeComponent, resolve: { 'payments': PaymentSummaryResolver, debtors: DebtorsResolver, balances: ItemBalancesResolver } },
             { path: 'bill-items', component: AddBillItemComponent, resolve: { items: BillItemsResolver } },
             { path: 'edit-bill-item/:id', component: EditItemComponent, resolve: { item: FindItemResolver } },
             { path: 'classes', component: AddClassComponent, resolve: { classes: ClassesListResolver } },
@@ -92,6 +95,7 @@ import { FindTransactionItemResolver } from './resolvers/transaction-item - Copy
             { path: 'bill-student/:id', component: BillStudentsComponent, resolve: { students: StudentsResolver } },
             { path: 'student-payments', component: StudentPaymentsComponent, resolve: { classes: ClassesListResolver } },
             { path: 'issue-transaction', component: IssueTransactionComponent, resolve: { 'items': TransactionItemsResolver, trans: TransactionsResolver, revs: RevenueListResolver } },
+            { path: 'receive-transaction', component: ReceiveTransactionComponent, resolve: { 'items': TransactionItemsResolver, trans: TransactionsResolver, revs: RevenueListResolver } },
             { path: 'edit-transaction/:id', component: EditTransactionComponent, resolve: { 'items': TransactionItemsResolver, revs: RevenueListResolver, tran: FindTransactionResolver } },
             { path: '**', redirectTo: 'home' }
         ])
@@ -122,7 +126,8 @@ import { FindTransactionItemResolver } from './resolvers/transaction-item - Copy
         TransactionsHttpService,
         TransactionsResolver,
         YearGroupsResolver,
-        TransactionItemsResolver
+        TransactionItemsResolver,
+        ItemBalancesResolver
     ]
 })
 export class AppModuleShared {

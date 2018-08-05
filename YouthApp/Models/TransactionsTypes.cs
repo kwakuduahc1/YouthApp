@@ -6,7 +6,8 @@ namespace YouthApp.Models
     public class TransactionsTypes
     {
         [Key]
-        public short TransactionsTypesID { get; set; }
+        [Required]
+        public byte TransactionsTypesID { get; set; }
 
         [Required]
         [StringLength(15, MinimumLength = 6)]
@@ -16,5 +17,10 @@ namespace YouthApp.Models
         public byte[] Concurrency { get; set; }
 
         public ICollection<Transactions> Transactions { get; set; }
+    }
+
+    public enum TranTypes : byte
+    {
+        Revenue = 1, Expenditure = 2,
     }
 }

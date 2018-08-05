@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-//import { IStatuses } from '../../model/IStatuses';
 import { ActivatedRoute } from '@angular/router';
 import { IPaymentsSum } from '../../models/IPaymentsSum';
 import { IDebtors } from '../../models/IDebtors';
+import { IBalances } from '../../models/IBalances';
 
 @Component({
     selector: 'home',
@@ -10,11 +10,12 @@ import { IDebtors } from '../../models/IDebtors';
     styles:[]
 })
 export class HomeComponent {
-    //statuses: IStatuses[];
     payments: IPaymentsSum[];
     debtors: IDebtors[];
+    balances: IBalances[];
     constructor(route: ActivatedRoute) {
         this.payments = route.snapshot.data['payments'];
         this.debtors = route.snapshot.data['debtors'];
+        this.balances = route.snapshot.data['balances'];
     }
 }

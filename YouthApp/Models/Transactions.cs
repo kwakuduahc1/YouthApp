@@ -21,7 +21,7 @@ namespace YouthApp.Models
         public short RevenuesID { get; set; }
 
         [Required]
-        public short TransactionsTypesID { get; set; }
+        public byte TransactionsTypesID { get; set; }
 
         [Required]
         public short TransactionItemsID { get; set; }

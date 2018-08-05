@@ -66,8 +66,8 @@ namespace YouthApp.Context
                 ));
 
             builder.Entity<TransactionsTypes>(x => x.HasData(
-                new TransactionsTypes { TransactionsTypesID = 1, TransactionType = "Revenue" },
-                new TransactionsTypes { TransactionsTypesID = 2, TransactionType = "Expenditure" }
+                new TransactionsTypes { TransactionsTypesID = (byte)TranTypes.Revenue, TransactionType = "Revenue" },
+                new TransactionsTypes { TransactionsTypesID = (byte)TranTypes.Expenditure, TransactionType = "Expenditure" }
                 ));
 
             builder.Entity<Revenues>(x => x.HasData(
@@ -81,7 +81,8 @@ namespace YouthApp.Context
                 new TransactionItems { TransactionItem = "Bank Charges", TransactionItemsID = 3 },
                 new TransactionItems { TransactionItem = "Maintenance", TransactionItemsID = 4 },
                 new TransactionItems { TransactionItem = "Staff Allowances", TransactionItemsID = 5 },
-                new TransactionItems { TransactionItem = "Stationery", TransactionItemsID = 6 }
+                new TransactionItems { TransactionItem = "Stationery", TransactionItemsID = 6 },
+                 new TransactionItems { TransactionItem = "School Fees", TransactionItemsID = 7 }
                 ));
 
             base.OnModelCreating(builder);
