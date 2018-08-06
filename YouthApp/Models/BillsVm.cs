@@ -14,5 +14,8 @@ namespace YouthApp.Models
         [Required]
         public short YearGroup { get; set; }
 
+        [Required]
+        public byte TermsID { get; set; }
+
     }
 }

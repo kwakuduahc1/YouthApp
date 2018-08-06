@@ -3,4 +3,5 @@
     amount: number;
     yearGroup: number;
     billItem: string;
+    termsID: number;
 }

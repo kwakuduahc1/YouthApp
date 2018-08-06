@@ -58,6 +58,7 @@ namespace bStudioSchoolManager.Controllers
                         ClassesID = t.ClassesID,
                         DatePrepared = DateTime.Now,
                         YearGroup = x.YearGroup,
+                        TermsID = x.TermsID
                     }));
                 });
                 await db.SaveChangesAsync();

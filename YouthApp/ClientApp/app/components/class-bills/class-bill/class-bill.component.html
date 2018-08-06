@@ -5,8 +5,16 @@
         <div class="form-group form-row">
             <label class="col-form-label col-md-2" for="year">Year Group</label>
             <div class="col-md-5">
-                <select name="year" id="year" formControlName="year"  class="form-control">
+                <select name="year" id="year" formControlName="year" class="form-control">
                     <option *ngFor="let y of years" [ngValue]="y">{{y}} Year Group</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group form-row">
+            <label class="col-form-label col-md-2" for="term">Term</label>
+            <div class="col-md-5">
+                <select name="term" id="term" formControlName="termsID" class="form-control">
+                    <option *ngFor="let t of terms" [ngValue]="t.termsID">{{t.description}}</option>
                 </select>
             </div>
         </div>

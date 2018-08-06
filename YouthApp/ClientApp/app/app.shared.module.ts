@@ -88,7 +88,7 @@ import { ItemBalancesResolver } from './resolvers/transactions/ItemBalancesResol
             { path: 'edit-bill-item/:id', component: EditItemComponent, resolve: { item: FindItemResolver } },
             { path: 'classes', component: AddClassComponent, resolve: { classes: ClassesListResolver } },
             { path: 'edit-class/:id', component: EditClassComponent, resolve: { 'class': FindClassResolver } },
-            { path: 'class-bills', component: ClassBillComponent, resolve: { 'years': YearGroupsResolver, 'items': BillItemsResolver } },
+            { path: 'class-bills', component: ClassBillComponent, resolve: { 'years': YearGroupsResolver, 'items': BillItemsResolver, terms: TermsResolver } },
             { path: 'view-class-bill/:id', component: ViewBillComponent, resolve: { 'class': FindClassResolver, 'years': YearGroupsResolver } },
             { path: 'add-revenue', component: AddRevenueComponent, resolve: { 'revenues': RevenueListResolver } },
             { path: 'edit-revenue/:id', component: EditRevenueComponent, resolve: { 'revenue': FindRevenueResolver } },

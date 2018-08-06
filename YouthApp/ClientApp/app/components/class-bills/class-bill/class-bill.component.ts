@@ -22,11 +22,14 @@ export class ClassBillComponent {
     termForm: FormGroup;
     classBills: FormGroup[] = [];
     bill: IBillsVm[] = [];
+    terms: ITerms[];
     constructor(private fb: FormBuilder, route: ActivatedRoute, private http: ClassBillHttpService, private router: Router) {
         this.years = route.snapshot.data["years"];
+        this.terms = route.snapshot.data["terms"];
         this.items = route.snapshot.data["items"] as IBillItems[];
         this.termForm = fb.group({
-            year: ["", Validators.compose([Validators.required, Validators.min(new Date().getFullYear() - 2)])]
+            year: ["", Validators.compose([Validators.required, Validators.min(new Date().getFullYear() - 2)])],
+            termsID: ["", Validators.compose([Validators.required])]
         });
         this.add();
     }
@@ -44,9 +47,9 @@ export class ClassBillComponent {
     hasError() {
         return this.termForm.valid && this.classBills.length > 0 && this.classBills.every(t => t.valid);
     }
+
     save() {
         this.classBills.forEach(x => {
-            console.log(x);
             this.bill.push(x.value);
         });
         if (this.bill.some(x => x.amount === 0)) {
@@ -54,23 +57,26 @@ export class ClassBillComponent {
                 this.bill = this.bill.filter(x => x.amount > 0);
             }
         }
-        if (this.bill.length===0) {
+        if (this.bill.length === 0) {
             alert("Nothing to save");
             return;
-        }
-            this.bill.forEach(x => x.yearGroup = this.termForm.value['year']);
-            this.http.addBill(this.bill).subscribe(res => {
-                alert("Bill preparation was successful");
-                this.processing = false;
-                this.router.navigate(['/classes']);
-            }, (err: HttpErrorResponse) => {
-                this.processing = false;
-                if (err!.error!.message) {
-                    alert(err.error.message);
-                }
-                else {
-                    alert("Unrecognized error occurred. Contact support");
-                }
-            });
+        } 
+        this.bill.forEach(x => {
+            x.yearGroup = this.termForm.value['year'];
+            x.termsID = this.termForm.value['termsID'];
+        });
+        this.http.addBill(this.bill).subscribe(res => {
+            alert("Bill preparation was successful");
+            this.processing = false;
+            this.router.navigate(['/classes']);
+        }, (err: HttpErrorResponse) => {
+            this.processing = false;
+            if (err!.error!.message) {
+                alert(err.error.message);
+            }
+            else {
+                alert("Unrecognized error occurred. Contact support");
+            }
+        });
     }
 }
