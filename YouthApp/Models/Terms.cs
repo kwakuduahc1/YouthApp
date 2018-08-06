@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace YouthApp.Models
 {
@@ -13,5 +14,7 @@ namespace YouthApp.Models
 
         [Required]
         public string Description { get; set; }
+
+        public ICollection<ClassBills> ClassBills { get; set; }
     }
 }

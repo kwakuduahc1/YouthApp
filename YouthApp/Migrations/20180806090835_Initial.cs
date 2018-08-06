@@ -105,11 +105,23 @@ namespace YouthApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "TransactionItems",
+                columns: table => new
+                {
+                    TransactionItemsID = table.Column<short>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    TransactionItem = table.Column<string>(maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TransactionItems", x => x.TransactionItemsID);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TransactionsTypes",
                 columns: table => new
                 {
-                    TransactionsTypesID = table.Column<short>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    TransactionsTypesID = table.Column<byte>(nullable: false),
                     TransactionType = table.Column<string>(maxLength: 15, nullable: false),
                     Concurrency = table.Column<byte[]>(rowVersion: true, nullable: true)
                 },
@@ -254,8 +266,11 @@ namespace YouthApp.Migrations
                     TransactionsID = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Amount = table.Column<double>(nullable: false),
+                    IsStudent = table.Column<bool>(nullable: false),
+                    Purpose = table.Column<string>(maxLength: 100, nullable: false),
                     RevenuesID = table.Column<short>(nullable: false),
-                    TransactionsTypesID = table.Column<short>(nullable: false),
+                    TransactionsTypesID = table.Column<byte>(nullable: false),
+                    TransactionItemsID = table.Column<short>(nullable: false),
                     TransactionDate = table.Column<DateTime>(nullable: false),
                     Concurrency = table.Column<byte[]>(rowVersion: true, nullable: true)
                 },
@@ -267,6 +282,12 @@ namespace YouthApp.Migrations
                         column: x => x.RevenuesID,
                         principalTable: "Revenues",
                         principalColumn: "RevenuesID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Transactions_TransactionItems_TransactionItemsID",
+                        column: x => x.TransactionItemsID,
+                        principalTable: "TransactionItems",
+                        principalColumn: "TransactionItemsID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Transactions_TransactionsTypes_TransactionsTypesID",
@@ -284,8 +305,9 @@ namespace YouthApp.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     BillItemsID = table.Column<int>(nullable: false),
                     ClassesID = table.Column<int>(nullable: false),
-                    Amount = table.Column<double>(nullable: false),
                     TermsID = table.Column<byte>(nullable: false),
+                    Amount = table.Column<double>(nullable: false),
+                    YearGroup = table.Column<short>(nullable: false),
                     DatePrepared = table.Column<DateTime>(nullable: false),
                     Concurrency = table.Column<byte[]>(rowVersion: true, nullable: true)
                 },
@@ -434,6 +456,15 @@ namespace YouthApp.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Revenues",
+                columns: new[] { "RevenuesID", "AccountName", "AccountNumber", "Bank", "Source" },
+                values: new object[,]
+                {
+                    { (short)1, "NYLSTC", "558964523", "Agricultural Development Bank", "GOG" },
+                    { (short)2, "NYLSTC", "09876547", "Tisungtaba", "IGF" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Terms",
                 columns: new[] { "TermsID", "Description", "Term" },
                 values: new object[,]
@@ -442,11 +473,25 @@ namespace YouthApp.Migrations
                     { (byte)8, "Year 3 term 2", 3.2f },
                     { (byte)7, "Year 3 term 1", 3.1f },
                     { (byte)6, "Year 2 term 3", 2.3f },
-                    { (byte)1, "Year 1 term 1", 1.1f },
-                    { (byte)4, "Year 2 term 1", 2.1f },
                     { (byte)3, "Year 1 term 3", 1.3f },
+                    { (byte)4, "Year 2 term 1", 2.1f },
                     { (byte)2, "Year 1 term 2", 1.2f },
+                    { (byte)1, "Year 1 term 1", 1.1f },
                     { (byte)5, "Year 2 term 2", 2.2f }
+                });
+
+            migrationBuilder.InsertData(
+                table: "TransactionItems",
+                columns: new[] { "TransactionItemsID", "TransactionItem" },
+                values: new object[,]
+                {
+                    { (short)1, "T&T" },
+                    { (short)2, "Fuel" },
+                    { (short)3, "Bank Charges" },
+                    { (short)4, "Maintenance" },
+                    { (short)5, "Staff Allowances" },
+                    { (short)6, "Stationery" },
+                    { (short)7, "School Fees" }
                 });
 
             migrationBuilder.InsertData(
@@ -454,8 +499,8 @@ namespace YouthApp.Migrations
                 columns: new[] { "TransactionsTypesID", "Concurrency", "TransactionType" },
                 values: new object[,]
                 {
-                    { (short)1, null, "Revenue" },
-                    { (short)2, null, "Expenditure" }
+                    { (byte)1, null, "Revenue" },
+                    { (byte)2, null, "Expenditure" }
                 });
 
             migrationBuilder.InsertData(
@@ -560,6 +605,11 @@ namespace YouthApp.Migrations
                 column: "RevenuesID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Transactions_TransactionItemsID",
+                table: "Transactions",
+                column: "TransactionItemsID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Transactions_TransactionsTypesID",
                 table: "Transactions",
                 column: "TransactionsTypesID");
@@ -614,6 +664,9 @@ namespace YouthApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "Revenues");
+
+            migrationBuilder.DropTable(
+                name: "TransactionItems");
 
             migrationBuilder.DropTable(
                 name: "TransactionsTypes");

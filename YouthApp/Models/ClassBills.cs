@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace YouthApp.Models
@@ -12,6 +13,10 @@ namespace YouthApp.Models
 
         [Required]
         public int ClassesID { get; set; }
+
+        [Required]
+        [DefaultValue(1)]
+        public byte TermsID { get; set; }
 
         [Required]
         [Range(0.1, double.MaxValue)]

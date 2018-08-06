@@ -10,8 +10,8 @@ using YouthApp.Context;
 namespace YouthApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180803162551_TransStudent")]
-    partial class TransStudent
+    [Migration("20180806090835_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -223,7 +223,7 @@ namespace YouthApp.Migrations
 
                     b.Property<DateTime>("DatePrepared");
 
-                    b.Property<byte?>("TermsID");
+                    b.Property<byte>("TermsID");
 
                     b.Property<short>("YearGroup");
 
@@ -507,7 +507,8 @@ namespace YouthApp.Migrations
                         new { TransactionItemsID = (short)3, TransactionItem = "Bank Charges" },
                         new { TransactionItemsID = (short)4, TransactionItem = "Maintenance" },
                         new { TransactionItemsID = (short)5, TransactionItem = "Staff Allowances" },
-                        new { TransactionItemsID = (short)6, TransactionItem = "Stationery" }
+                        new { TransactionItemsID = (short)6, TransactionItem = "Stationery" },
+                        new { TransactionItemsID = (short)7, TransactionItem = "School Fees" }
                     );
                 });
 
@@ -524,13 +525,17 @@ namespace YouthApp.Migrations
 
                     b.Property<bool>("IsStudent");
 
+                    b.Property<string>("Purpose")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
                     b.Property<short>("RevenuesID");
 
                     b.Property<DateTime>("TransactionDate");
 
                     b.Property<short>("TransactionItemsID");
 
-                    b.Property<short>("TransactionsTypesID");
+                    b.Property<byte>("TransactionsTypesID");
 
                     b.HasKey("TransactionsID");
 
@@ -545,8 +550,7 @@ namespace YouthApp.Migrations
 
             modelBuilder.Entity("YouthApp.Models.TransactionsTypes", b =>
                 {
-                    b.Property<short>("TransactionsTypesID")
-                        .ValueGeneratedOnAdd();
+                    b.Property<byte>("TransactionsTypesID");
 
                     b.Property<byte[]>("Concurrency")
                         .IsConcurrencyToken()
@@ -561,8 +565,8 @@ namespace YouthApp.Migrations
                     b.ToTable("TransactionsTypes");
 
                     b.HasData(
-                        new { TransactionsTypesID = (short)1, TransactionType = "Revenue" },
-                        new { TransactionsTypesID = (short)2, TransactionType = "Expenditure" }
+                        new { TransactionsTypesID = (byte)1, TransactionType = "Revenue" },
+                        new { TransactionsTypesID = (byte)2, TransactionType = "Expenditure" }
                     );
                 });
 
@@ -624,8 +628,9 @@ namespace YouthApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("YouthApp.Models.Terms", "Terms")
-                        .WithMany()
-                        .HasForeignKey("TermsID");
+                        .WithMany("ClassBills")
+                        .HasForeignKey("TermsID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("YouthApp.Models.Classes", b =>
