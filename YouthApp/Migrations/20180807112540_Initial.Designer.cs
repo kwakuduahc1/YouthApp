@@ -9,7 +9,7 @@ using YouthApp.Context;
 namespace YouthApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180806181533_Initial")]
+    [Migration("20180807112540_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -196,9 +196,17 @@ namespace YouthApp.Migrations
                     b.ToTable("BillItems");
 
                     b.HasData(
-                        new { BillItemsID = 1, BillItem = "Feeding" },
-                        new { BillItemsID = 2, BillItem = "PTA Dues" },
-                        new { BillItemsID = 3, BillItem = "Boarding fees" }
+                        new { BillItemsID = 1, BillItem = "Admission Fee" },
+                        new { BillItemsID = 2, BillItem = "Development" },
+                        new { BillItemsID = 3, BillItem = "Examination Fee : Internal (Per term)" },
+                        new { BillItemsID = 4, BillItem = "Sports fee : (Per term)" },
+                        new { BillItemsID = 5, BillItem = "Utility Charges : (Per term)" },
+                        new { BillItemsID = 6, BillItem = "ID/Exeat Card" },
+                        new { BillItemsID = 7, BillItem = "School Badge" },
+                        new { BillItemsID = 8, BillItem = "First Aid : (Per term)" },
+                        new { BillItemsID = 9, BillItem = "ICT : (Per term)" },
+                        new { BillItemsID = 10, BillItem = "Damages : (Per term)" },
+                        new { BillItemsID = 11, BillItem = "Bed User Fees" }
                     );
                 });
 

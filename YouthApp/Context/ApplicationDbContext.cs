@@ -60,9 +60,17 @@ namespace YouthApp.Context
 
 
             builder.Entity<BillItems>(x => x.HasData(
-                new BillItems { BillItem = "Feeding", BillItemsID = 1 },
-                new BillItems { BillItem = "PTA Dues", BillItemsID = 2 },
-                new BillItems { BillItem = "Boarding fees", BillItemsID = 3 }
+                new BillItems { BillItem = "Admission Fee", BillItemsID = 1 },
+                new BillItems { BillItem = "Development", BillItemsID = 2 },
+                new BillItems { BillItem = "Examination Fee : Internal (Per term)", BillItemsID = 3 },
+                new BillItems { BillItem = "Sports fee : (Per term)", BillItemsID = 4 },
+                new BillItems { BillItem = "Utility Charges : (Per term)", BillItemsID = 5 },
+                new BillItems { BillItem = "ID/Exeat Card", BillItemsID = 6 },
+                new BillItems { BillItem = "School Badge", BillItemsID = 7 },
+                new BillItems { BillItem = "First Aid : (Per term)", BillItemsID = 8 },
+                new BillItems { BillItem = "ICT : (Per term)", BillItemsID = 9 },
+                new BillItems { BillItem = "Damages : (Per term)", BillItemsID = 10 },
+                new BillItems { BillItem = "Bed User Fees", BillItemsID = 11 }
                 ));
 
             builder.Entity<TransactionsTypes>(x => x.HasData(
