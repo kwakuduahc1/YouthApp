@@ -12,7 +12,6 @@ using YouthApp.Models;
 
 namespace bStudioSchoolManager.Controllers
 {
-    [AutoValidateAntiforgeryToken]
     public class StudentsController : Controller
     {
         private readonly DbContextOptions<ApplicationDbContext> dco;
@@ -25,7 +24,7 @@ namespace bStudioSchoolManager.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable> List(int id) => await new ApplicationDbContext(dco).Students.Where(x => x.ClassesID == id).OrderByDescending(x => x.Surname).ToListAsync();
+        public async Task<IEnumerable> List(int id) => await new ApplicationDbContext(dco).Students.Where(x => x.ClassesID == id).OrderBy(x => x.Surname).ThenBy(x => x.UniqueID).ToListAsync();
 
         [HttpGet]
         public async Task<IActionResult> Find(Guid id)
@@ -110,6 +109,23 @@ namespace bStudioSchoolManager.Controllers
                 }
             }
             return inx;
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Change([FromBody]Students std)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(new { Error = "Invalid data was submitted", Message = ModelState.Values.First(x => x.Errors.Count > 0).Errors.Select(t => t.ErrorMessage).First() });
+            using (var db = new ApplicationDbContext(dco))
+            {
+                var _std = await db.Students.FindAsync(std.StudentsID);
+                if (_std == null)
+                    return BadRequest(new { Message = "No student was found matching the id provided" });
+                _std.IsActive = !_std.IsActive;
+                db.Entry(_std).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return Ok(_std);
+            }
         }
 
         string GetSaveName(string id) => id.Replace("/", "");

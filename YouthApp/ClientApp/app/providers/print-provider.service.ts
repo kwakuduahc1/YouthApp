@@ -6,19 +6,19 @@ declare var $: any;
 @Injectable()
 export class PrintProviderService {
 
-    print(selector: string, title?: string) {
+    print(selector: string, title?: string, outer?: boolean) {
         let table = $(`#${selector}`);
         table.printThis({
             debug: false,               // show the iframe for debugging
             importCSS: true,            // import page CSS
             importStyle: true,         // import style tags
-            printContainer: true,       // grab outer container as well as the contents of the selector
+            printContainer: outer ? outer : true,       // grab outer container as well as the contents of the selector
             //  loadCSS: "path/to/my.css",  // path to additional css file - use an array [] for multiple
-            pageTitle: title,              // add title to print page
+            pageTitle: title ? title : '',              // add title to print page
             removeInline: false,        // remove all inline styles from print elements
             printDelay: 30,            // variable print delay; depending on complexity a higher value may be necessary
-            header: `<br /> <br /><h1 class="h1">${title}</h1>`,               // prefix to html
-            footer: `<footer>Procurement Manager</footer>`,               // postfix to html
+            header: `<br /> <br /><h1 class="h1">${title ? title : ""}</h1>`,               // prefix to html
+            footer: `<footer>YLSTI - Nalerigu</footer>`,               // postfix to html
             base: false,               // preserve the BASE tag, or accept a string for the URL
             formValues: true,           // preserve input/form values
             canvas: false,              // copy canvas elements (experimental)

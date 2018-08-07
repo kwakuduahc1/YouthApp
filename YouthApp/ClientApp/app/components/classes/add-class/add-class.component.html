@@ -35,7 +35,9 @@
             <th>Edit</th>
             <th>Delete</th>
             <th>View Bill</th>
-            <th>Students</th>
+            <th>Print Bill</th>
+            <th>Add student</th>
+            <th>Bill Students</th>
         </tr>
     </thead>
     <tbody>
@@ -52,6 +54,12 @@
             </td>
             <td>
                 <button class="btn btn-link" title="View the bill prepared for {{c.className}}" [routerLink]="['/view-class-bill',c.classesID]">View Bill</button>
+            </td>
+            <td>
+                <button class="btn btn-outline-dark" [routerLink]="['/print-bill',c.classesID]">Print Bill</button>
+            </td>
+            <td>
+                <button class="btn btn-primary" [routerLink]="['/add-student',c.classesID]">Register Student</button>
             </td>
             <td>
                 <button class="btn btn-link" [routerLink]="['/bill-student',c.classesID]" title="View and manage students in the class">Bill student</button>

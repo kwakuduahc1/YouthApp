@@ -10,7 +10,7 @@ namespace YouthApp.Models
         [Key]
         public long StudentsID { get; set; }
 
-        [StringLength(20, MinimumLength = 6)]
+        [StringLength(20, MinimumLength = 5)]
         public string UniqueID { get; set; }
 
         [Required(AllowEmptyStrings = false)]

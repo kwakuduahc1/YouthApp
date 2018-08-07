@@ -89,6 +89,7 @@
         "enhanced-resolve": "^3.4.1",
         "ng2-charts": "^1.6.0",
         "ng2-validation": "^4.2.0",
+        "paper-css": "^0.4.1",
         "popper.js": "^1.14.3",
         "printthis": "^0.1.5",
         "tooltip.js": "^1.2.0",

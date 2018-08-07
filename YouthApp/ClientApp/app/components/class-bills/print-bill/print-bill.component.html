@@ -1,0 +1,76 @@
+﻿<style>
+    @page {
+        size: A4 portrait
+    }
+</style>
+<div class="row">
+    <div class="card col-md-3">
+        <div class="card-header">Class Information</div>
+        <div class="card-body">
+            <div class="card-text">Class : {{_class.className}}</div>
+            <div class="card-text">Year Group : {{_class.addYear}}</div>
+        </div>
+    </div>
+</div>
+<form name="form" id="form" [formGroup]="form">
+    <fieldset>
+        <legend></legend>
+        <div class="form-group form-row">
+            <label class="col-form-label col-sm-2" for="term">Select term</label>
+            <div class="col-sm-4">
+                <select class="form-control" formControlName="term" (change)="getReport(form.controls['term'].value)">
+                    <option *ngFor="let t of terms" [ngValue]="t.termsID">{{t.description}}</option>
+                </select>
+            </div>
+        </div>
+    </fieldset>
+</form>
+<div class="btn-group-lg">
+    <button class="btn btn-outline-primary" (click)="print()">Print</button>
+</div>
+<div id="print">
+    <div class="A4" *ngFor="let b of bills">
+        <div class="sheet padding-15mm">
+            <img class="img-fluid" src="logo.png" alt="img" />
+            <h1>Student Bill</h1>
+            <h1></h1>
+            <h2>Student Information</h2>
+            <div class="row">
+                <div class="col-sm-2"><b>Name</b></div>
+                <div class="col-sm-4">{{b.name}}</div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2"><b>Program</b></div>
+                <div class="col-sm-4">{{b.program}}</div>
+            </div>
+            <h1></h1>
+            <h2>Bill Details</h2>
+            <table class="table table-striped table-responsive">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Item</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let i of b.bills">
+                        <td>{{i.item}}</td>
+                        <td>{{i.amount}}</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Amount Payable</th>
+                        <th>{{total(b.bills)}}</th>
+                    </tr>
+                </tfoot>
+            </table>
+            <br />
+            <br />
+            <br />
+            <i>Please pay fees promptly</i>
+            .....................
+            Signed (Accountant)
+        </div>
+    </div>
+</div>

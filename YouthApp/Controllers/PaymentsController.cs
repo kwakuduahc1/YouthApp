@@ -34,7 +34,8 @@ namespace bStudioSchoolManager.Controllers
                     Amount = payment.Amount,
                     TransactionDate = DateTime.Now,
                     TransactionsTypesID = (byte)TranTypes.Revenue,
-                    TransactionItemsID = 7
+                    TransactionItemsID = 7,
+                    Purpose = "School fees payment"
                 });
                 await db.SaveChangesAsync();
             }

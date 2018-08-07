@@ -24,7 +24,7 @@ export class StudentPaymentsComponent {
     std: IStudents | undefined;
     message = "";
     error = false;
-    constructor(route: ActivatedRoute, private http: StudentsHttpService, private fb: FormBuilder, private pay_http:StudentPaymentsHttpService, private printer:PrintProviderService) {
+    constructor(route: ActivatedRoute, private http: StudentsHttpService, private fb: FormBuilder, private pay_http: StudentPaymentsHttpService, private printer: PrintProviderService) {
         this.classes = route.snapshot.data['classes'];
         this.form = fb.group({
             _class: ["", Validators.compose([Validators.required])],
@@ -47,7 +47,7 @@ export class StudentPaymentsComponent {
     }
 
     receive(pay: IPayments) {
-        if (confirm(`Have you received ${pay.amount} from ${this.std!.surname} ${this.std!.otherNames}`)) {
+        if (confirm(`Have you received ${pay.amount} from ${this.std!.surname} ${this.std!.otherNames ? this.std!.otherNames : ""}`)) {
             pay.receiver = "accountant received";
             pay.studentsID = this.std!.studentsID as number;
             this.error = false;
@@ -55,7 +55,6 @@ export class StudentPaymentsComponent {
             this.pay_http.add(pay).subscribe(res => {
                 this.payments.unshift(res);
                 this.bForm!.reset();
-                this.form.controls['std'].reset();
             }, (err: HttpErrorResponse) => {
                 this.onError(err);
             })
@@ -84,6 +83,6 @@ export class StudentPaymentsComponent {
     }
 
     print() {
-        this.printer.print(`List of payments by ${this.std!.surname} ${this.std!.otherNames}`)
+        this.printer.print('print', `List of payments by ${this.std!.surname} ${this.std!.otherNames ? this.std!.otherNames : ""}`)
     }
 }

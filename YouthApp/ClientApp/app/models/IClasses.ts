@@ -3,4 +3,7 @@
     className: string;
     isActive: boolean;
     concurrency: string;
+    addYear: number;
+    program: string;
+    programsID: number;
 }

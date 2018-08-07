@@ -19,6 +19,34 @@ namespace bStudioSchoolManager.Controllers
         [HttpGet]
         public async Task<IEnumerable> Bill(int classid, short year) => await new ApplicationDbContext(dco).ClassBills.Where(x => x.ClassesID == classid && x.DatePrepared.Year == year).Select(x => new { x.BillItemsID, x.ClassBillsID, x.Amount, x.BillItems.BillItem, x.YearGroup, x.DatePrepared, x.ClassesID }).ToListAsync();
 
+        [HttpGet]
+        public async Task<IEnumerable> ClassBill(int classid, byte term)
+        {
+            var std_bills = new List<StudentBill>();
+            using (var db = new ApplicationDbContext(dco))
+            {
+                var list = await db.Students.Where(x => x.ClassesID == classid).Include(x => x.Classes).ThenInclude(x => x.Programs).ToListAsync();
+                var bill = await db.ClassBills.Where(x => x.ClassesID == classid && x.TermsID == term).ToListAsync();
+                Bill fees = new Bill { Amount = bill.Sum(x => x.Amount), Item = "Fees" };
+                foreach (var std in list)
+                {
+                    var temp = new StudentBill { IndexNumber = std.UniqueID, Name = $"{std.Surname} {std.OtherNames ?? ""}", Program = std.Classes.Programs.ProgramName, Bills = new List<Bill>() };
+                    temp.Bills.Add(fees);
+                    var ind_bill = await db.IndividualBills.Where(x => x.StudentsID == std.StudentsID && !x.IsPaid).Select(x => new Bill { Item = x.Description, Amount = x.Amount }).ToListAsync();
+                    if (ind_bill.Any())
+                        temp.Bills.AddRange(ind_bill);
+                    var payments = await db.Payments.Where(x => x.StudentsID == std.StudentsID).GroupBy(x => x.StudentsID, (k, v) => new Bill
+                    {
+                        Item = "Payments",
+                        Amount = v.Sum(t => t.Amount) * -1
+                    }).ToListAsync();
+                    if (payments.Any())
+                        temp.Bills.AddRange(payments);
+                    std_bills.Add(temp);
+                }
+            }
+            return std_bills;
+        }
 
         [HttpGet]
         public async Task<IEnumerable> Debtors(int cid)
@@ -91,5 +119,23 @@ namespace bStudioSchoolManager.Controllers
         public string Name { get; set; }
 
         public string ClassName { get; set; }
+    }
+
+    class StudentBill
+    {
+        public string Name { get; set; }
+
+        public string IndexNumber { get; set; }
+
+        public string Program { get; set; }
+
+        public List<Bill> Bills { get; set; }
+    }
+
+    public class Bill
+    {
+        public double Amount { get; set; }
+
+        public string Item { get; set; }
     }
 }

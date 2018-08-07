@@ -9,4 +9,5 @@
     studentsID: number;
     uniqueID: string;
     isPromoted: boolean;
+    isActive: boolean;
 }

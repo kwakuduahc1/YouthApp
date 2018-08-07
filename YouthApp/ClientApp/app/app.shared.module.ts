@@ -51,6 +51,8 @@ import { TransactionItemsResolver } from './resolvers/transaction-item - Copy/tr
 import { FindTransactionItemResolver } from './resolvers/transaction-item - Copy/find-tran-item-resolver';
 import { ItemBalancesComponent } from './components/transactions/item-balances/item-balances.component';
 import { ItemBalancesResolver } from './resolvers/transactions/ItemBalancesResolver';
+import { PrintBillComponent } from './components/class-bills/print-bill/print-bill.component';
+import { AddStudentComponent } from './components/students/add-student/add-student.component';
 
 @NgModule({
     declarations: [
@@ -73,7 +75,9 @@ import { ItemBalancesResolver } from './resolvers/transactions/ItemBalancesResol
         IssueTransactionComponent,
         ReceiveTransactionComponent,
         EditTransactionComponent,
-        ItemBalancesComponent
+        ItemBalancesComponent,
+        PrintBillComponent,
+        AddStudentComponent
     ],
     imports: [
         CommonModule,
@@ -92,11 +96,13 @@ import { ItemBalancesResolver } from './resolvers/transactions/ItemBalancesResol
             { path: 'view-class-bill/:id', component: ViewBillComponent, resolve: { 'class': FindClassResolver, 'years': YearGroupsResolver } },
             { path: 'add-revenue', component: AddRevenueComponent, resolve: { 'revenues': RevenueListResolver } },
             { path: 'edit-revenue/:id', component: EditRevenueComponent, resolve: { 'revenue': FindRevenueResolver } },
+            { path: 'add-student/:id', component: AddStudentComponent, resolve: { 'class': FindClassResolver,students:StudentsResolver } },
             { path: 'bill-student/:id', component: BillStudentsComponent, resolve: { students: StudentsResolver } },
             { path: 'student-payments', component: StudentPaymentsComponent, resolve: { classes: ClassesListResolver } },
             { path: 'issue-transaction', component: IssueTransactionComponent, resolve: { 'items': TransactionItemsResolver, trans: TransactionsResolver, revs: RevenueListResolver } },
             { path: 'receive-transaction', component: ReceiveTransactionComponent, resolve: { 'items': TransactionItemsResolver, trans: TransactionsResolver, revs: RevenueListResolver } },
             { path: 'edit-transaction/:id', component: EditTransactionComponent, resolve: { 'items': TransactionItemsResolver, revs: RevenueListResolver, tran: FindTransactionResolver } },
+            { path: 'print-bill/:id', component: PrintBillComponent, resolve: { 'class': FindClassResolver, terms: TermsResolver } },
             { path: '**', redirectTo: 'home' }
         ])
     ],

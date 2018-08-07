@@ -4,6 +4,7 @@ import { IHttpMethods } from '../IHttpMethods';
 import { Observable } from 'rxjs/Observable';
 import { IClassBills } from '../../models/IClassBill';
 import { IBillsVm } from '../../models/IBill';
+import { IStudentBill } from '../../models/IStudentBill';
 
 @Injectable()
 export class ClassBillHttpService {
@@ -39,6 +40,11 @@ export class ClassBillHttpService {
     termly(i: { year: number, classid: number }): Observable<IClassBills[]> {
         return this.http.get<IClassBills[]>(`/ClassBills/Bill?year=${i.year}&classid=${i.classid}`)
     }
+
+    getClassbill(term: number, _class: number): Observable<IStudentBill[]> {
+        return this.http.get<IStudentBill[]>(`/ClassBills/ClassBill?term=${term}&classid=${_class}`);
+    }
+
     constructor(private http: HttpClient) {
 
     }

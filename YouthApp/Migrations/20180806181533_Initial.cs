@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace YouthApp.Migrations
@@ -52,7 +51,7 @@ namespace YouthApp.Migrations
                 columns: table => new
                 {
                     BillItemsID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     BillItem = table.Column<string>(maxLength: 100, nullable: false),
                     Description = table.Column<string>(maxLength: 100, nullable: true),
                     Concurrency = table.Column<byte[]>(rowVersion: true, nullable: true)
@@ -67,7 +66,7 @@ namespace YouthApp.Migrations
                 columns: table => new
                 {
                     ProgramsID = table.Column<short>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     ProgramName = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -80,7 +79,7 @@ namespace YouthApp.Migrations
                 columns: table => new
                 {
                     RevenuesID = table.Column<short>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     AccountName = table.Column<string>(maxLength: 100, nullable: false),
                     AccountNumber = table.Column<string>(maxLength: 50, nullable: false),
                     Source = table.Column<string>(maxLength: 10, nullable: false),
@@ -109,7 +108,7 @@ namespace YouthApp.Migrations
                 columns: table => new
                 {
                     TransactionItemsID = table.Column<short>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     TransactionItem = table.Column<string>(maxLength: 50, nullable: false)
                 },
                 constraints: table =>
@@ -135,7 +134,7 @@ namespace YouthApp.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -156,7 +155,7 @@ namespace YouthApp.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -241,7 +240,7 @@ namespace YouthApp.Migrations
                 columns: table => new
                 {
                     ClassesID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     ProgramsID = table.Column<short>(nullable: false),
                     ClassName = table.Column<string>(maxLength: 20, nullable: false),
                     IsActive = table.Column<bool>(nullable: false),
@@ -264,7 +263,7 @@ namespace YouthApp.Migrations
                 columns: table => new
                 {
                     TransactionsID = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Amount = table.Column<double>(nullable: false),
                     IsStudent = table.Column<bool>(nullable: false),
                     Purpose = table.Column<string>(maxLength: 100, nullable: false),
@@ -302,7 +301,7 @@ namespace YouthApp.Migrations
                 columns: table => new
                 {
                     ClassBillsID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     BillItemsID = table.Column<int>(nullable: false),
                     ClassesID = table.Column<int>(nullable: false),
                     TermsID = table.Column<byte>(nullable: false),
@@ -339,7 +338,7 @@ namespace YouthApp.Migrations
                 columns: table => new
                 {
                     StudentsID = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     UniqueID = table.Column<string>(maxLength: 20, nullable: true),
                     Surname = table.Column<string>(maxLength: 50, nullable: false),
                     Gender = table.Column<string>(maxLength: 7, nullable: false),
@@ -367,7 +366,7 @@ namespace YouthApp.Migrations
                 columns: table => new
                 {
                     IndividualBillsID = table.Column<long>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                        .Annotation("Sqlite:Autoincrement", true),
                     StudentsID = table.Column<long>(nullable: false),
                     Amount = table.Column<double>(nullable: false),
                     Description = table.Column<string>(maxLength: 50, nullable: false),
@@ -434,96 +433,227 @@ namespace YouthApp.Migrations
             migrationBuilder.InsertData(
                 table: "BillItems",
                 columns: new[] { "BillItemsID", "BillItem", "Concurrency", "Description" },
-                values: new object[,]
-                {
-                    { 1, "Feeding", null, null },
-                    { 2, "PTA Dues", null, null },
-                    { 3, "Boarding fees", null, null }
-                });
+                values: new object[] { 1, "Feeding", null, null });
+
+            migrationBuilder.InsertData(
+                table: "BillItems",
+                columns: new[] { "BillItemsID", "BillItem", "Concurrency", "Description" },
+                values: new object[] { 2, "PTA Dues", null, null });
+
+            migrationBuilder.InsertData(
+                table: "BillItems",
+                columns: new[] { "BillItemsID", "BillItem", "Concurrency", "Description" },
+                values: new object[] { 3, "Boarding fees", null, null });
 
             migrationBuilder.InsertData(
                 table: "Programs",
                 columns: new[] { "ProgramsID", "ProgramName" },
-                values: new object[,]
-                {
-                    { (short)1, "Dress Making" },
-                    { (short)2, "Masonry" },
-                    { (short)3, "CARPENTRY & JOINERY DEPARTMENT" },
-                    { (short)4, "COOKERY DEPARTMENT" },
-                    { (short)5, "AGRICULTURE DEPARTMENT" },
-                    { (short)6, "HANDWEAVING DEPARTMENT" },
-                    { (short)7, "ELECTRICAL DEPARTMENT" }
-                });
+                values: new object[] { (short)1, "Dress Making" });
+
+            migrationBuilder.InsertData(
+                table: "Programs",
+                columns: new[] { "ProgramsID", "ProgramName" },
+                values: new object[] { (short)2, "Masonry" });
+
+            migrationBuilder.InsertData(
+                table: "Programs",
+                columns: new[] { "ProgramsID", "ProgramName" },
+                values: new object[] { (short)3, "CARPENTRY & JOINERY DEPARTMENT" });
+
+            migrationBuilder.InsertData(
+                table: "Programs",
+                columns: new[] { "ProgramsID", "ProgramName" },
+                values: new object[] { (short)4, "COOKERY DEPARTMENT" });
+
+            migrationBuilder.InsertData(
+                table: "Programs",
+                columns: new[] { "ProgramsID", "ProgramName" },
+                values: new object[] { (short)5, "AGRICULTURE DEPARTMENT" });
+
+            migrationBuilder.InsertData(
+                table: "Programs",
+                columns: new[] { "ProgramsID", "ProgramName" },
+                values: new object[] { (short)6, "HANDWEAVING DEPARTMENT" });
+
+            migrationBuilder.InsertData(
+                table: "Programs",
+                columns: new[] { "ProgramsID", "ProgramName" },
+                values: new object[] { (short)7, "ELECTRICAL DEPARTMENT" });
 
             migrationBuilder.InsertData(
                 table: "Revenues",
                 columns: new[] { "RevenuesID", "AccountName", "AccountNumber", "Bank", "Source" },
-                values: new object[,]
-                {
-                    { (short)1, "NYLSTC", "558964523", "Agricultural Development Bank", "GOG" },
-                    { (short)2, "NYLSTC", "09876547", "Tisungtaba", "IGF" }
-                });
+                values: new object[] { (short)1, "NYLSTC", "558964523", "Agricultural Development Bank", "GOG" });
+
+            migrationBuilder.InsertData(
+                table: "Revenues",
+                columns: new[] { "RevenuesID", "AccountName", "AccountNumber", "Bank", "Source" },
+                values: new object[] { (short)2, "NYLSTC", "09876547", "Tisungtaba", "IGF" });
 
             migrationBuilder.InsertData(
                 table: "Terms",
                 columns: new[] { "TermsID", "Description", "Term" },
-                values: new object[,]
-                {
-                    { (byte)9, "Year 3 term 3", 3.3f },
-                    { (byte)8, "Year 3 term 2", 3.2f },
-                    { (byte)7, "Year 3 term 1", 3.1f },
-                    { (byte)6, "Year 2 term 3", 2.3f },
-                    { (byte)3, "Year 1 term 3", 1.3f },
-                    { (byte)4, "Year 2 term 1", 2.1f },
-                    { (byte)2, "Year 1 term 2", 1.2f },
-                    { (byte)1, "Year 1 term 1", 1.1f },
-                    { (byte)5, "Year 2 term 2", 2.2f }
-                });
+                values: new object[] { (byte)9, "Year 3 term 3", 3.3f });
+
+            migrationBuilder.InsertData(
+                table: "Terms",
+                columns: new[] { "TermsID", "Description", "Term" },
+                values: new object[] { (byte)8, "Year 3 term 2", 3.2f });
+
+            migrationBuilder.InsertData(
+                table: "Terms",
+                columns: new[] { "TermsID", "Description", "Term" },
+                values: new object[] { (byte)7, "Year 3 term 1", 3.1f });
+
+            migrationBuilder.InsertData(
+                table: "Terms",
+                columns: new[] { "TermsID", "Description", "Term" },
+                values: new object[] { (byte)6, "Year 2 term 3", 2.3f });
+
+            migrationBuilder.InsertData(
+                table: "Terms",
+                columns: new[] { "TermsID", "Description", "Term" },
+                values: new object[] { (byte)3, "Year 1 term 3", 1.3f });
+
+            migrationBuilder.InsertData(
+                table: "Terms",
+                columns: new[] { "TermsID", "Description", "Term" },
+                values: new object[] { (byte)4, "Year 2 term 1", 2.1f });
+
+            migrationBuilder.InsertData(
+                table: "Terms",
+                columns: new[] { "TermsID", "Description", "Term" },
+                values: new object[] { (byte)2, "Year 1 term 2", 1.2f });
+
+            migrationBuilder.InsertData(
+                table: "Terms",
+                columns: new[] { "TermsID", "Description", "Term" },
+                values: new object[] { (byte)1, "Year 1 term 1", 1.1f });
+
+            migrationBuilder.InsertData(
+                table: "Terms",
+                columns: new[] { "TermsID", "Description", "Term" },
+                values: new object[] { (byte)5, "Year 2 term 2", 2.2f });
 
             migrationBuilder.InsertData(
                 table: "TransactionItems",
                 columns: new[] { "TransactionItemsID", "TransactionItem" },
-                values: new object[,]
-                {
-                    { (short)1, "T&T" },
-                    { (short)2, "Fuel" },
-                    { (short)3, "Bank Charges" },
-                    { (short)4, "Maintenance" },
-                    { (short)5, "Staff Allowances" },
-                    { (short)6, "Stationery" },
-                    { (short)7, "School Fees" }
-                });
+                values: new object[] { (short)1, "T&T" });
+
+            migrationBuilder.InsertData(
+                table: "TransactionItems",
+                columns: new[] { "TransactionItemsID", "TransactionItem" },
+                values: new object[] { (short)2, "Fuel" });
+
+            migrationBuilder.InsertData(
+                table: "TransactionItems",
+                columns: new[] { "TransactionItemsID", "TransactionItem" },
+                values: new object[] { (short)3, "Bank Charges" });
+
+            migrationBuilder.InsertData(
+                table: "TransactionItems",
+                columns: new[] { "TransactionItemsID", "TransactionItem" },
+                values: new object[] { (short)4, "Maintenance" });
+
+            migrationBuilder.InsertData(
+                table: "TransactionItems",
+                columns: new[] { "TransactionItemsID", "TransactionItem" },
+                values: new object[] { (short)5, "Staff Allowances" });
+
+            migrationBuilder.InsertData(
+                table: "TransactionItems",
+                columns: new[] { "TransactionItemsID", "TransactionItem" },
+                values: new object[] { (short)6, "Stationery" });
+
+            migrationBuilder.InsertData(
+                table: "TransactionItems",
+                columns: new[] { "TransactionItemsID", "TransactionItem" },
+                values: new object[] { (short)7, "School Fees" });
 
             migrationBuilder.InsertData(
                 table: "TransactionsTypes",
                 columns: new[] { "TransactionsTypesID", "Concurrency", "TransactionType" },
-                values: new object[,]
-                {
-                    { (byte)1, null, "Revenue" },
-                    { (byte)2, null, "Expenditure" }
-                });
+                values: new object[] { (byte)1, null, "Revenue" });
+
+            migrationBuilder.InsertData(
+                table: "TransactionsTypes",
+                columns: new[] { "TransactionsTypesID", "Concurrency", "TransactionType" },
+                values: new object[] { (byte)2, null, "Expenditure" });
 
             migrationBuilder.InsertData(
                 table: "Classes",
                 columns: new[] { "ClassesID", "AddYear", "ClassName", "Concurrency", "IsActive", "ProgramsID" },
-                values: new object[,]
-                {
-                    { 1, (short)2017, "DM17", null, true, (short)1 },
-                    { 2, (short)2018, "DM18", null, true, (short)1 },
-                    { 3, (short)2017, "MS17", null, true, (short)2 },
-                    { 4, (short)2018, "MS18", null, true, (short)2 },
-                    { 5, (short)2017, "CJ17", null, true, (short)3 },
-                    { 6, (short)2018, "CJ18", null, true, (short)3 },
-                    { 7, (short)2018, "COOK17", null, true, (short)4 },
-                    { 8, (short)2017, "COOK18", null, true, (short)4 },
-                    { 9, (short)2018, "AG17", null, true, (short)5 },
-                    { 10, (short)2017, "AG18", null, true, (short)5 },
-                    { 15, (short)2016, "AG16", null, true, (short)5 },
-                    { 11, (short)2018, "HND17", null, true, (short)6 },
-                    { 12, (short)2017, "HND18", null, true, (short)6 },
-                    { 13, (short)2018, "ELEC17", null, true, (short)7 },
-                    { 14, (short)2017, "ELEC18", null, true, (short)7 }
-                });
+                values: new object[] { 1, (short)2017, "DM17", null, true, (short)1 });
+
+            migrationBuilder.InsertData(
+                table: "Classes",
+                columns: new[] { "ClassesID", "AddYear", "ClassName", "Concurrency", "IsActive", "ProgramsID" },
+                values: new object[] { 2, (short)2018, "DM18", null, true, (short)1 });
+
+            migrationBuilder.InsertData(
+                table: "Classes",
+                columns: new[] { "ClassesID", "AddYear", "ClassName", "Concurrency", "IsActive", "ProgramsID" },
+                values: new object[] { 3, (short)2017, "MS17", null, true, (short)2 });
+
+            migrationBuilder.InsertData(
+                table: "Classes",
+                columns: new[] { "ClassesID", "AddYear", "ClassName", "Concurrency", "IsActive", "ProgramsID" },
+                values: new object[] { 4, (short)2018, "MS18", null, true, (short)2 });
+
+            migrationBuilder.InsertData(
+                table: "Classes",
+                columns: new[] { "ClassesID", "AddYear", "ClassName", "Concurrency", "IsActive", "ProgramsID" },
+                values: new object[] { 5, (short)2017, "CJ17", null, true, (short)3 });
+
+            migrationBuilder.InsertData(
+                table: "Classes",
+                columns: new[] { "ClassesID", "AddYear", "ClassName", "Concurrency", "IsActive", "ProgramsID" },
+                values: new object[] { 6, (short)2018, "CJ18", null, true, (short)3 });
+
+            migrationBuilder.InsertData(
+                table: "Classes",
+                columns: new[] { "ClassesID", "AddYear", "ClassName", "Concurrency", "IsActive", "ProgramsID" },
+                values: new object[] { 7, (short)2018, "COOK17", null, true, (short)4 });
+
+            migrationBuilder.InsertData(
+                table: "Classes",
+                columns: new[] { "ClassesID", "AddYear", "ClassName", "Concurrency", "IsActive", "ProgramsID" },
+                values: new object[] { 8, (short)2017, "COOK18", null, true, (short)4 });
+
+            migrationBuilder.InsertData(
+                table: "Classes",
+                columns: new[] { "ClassesID", "AddYear", "ClassName", "Concurrency", "IsActive", "ProgramsID" },
+                values: new object[] { 9, (short)2018, "AG17", null, true, (short)5 });
+
+            migrationBuilder.InsertData(
+                table: "Classes",
+                columns: new[] { "ClassesID", "AddYear", "ClassName", "Concurrency", "IsActive", "ProgramsID" },
+                values: new object[] { 10, (short)2017, "AG18", null, true, (short)5 });
+
+            migrationBuilder.InsertData(
+                table: "Classes",
+                columns: new[] { "ClassesID", "AddYear", "ClassName", "Concurrency", "IsActive", "ProgramsID" },
+                values: new object[] { 15, (short)2016, "AG16", null, true, (short)5 });
+
+            migrationBuilder.InsertData(
+                table: "Classes",
+                columns: new[] { "ClassesID", "AddYear", "ClassName", "Concurrency", "IsActive", "ProgramsID" },
+                values: new object[] { 11, (short)2018, "HND17", null, true, (short)6 });
+
+            migrationBuilder.InsertData(
+                table: "Classes",
+                columns: new[] { "ClassesID", "AddYear", "ClassName", "Concurrency", "IsActive", "ProgramsID" },
+                values: new object[] { 12, (short)2017, "HND18", null, true, (short)6 });
+
+            migrationBuilder.InsertData(
+                table: "Classes",
+                columns: new[] { "ClassesID", "AddYear", "ClassName", "Concurrency", "IsActive", "ProgramsID" },
+                values: new object[] { 13, (short)2018, "ELEC17", null, true, (short)7 });
+
+            migrationBuilder.InsertData(
+                table: "Classes",
+                columns: new[] { "ClassesID", "AddYear", "ClassName", "Concurrency", "IsActive", "ProgramsID" },
+                values: new object[] { 14, (short)2017, "ELEC18", null, true, (short)7 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -534,8 +664,7 @@ namespace YouthApp.Migrations
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
-                unique: true,
-                filter: "[NormalizedName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -561,8 +690,7 @@ namespace YouthApp.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
-                unique: true,
-                filter: "[NormalizedUserName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_ClassBills_BillItemsID",
