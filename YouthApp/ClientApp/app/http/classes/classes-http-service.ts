@@ -4,6 +4,7 @@ import { IHttpMethods } from '../IHttpMethods';
 import { Observable } from 'rxjs/Observable';
 import { IMainClasses } from '../../models/IClasses';
 import { IStudents } from '../../models/IStudents';
+import { IDebtors } from '../../models/IDebtors';
 
 @Injectable()
 export class ClassesHttpService implements IHttpMethods<IMainClasses> {
@@ -34,6 +35,10 @@ export class ClassesHttpService implements IHttpMethods<IMainClasses> {
 
     students(cid: number): Observable<IStudents[]> {
         return this.http.get<IStudents[]>(`Students/List/${cid}`);
+    }
+
+    debtors(cid: number): Observable<IDebtors[]> {
+        return this.http.get<IDebtors[]>(`ClassBills/Debtors?cid=${cid}`);
     }
 
     constructor(private http: HttpClient) {

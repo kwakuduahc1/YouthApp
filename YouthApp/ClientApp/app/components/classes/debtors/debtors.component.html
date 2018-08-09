@@ -1,0 +1,25 @@
+﻿<h1>List of debtors in {{_class.programName}} {{_class.addYear}}</h1>
+<div class="btn-group">
+    <button class="btn btn-primary" (click)="print()">Print</button>
+</div>
+<div id="print">
+    <!--<div class="A4">
+        <img class="img-fluid" src="../../../../dist/logo.png" alt="school logo" />
+    </div>-->    
+    <table class="table table-striped table-responsive sheet">
+        <thead class="thead-dark">
+            <tr>
+                <th>Name</th>
+                <th>Unique ID</th>
+                <th>Arrears</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let d of list">
+                <td>{{d.surname}} {{d.otherNames ? '' : d.otherNames}}</td>
+                <td>{{d.uniqueID}}</td>
+                <td>{{d.arrears}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

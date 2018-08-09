@@ -51,19 +51,17 @@ namespace bStudioSchoolManager.Controllers
         [HttpGet]
         public async Task<IEnumerable> Debtors(int cid)
         {
-            var model = new List<Debtors>();
-            using (var db = new ApplicationDbContext(dco))
-            {
-                var stds = await db.Students.Where(x => x.ClassesID == cid).ToListAsync();
-                foreach (var std in stds)
+            return await new ApplicationDbContext(dco).Students.Where(x => x.ClassesID == cid)
+                .Select(x => new
                 {
-                    var bill = await db.ClassBills.Where(x => x.ClassesID == std.ClassesID).SumAsync(t => t.Amount);
-                    var payments = await db.Payments.Where(x => x.StudentsID == std.StudentsID).SumAsync(t => t.Amount);
-                    if (payments < bill)
-                        model.Add(new Debtors { StudentsID = std.StudentsID, Arrears = bill - payments, Name = $"{std.Surname} {std.OtherNames}" });
-                }
-            }
-            return model;
+                    x.UniqueID,
+                    x.Classes.Programs.ProgramName,
+                    x.Classes.ClassName,
+                    x.StudentsID,
+                    x.Surname,
+                    x.OtherNames,
+                    Arrears = x.Classes.ClassBills.Sum(t => t.Amount) - x.Payments.Sum(t => t.Amount)
+                }).Where(x => x.Arrears > 0).ToListAsync();
         }
 
         [HttpPost]
@@ -108,17 +106,6 @@ namespace bStudioSchoolManager.Controllers
         //    }
         //    return Created($"/Classes/{item.BillItemsID}", item);
         //}
-    }
-
-    class Debtors
-    {
-        public long StudentsID { get; set; }
-
-        public double Arrears { get; set; }
-
-        public string Name { get; set; }
-
-        public string ClassName { get; set; }
     }
 
     class StudentBill

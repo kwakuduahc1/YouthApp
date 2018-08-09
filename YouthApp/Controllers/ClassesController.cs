@@ -16,12 +16,12 @@ namespace bStudioSchoolManager.Controllers
         public ClassesController(DbContextOptions<ApplicationDbContext> options) => dco = options;
 
         [HttpGet]
-        public async Task<IEnumerable> List() => await new ApplicationDbContext(dco).Classes.Where(x => x.IsActive).Select(x => new { x.AddYear, x.ClassesID, x.ClassName, x.IsActive, x.ProgramsID, x.Programs.ProgramName }).OrderBy(x => x.ProgramName).ThenBy(x => x.AddYear).ToListAsync();
+        public async Task<IEnumerable> List() => await new ApplicationDbContext(dco).Classes.Where(x => x.IsActive).Select(x => new { x.AddYear, x.ClassesID, x.ClassName, x.IsActive, x.Programs.ProgramName, x.ProgramsID }).OrderBy(x => x.ProgramName).ThenBy(x => x.AddYear).ToListAsync();
 
         [HttpGet]
         public async Task<IActionResult> Find(int id)
         {
-            var mClass = await new ApplicationDbContext(dco).Classes.FindAsync(id);
+            var mClass = await new ApplicationDbContext(dco).Classes.Select(x => new { x.AddYear, x.ClassesID, x.ClassName, x.IsActive, x.Programs.ProgramName, x.ProgramsID }).SingleOrDefaultAsync(x => x.ClassesID == id);
             if (mClass == null)
                 return NotFound(new { message = "Search did not return any results" });
             return Ok(mClass);

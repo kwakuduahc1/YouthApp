@@ -47,13 +47,15 @@ import { TransactionItemsHttpService } from './http/tran-items/tran-items-http-s
 import { TransactionsHttpService } from './http/transactions/payments-http-service';
 import { TransactionsResolver } from './resolvers/transactions/TransactionsResolver';
 import { FindTransactionResolver } from './resolvers/transactions/FindTransactionResolver';
-import { TransactionItemsResolver } from './resolvers/transaction-item - Copy/tran-items-resolver';
-import { FindTransactionItemResolver } from './resolvers/transaction-item - Copy/find-tran-item-resolver';
 import { ItemBalancesComponent } from './components/transactions/item-balances/item-balances.component';
 import { ItemBalancesResolver } from './resolvers/transactions/ItemBalancesResolver';
 import { PrintBillComponent } from './components/class-bills/print-bill/print-bill.component';
 import { AddStudentComponent } from './components/students/add-student/add-student.component';
 import { ProgramsResolver } from './resolvers/classes/ProgramsResolver';
+import { DebtorsComponent } from './components/classes/debtors/debtors.component';
+import { TransactionItemsResolver } from './resolvers/transaction-types/tran-items-resolver';
+import { FindTransactionItemResolver } from './resolvers/transaction-items/find-tran-item-resolver';
+import { ClassesDebtorsResolver } from './resolvers/classes/ClassDebtorsResolver';
 
 @NgModule({
     declarations: [
@@ -78,7 +80,8 @@ import { ProgramsResolver } from './resolvers/classes/ProgramsResolver';
         EditTransactionComponent,
         ItemBalancesComponent,
         PrintBillComponent,
-        AddStudentComponent
+        AddStudentComponent,
+        DebtorsComponent
     ],
     imports: [
         CommonModule,
@@ -94,6 +97,7 @@ import { ProgramsResolver } from './resolvers/classes/ProgramsResolver';
             { path: 'classes', component: AddClassComponent, resolve: { classes: ClassesListResolver, programs: ProgramsResolver } },
             { path: 'edit-class/:id', component: EditClassComponent, resolve: { 'class': FindClassResolver, programs: ProgramsResolver } },
             { path: 'class-bills', component: ClassBillComponent, resolve: { 'years': YearGroupsResolver, 'items': BillItemsResolver, terms: TermsResolver } },
+            { path: 'class-debtors/:id', component: DebtorsComponent, resolve: { 'class': FindClassResolver, 'debtors': ClassesDebtorsResolver } },
             { path: 'view-class-bill/:id', component: ViewBillComponent, resolve: { 'class': FindClassResolver, 'years': YearGroupsResolver } },
             { path: 'add-revenue', component: AddRevenueComponent, resolve: { 'revenues': RevenueListResolver } },
             { path: 'edit-revenue/:id', component: EditRevenueComponent, resolve: { 'revenue': FindRevenueResolver } },
@@ -135,7 +139,8 @@ import { ProgramsResolver } from './resolvers/classes/ProgramsResolver';
         YearGroupsResolver,
         TransactionItemsResolver,
         ItemBalancesResolver,
-        ProgramsResolver
+        ProgramsResolver,
+        ClassesDebtorsResolver
     ]
 })
 export class AppModuleShared {

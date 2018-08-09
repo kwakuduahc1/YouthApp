@@ -55,6 +55,7 @@
             <th>View Bill</th>
             <th>Print Bill</th>
             <th>Add student</th>
+            <th>Debtors</th>
             <th>Bill Students</th>
         </tr>
     </thead>
@@ -71,16 +72,19 @@
                 <button (click)="delete(c)" class="btn btn-outline-danger">Delete</button>
             </td>
             <td>
-                <button class="btn btn-link" title="View the bill prepared for {{c.className}}" [routerLink]="['/view-class-bill',c.classesID]">View Bill</button>
+                <button class="btn btn-link" title="View the bills prepared for {{c.className}}" [routerLink]="['/view-class-bill',c.classesID]">View Bill</button>
             </td>
             <td>
-                <button class="btn btn-outline-dark" [routerLink]="['/print-bill',c.classesID]">Print Bill</button>
+                <button class="btn btn-outline-dark" title="View and print bill for individual students" [routerLink]="['/print-bill',c.classesID]">Print Bill</button>
             </td>
             <td>
-                <button class="btn btn-primary" [routerLink]="['/add-student',c.classesID]">Register Student</button>
+                <button class="btn btn-primary" title="Manage student in this department" [routerLink]="['/add-student',c.classesID]">Manage Student</button>
             </td>
             <td>
-                <button class="btn btn-link" [routerLink]="['/bill-student',c.classesID]" title="View and manage students in the class">Bill student</button>
+                <button class="btn btn-dark" [routerLink]="['/class-debtors',c.classesID]">View Debtors</button>
+            </td>
+            <td>
+                <button class="btn btn-link" [routerLink]="['/bill-student',c.classesID]" title="Bill a student with an item">Bill student</button>
             </td>
         </tr>
     </tbody>

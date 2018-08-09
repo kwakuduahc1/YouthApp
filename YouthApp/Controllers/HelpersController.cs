@@ -28,7 +28,7 @@ namespace YouthApp.Controllers
         {
             using (var db = new ApplicationDbContext(dco))
             {
-                var list = await db.ClassBills/*.Where(x => x.DatePrepared.Year == DateTime.Now.Year)*/.GroupBy(x => new { x.BillItems.BillItem, x.BillItemsID }, (k, v) => new
+                var list = await db.ClassBills.Where(x => x.DatePrepared.Year == DateTime.Now.Year).GroupBy(x => new { x.BillItems.BillItem, x.BillItemsID }, (k, v) => new
                 {
                     k.BillItem,
                     k.BillItemsID,
@@ -46,19 +46,16 @@ namespace YouthApp.Controllers
         [HttpGet]
         public async Task<IEnumerable> Debtors()
         {
-            var model = new List<Debtors>();
-            using (var db = new ApplicationDbContext(dco))
-            {
-                var stds = await db.Students.Include(x => x.Classes).Where(x => x.Classes.IsActive).ToListAsync();
-                foreach (var std in stds)
+            return await new ApplicationDbContext(dco).Students
+                .Select(x => new
                 {
-                    var bill = await db.ClassBills.Where(x => x.ClassesID == std.ClassesID).SumAsync(t => t.Amount);
-                    var payments = await db.Payments.Where(x => x.StudentsID == std.StudentsID).SumAsync(t => t.Amount);
-                    if (payments < bill)
-                        model.Add(new Debtors { StudentsID = std.StudentsID, Arrears = bill - payments, Name = $"{std.Surname} {std.OtherNames}", ClassName = std.Classes.ClassName });
-                }
-            }
-            return model.OrderByDescending(x => x.Arrears).Take(15);
+                    x.UniqueID,
+                    x.Classes.Programs.ProgramName,
+                    x.Classes.ClassName,
+                    x.StudentsID,
+                    Name = $"{x.Surname} {x.OtherNames ?? ""}",
+                    Arrears = x.Classes.ClassBills.Sum(t => t.Amount) - x.Payments.Sum(t => t.Amount)
+                }).Where(x => x.Arrears > 0).OrderByDescending(x => x.Arrears).Take(10).ToListAsync();
         }
 
         [HttpGet]
