@@ -26,7 +26,7 @@ namespace bStudioSchoolManager.Controllers
             using (var db = new ApplicationDbContext(dco))
             {
                 var list = await db.Students.Where(x => x.ClassesID == classid).Include(x => x.Classes).ThenInclude(x => x.Programs).ToListAsync();
-                var bill = await db.ClassBills.Where(x => x.ClassesID == classid && x.TermsID == term).ToListAsync();
+                var bill = await db.ClassBills.Where(x => x.ClassesID == classid).ToListAsync();
                 Bill fees = new Bill { Amount = bill.Sum(x => x.Amount), Item = "Fees" };
                 foreach (var std in list)
                 {

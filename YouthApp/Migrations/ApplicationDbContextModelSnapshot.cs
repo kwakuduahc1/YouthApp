@@ -272,14 +272,14 @@ namespace YouthApp.Migrations
                         new { ClassesID = 4, AddYear = (short)2018, ClassName = "MS18", IsActive = true, ProgramsID = (short)2 },
                         new { ClassesID = 5, AddYear = (short)2017, ClassName = "CJ17", IsActive = true, ProgramsID = (short)3 },
                         new { ClassesID = 6, AddYear = (short)2018, ClassName = "CJ18", IsActive = true, ProgramsID = (short)3 },
-                        new { ClassesID = 7, AddYear = (short)2018, ClassName = "COOK17", IsActive = true, ProgramsID = (short)4 },
-                        new { ClassesID = 8, AddYear = (short)2017, ClassName = "COOK18", IsActive = true, ProgramsID = (short)4 },
-                        new { ClassesID = 9, AddYear = (short)2018, ClassName = "AG17", IsActive = true, ProgramsID = (short)5 },
-                        new { ClassesID = 10, AddYear = (short)2017, ClassName = "AG18", IsActive = true, ProgramsID = (short)5 },
-                        new { ClassesID = 11, AddYear = (short)2018, ClassName = "HND17", IsActive = true, ProgramsID = (short)6 },
-                        new { ClassesID = 12, AddYear = (short)2017, ClassName = "HND18", IsActive = true, ProgramsID = (short)6 },
-                        new { ClassesID = 13, AddYear = (short)2018, ClassName = "ELEC17", IsActive = true, ProgramsID = (short)7 },
-                        new { ClassesID = 14, AddYear = (short)2017, ClassName = "ELEC18", IsActive = true, ProgramsID = (short)7 },
+                        new { ClassesID = 7, AddYear = (short)2017, ClassName = "COOK17", IsActive = true, ProgramsID = (short)4 },
+                        new { ClassesID = 8, AddYear = (short)2018, ClassName = "COOK18", IsActive = true, ProgramsID = (short)4 },
+                        new { ClassesID = 9, AddYear = (short)2017, ClassName = "AG17", IsActive = true, ProgramsID = (short)5 },
+                        new { ClassesID = 10, AddYear = (short)2018, ClassName = "AG18", IsActive = true, ProgramsID = (short)5 },
+                        new { ClassesID = 11, AddYear = (short)2017, ClassName = "HND17", IsActive = true, ProgramsID = (short)6 },
+                        new { ClassesID = 12, AddYear = (short)2018, ClassName = "HND18", IsActive = true, ProgramsID = (short)6 },
+                        new { ClassesID = 13, AddYear = (short)2017, ClassName = "ELEC17", IsActive = true, ProgramsID = (short)7 },
+                        new { ClassesID = 14, AddYear = (short)2018, ClassName = "ELEC18", IsActive = true, ProgramsID = (short)7 },
                         new { ClassesID = 15, AddYear = (short)2016, ClassName = "AG16", IsActive = true, ProgramsID = (short)5 }
                     );
                 });
@@ -392,8 +392,8 @@ namespace YouthApp.Migrations
                     b.ToTable("Revenues");
 
                     b.HasData(
-                        new { RevenuesID = (short)1, AccountName = "NYLSTC", AccountNumber = "558964523", Bank = "Agricultural Development Bank", Source = "GOG" },
-                        new { RevenuesID = (short)2, AccountName = "NYLSTC", AccountNumber = "09876547", Bank = "Tisungtaba", Source = "IGF" }
+                        new { RevenuesID = (short)1, AccountName = "Youth Leadership Training Institute", AccountNumber = "3511120000037491", Bank = "Tisutaaba Community Bank", Source = "GOG" },
+                        new { RevenuesID = (short)2, AccountName = "Youth Leadership Institute", AccountNumber = "9011130007251", Bank = "GCB Bank Limited", Source = "IGF" }
                     );
                 });
 
@@ -510,7 +510,8 @@ namespace YouthApp.Migrations
                         new { TransactionItemsID = (short)4, TransactionItem = "Maintenance" },
                         new { TransactionItemsID = (short)5, TransactionItem = "Staff Allowances" },
                         new { TransactionItemsID = (short)6, TransactionItem = "Stationery" },
-                        new { TransactionItemsID = (short)7, TransactionItem = "School Fees" }
+                        new { TransactionItemsID = (short)7, TransactionItem = "School Fees" },
+                        new { TransactionItemsID = (short)8, TransactionItem = "Feeding" }
                     );
                 });
 

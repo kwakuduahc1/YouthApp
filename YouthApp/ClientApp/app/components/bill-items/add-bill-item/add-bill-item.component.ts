@@ -33,11 +33,9 @@ export class AddBillItemComponent implements IHttpHelper<IBillItems> {
     add(cl: IBillItems) {
         this.processing = true;
         this.error = false;
-        cl.billItem = cl.billItem.toUpperCase();
         this.http.add(cl).subscribe(res => {
             this.onSuccess(res);
         }, (err: HttpErrorResponse) => {
-            this.processing = false;
             if (err!.error!.message) {
                 alert(err.error.message);
             }
@@ -45,6 +43,7 @@ export class AddBillItemComponent implements IHttpHelper<IBillItems> {
                 alert("Unrecognized error occurred. Contact support");
             }
         });
+        this.processing = false;
     }
 
     onDelete(item: IBillItems): void {

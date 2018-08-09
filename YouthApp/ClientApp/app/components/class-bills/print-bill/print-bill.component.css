@@ -1,1 +1,6 @@
-﻿
+﻿@media print {
+    #table {
+        align-self: center;
+        font-size: 1.2em;
+    }
+}
