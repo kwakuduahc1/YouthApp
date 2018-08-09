@@ -8,9 +8,14 @@ import { IPaymentsSum } from '../../models/IPaymentsSum';
 import { IDebtors } from '../../models/IDebtors';
 import { ITransactionsTypes } from '../../models/ITransactionTypes';
 import { ITransactions } from '../../models/ITransactions';
+import { IPrograms } from '../../models/IPrograms';
 
 @Injectable()
 export class HelperHttpService {
+
+    getPrograms(): Observable<IPrograms[]> {
+        return this.http.get<IPrograms[]>('Helpers/Programs');
+    }
 
     getTerms(): Observable<ITerms[]> {
         return this.http.get<ITerms[]>(`/Helpers/Terms`)

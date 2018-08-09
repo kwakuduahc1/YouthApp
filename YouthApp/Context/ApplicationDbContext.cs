@@ -37,14 +37,14 @@ namespace YouthApp.Context
                 new Classes { ClassesID = 4, ClassName = "MS18", IsActive = true, ProgramsID = 2, AddYear = 2018 },
                 new Classes { ClassesID = 5, ClassName = "CJ17", IsActive = true, ProgramsID = 3, AddYear = 2017 },
                 new Classes { ClassesID = 6, ClassName = "CJ18", IsActive = true, ProgramsID = 3, AddYear = 2018 },
-                new Classes { ClassesID = 7, ClassName = "COOK17", IsActive = true, ProgramsID = 4, AddYear = 2018 },
-                new Classes { ClassesID = 8, ClassName = "COOK18", IsActive = true, ProgramsID = 4, AddYear = 2017 },
-                new Classes { ClassesID = 9, ClassName = "AG17", IsActive = true, ProgramsID = 5, AddYear = 2018 },
-                new Classes { ClassesID = 10, ClassName = "AG18", IsActive = true, ProgramsID = 5, AddYear = 2017 },
-                new Classes { ClassesID = 11, ClassName = "HND17", IsActive = true, ProgramsID = 6, AddYear = 2018 },
-                new Classes { ClassesID = 12, ClassName = "HND18", IsActive = true, ProgramsID = 6, AddYear = 2017 },
-                new Classes { ClassesID = 13, ClassName = "ELEC17", IsActive = true, ProgramsID = 7, AddYear = 2018 },
-                new Classes { ClassesID = 14, ClassName = "ELEC18", IsActive = true, ProgramsID = 7, AddYear = 2017 },
+                new Classes { ClassesID = 7, ClassName = "COOK17", IsActive = true, ProgramsID = 4, AddYear = 2017 },
+                new Classes { ClassesID = 8, ClassName = "COOK18", IsActive = true, ProgramsID = 4, AddYear = 2018 },
+                new Classes { ClassesID = 9, ClassName = "AG17", IsActive = true, ProgramsID = 5, AddYear = 2017 },
+                new Classes { ClassesID = 10, ClassName = "AG18", IsActive = true, ProgramsID = 5, AddYear = 2018 },
+                new Classes { ClassesID = 11, ClassName = "HND17", IsActive = true, ProgramsID = 6, AddYear = 2017 },
+                new Classes { ClassesID = 12, ClassName = "HND18", IsActive = true, ProgramsID = 6, AddYear = 2018 },
+                new Classes { ClassesID = 13, ClassName = "ELEC17", IsActive = true, ProgramsID = 7, AddYear = 2017 },
+                new Classes { ClassesID = 14, ClassName = "ELEC18", IsActive = true, ProgramsID = 7, AddYear = 2018 },
                 new Classes { ClassesID = 15, ClassName = "AG16", IsActive = true, ProgramsID = 5, AddYear = 2016 }
                 ));
             builder.Entity<Terms>(x => x.HasData(
@@ -79,8 +79,8 @@ namespace YouthApp.Context
                 ));
 
             builder.Entity<Revenues>(x => x.HasData(
-                new Revenues { AccountName = "NYLSTC", AccountNumber = "558964523", Bank = "Agricultural Development Bank", RevenuesID = 1, Source = "GOG" },
-                 new Revenues { AccountName = "NYLSTC", AccountNumber = "09876547", Bank = "Tisungtaba", RevenuesID = 2, Source = "IGF" }
+                new Revenues { AccountName = "Youth Leadership Training Institute", AccountNumber = "3511120000037491", Bank = "Tisutaaba Community Bank", RevenuesID = 1, Source = "GOG" },
+                 new Revenues { AccountName = "Youth Leadership Institute", AccountNumber = "9011130007251", Bank = "GCB Bank Limited", RevenuesID = 2, Source = "IGF" }
                 ));
 
             builder.Entity<TransactionItems>(x => x.HasData(
@@ -90,7 +90,8 @@ namespace YouthApp.Context
                 new TransactionItems { TransactionItem = "Maintenance", TransactionItemsID = 4 },
                 new TransactionItems { TransactionItem = "Staff Allowances", TransactionItemsID = 5 },
                 new TransactionItems { TransactionItem = "Stationery", TransactionItemsID = 6 },
-                 new TransactionItems { TransactionItem = "School Fees", TransactionItemsID = 7 }
+                 new TransactionItems { TransactionItem = "School Fees", TransactionItemsID = 7 },
+                 new TransactionItems { TransactionItem = "Feeding", TransactionItemsID = 8 }
                 ));
 
             base.OnModelCreating(builder);

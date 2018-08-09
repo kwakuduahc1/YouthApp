@@ -4,6 +4,6 @@
     isActive: boolean;
     concurrency: string;
     addYear: number;
-    program: string;
+    programName: string;
     programsID: number;
 }

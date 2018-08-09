@@ -5,6 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ClassesHttpService } from '../../../http/classes/classes-http-service';
 import { IMainClasses } from '../../../models/IClasses';
 import { IHttpHelper } from '../../../http/IHttpHelper';
+import { IPrograms } from '../../../models/IPrograms';
 @Component({
     selector: 'app-edit-class',
     templateUrl: './edit-class.component.html',
@@ -18,10 +19,13 @@ export class EditClassComponent implements IHttpHelper<IMainClasses> {
     _class: IMainClasses;
     processing: boolean = false;
     dismiss: boolean = false;
+    programs: IPrograms[];
     constructor(fb: FormBuilder, route: ActivatedRoute, private http: ClassesHttpService, private router:Router) {
         this._class = route.snapshot.data["class"] as IMainClasses;
+        this.programs = route.snapshot.data['programs'] as IPrograms[];
         this.form = fb.group({
-            className: [this._class.className, Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(20)])]
+            className: [this._class.className, Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(20)])],
+            programsID: [this._class.programsID, Validators.compose([Validators.required])]
         });
     }
 

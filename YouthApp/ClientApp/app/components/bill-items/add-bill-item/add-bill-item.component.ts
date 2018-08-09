@@ -26,7 +26,7 @@ export class AddBillItemComponent implements IHttpHelper<IBillItems> {
 
     InitForm(fb: FormBuilder): FormGroup {
         return fb.group({
-            billItem: ["", Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(20)])]
+            billItem: ["", Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(100)])]
         });
     }
 

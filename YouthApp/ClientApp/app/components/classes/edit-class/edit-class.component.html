@@ -18,6 +18,22 @@
             <span [ngClass]="form.controls.className.errors?.minlength ? 'text-danger' : ''" *ngIf="form.controls.className.errors?.minlength">The minimum length is {{form.controls.className.errors.minlength.requiredLength}} characters: Current is {{form.controls.className.errors.minlength.actualLength}}</span>
             <span [ngClass]="form.controls.className.errors?.pattern ? 'text-danger' : ''" *ngIf="form.controls.className.errors?.pattern">Phone number can only contain numbers</span>
         </div>
+        <!-- Program -->
+        <div class="form-group form-row">
+            <label class="col-md-2 control-label" for="programsID">Program</label>
+            <div class="col-md-6" [ngClass]="form.controls.programsID?.errors ? 'has-error' : 'has-success'">
+                <select class="form-control"
+                        id="programsID"
+                        title="The program to which this department will belong to"
+                        formControlName="programsID">
+                    <option *ngFor="let p of programs" [ngValue]="p.programsID">{{p.programName}}</option>
+                </select>
+            </div>
+            <span [ngClass]="form.controls.programsID.errors?.maxlength ? 'text-danger' : ''" *ngIf="form.controls.programsID.errors?.maxlength">The maximum length is {{form.controls.programsID.errors.maxlength.requiredLength}} characters: Current is {{form.controls.programsID.errors.maxlength.actualLength}}</span>
+            <span [ngClass]="form.controls.programsID.errors?.required ? 'text-danger' : ''" *ngIf="form.controls.programsID.errors?.required">Program name is required</span>
+            <span [ngClass]="form.controls.programsID.errors?.minlength ? 'text-danger' : ''" *ngIf="form.controls.programsID.errors?.minlength">The minimum length is {{form.controls.programsID.errors.minlength.requiredLength}} characters: Current is {{form.controls.programsID.errors.minlength.actualLength}}</span>
+            <span [ngClass]="form.controls.programsID.errors?.pattern ? 'text-danger' : ''" *ngIf="form.controls.programsID.errors?.pattern">Phone number can only contain numbers</span>
+        </div>
         <div class="offset-md-2">
             <button [disabled]="form.invalid || processing" type="submit" [ngClass]="form.invalid ? 'btn-danger' : 'btn-success'" class="btn"><span class="glyphicon glyphicon-plus"> Edit</span></button>
         </div>

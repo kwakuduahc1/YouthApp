@@ -53,6 +53,7 @@ import { ItemBalancesComponent } from './components/transactions/item-balances/i
 import { ItemBalancesResolver } from './resolvers/transactions/ItemBalancesResolver';
 import { PrintBillComponent } from './components/class-bills/print-bill/print-bill.component';
 import { AddStudentComponent } from './components/students/add-student/add-student.component';
+import { ProgramsResolver } from './resolvers/classes/ProgramsResolver';
 
 @NgModule({
     declarations: [
@@ -90,13 +91,13 @@ import { AddStudentComponent } from './components/students/add-student/add-stude
             { path: 'home', component: HomeComponent, resolve: { 'payments': PaymentSummaryResolver, debtors: DebtorsResolver, balances: ItemBalancesResolver } },
             { path: 'bill-items', component: AddBillItemComponent, resolve: { items: BillItemsResolver } },
             { path: 'edit-bill-item/:id', component: EditItemComponent, resolve: { item: FindItemResolver } },
-            { path: 'classes', component: AddClassComponent, resolve: { classes: ClassesListResolver } },
-            { path: 'edit-class/:id', component: EditClassComponent, resolve: { 'class': FindClassResolver } },
+            { path: 'classes', component: AddClassComponent, resolve: { classes: ClassesListResolver, programs: ProgramsResolver } },
+            { path: 'edit-class/:id', component: EditClassComponent, resolve: { 'class': FindClassResolver, programs: ProgramsResolver } },
             { path: 'class-bills', component: ClassBillComponent, resolve: { 'years': YearGroupsResolver, 'items': BillItemsResolver, terms: TermsResolver } },
             { path: 'view-class-bill/:id', component: ViewBillComponent, resolve: { 'class': FindClassResolver, 'years': YearGroupsResolver } },
             { path: 'add-revenue', component: AddRevenueComponent, resolve: { 'revenues': RevenueListResolver } },
             { path: 'edit-revenue/:id', component: EditRevenueComponent, resolve: { 'revenue': FindRevenueResolver } },
-            { path: 'add-student/:id', component: AddStudentComponent, resolve: { 'class': FindClassResolver,students:StudentsResolver } },
+            { path: 'add-student/:id', component: AddStudentComponent, resolve: { 'class': FindClassResolver, students: StudentsResolver } },
             { path: 'bill-student/:id', component: BillStudentsComponent, resolve: { students: StudentsResolver } },
             { path: 'student-payments', component: StudentPaymentsComponent, resolve: { classes: ClassesListResolver } },
             { path: 'issue-transaction', component: IssueTransactionComponent, resolve: { 'items': TransactionItemsResolver, trans: TransactionsResolver, revs: RevenueListResolver } },
@@ -133,7 +134,8 @@ import { AddStudentComponent } from './components/students/add-student/add-stude
         TransactionsResolver,
         YearGroupsResolver,
         TransactionItemsResolver,
-        ItemBalancesResolver
+        ItemBalancesResolver,
+        ProgramsResolver
     ]
 })
 export class AppModuleShared {

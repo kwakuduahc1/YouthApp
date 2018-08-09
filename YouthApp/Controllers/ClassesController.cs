@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Linq;
 using System.Threading.Tasks;
@@ -35,6 +36,7 @@ namespace bStudioSchoolManager.Controllers
             {
                 if (await db.Classes.AnyAsync(x => x.ClassName == classes.ClassName))
                     return BadRequest(new { message = "Class name already exits" });
+                classes.AddYear = (short)DateTime.Now.Year;
                 classes.IsActive = true;
                 db.Add(classes);
                 await db.SaveChangesAsync();

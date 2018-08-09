@@ -21,7 +21,7 @@ export class EditItemComponent implements IHttpHelper<IBillItems> {
     constructor(fb: FormBuilder, route: ActivatedRoute, private http: BillItemHttpService, private router: Router) {
         this.item = route.snapshot.data["item"];
         this.form = fb.group({
-            billItem: [this.item.billItem, Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(20)])]
+            billItem: [this.item.billItem, Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(100)])]
         });
     }
 

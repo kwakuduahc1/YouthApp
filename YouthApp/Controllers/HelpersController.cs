@@ -62,10 +62,13 @@ namespace YouthApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable> YearGroups() => await new ApplicationDbContext(dco).Classes.Where(x => x.IsActive).Select(x => x.AddYear).Distinct().ToListAsync();
+        public async Task<IEnumerable> YearGroups() => await new ApplicationDbContext(dco).Classes.Where(x => x.IsActive).OrderBy(x => x.AddYear).Select(x => x.AddYear).Distinct().ToListAsync();
 
         [HttpGet]
         public async Task<IEnumerable> TransactionItems() => await new ApplicationDbContext(dco).TransactionItems.ToListAsync();
+
+        [HttpGet]
+        public async Task<IEnumerable> Programs() => await new ApplicationDbContext(dco).Programs.OrderBy(x => x.ProgramName).ToListAsync();
 
         [HttpGet]
         public async Task<IActionResult> Balances()

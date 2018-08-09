@@ -5,6 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ClassesHttpService } from '../../../http/classes/classes-http-service';
 import { IMainClasses } from '../../../models/IClasses';
 import { IHttpHelper } from '../../../http/IHttpHelper';
+import { IPrograms } from '../../../models/IPrograms';
 
 @Component({
     selector: 'app-add-class',
@@ -19,10 +20,13 @@ export class AddClassComponent implements IHttpHelper<IMainClasses> {
     classes: IMainClasses[];
     processing: boolean = false;
     dismiss: boolean = false;
+    programs: IPrograms[];
     constructor(fb: FormBuilder, route: ActivatedRoute, private http: ClassesHttpService) {
         this.classes = route.snapshot.data["classes"] as IMainClasses[];
+        this.programs = route.snapshot.data['programs'] as IPrograms[];
         this.form = fb.group({
-            className: ["", Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(20)])]
+            className: ["", Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(20)])],
+            programsID:["", Validators.compose([Validators.required])]
         });
     }
 
