@@ -1,0 +1,13 @@
+﻿<h1>View quarterly consolidated account statements</h1>
+<form id="form" name="form" [formGroup]="form">
+    <fieldset>
+        <legend>Select the quarter</legend>
+        <div class="form-group form-row">
+            <div class="col-md-3">
+                <select formControlName="period" (change)="getReport(form.controls['period'].value)" class="form-control">
+                    <option *ngFor="let q of quarters" [ngValue]="q">{{q.name}} </option>
+                </select>
+            </div>
+        </div>
+    </fieldset>
+</form>

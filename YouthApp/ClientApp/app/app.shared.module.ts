@@ -56,6 +56,7 @@ import { DebtorsComponent } from './components/classes/debtors/debtors.component
 import { TransactionItemsResolver } from './resolvers/transaction-types/tran-items-resolver';
 import { FindTransactionItemResolver } from './resolvers/transaction-items/find-tran-item-resolver';
 import { ClassesDebtorsResolver } from './resolvers/classes/ClassDebtorsResolver';
+import { QuarterReportsComponent } from './components/revenues/quarter-reports/quarter-reports.component';
 
 @NgModule({
     declarations: [
@@ -81,7 +82,8 @@ import { ClassesDebtorsResolver } from './resolvers/classes/ClassDebtorsResolver
         ItemBalancesComponent,
         PrintBillComponent,
         AddStudentComponent,
-        DebtorsComponent
+        DebtorsComponent,
+        QuarterReportsComponent
     ],
     imports: [
         CommonModule,
@@ -108,6 +110,7 @@ import { ClassesDebtorsResolver } from './resolvers/classes/ClassDebtorsResolver
             { path: 'receive-transaction', component: ReceiveTransactionComponent, resolve: { 'items': TransactionItemsResolver, trans: TransactionsResolver, revs: RevenueListResolver } },
             { path: 'edit-transaction/:id', component: EditTransactionComponent, resolve: { 'items': TransactionItemsResolver, revs: RevenueListResolver, tran: FindTransactionResolver } },
             { path: 'print-bill/:id', component: PrintBillComponent, resolve: { 'class': FindClassResolver, terms: TermsResolver } },
+            { path: 'quarter-report', component: QuarterReportsComponent },
             { path: '**', redirectTo: 'home' }
         ])
     ],

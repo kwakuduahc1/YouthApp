@@ -9,6 +9,7 @@ import { IDebtors } from '../../models/IDebtors';
 import { ITransactionsTypes } from '../../models/ITransactionTypes';
 import { ITransactions } from '../../models/ITransactions';
 import { IPrograms } from '../../models/IPrograms';
+import { IBalances } from '../../models/IBalances';
 
 @Injectable()
 export class HelperHttpService {
@@ -35,6 +36,10 @@ export class HelperHttpService {
 
     yearGroups(): Observable<number[]> {
         return this.http.get<number[]>("/Helpers/YearGroups");
+    }
+
+    quarterly(start: number, end: number): Observable<IBalances[]> {
+        return this.http.get<IBalances[]>(`/Reports/Quarterly?start=${start}&end=${end}`);
     }
     constructor(private http: HttpClient) {
 

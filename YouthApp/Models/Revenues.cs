@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace YouthApp.Models
 {
@@ -22,5 +23,7 @@ namespace YouthApp.Models
         [Required]
         [StringLength(100, MinimumLength = 2)]
         public string Bank { get; set; }
+
+        public ICollection<Transactions> Transactions { get; set; }
     }
 }
