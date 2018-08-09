@@ -28,7 +28,7 @@ namespace YouthApp.Controllers
         {
             using (var db = new ApplicationDbContext(dco))
             {
-                var list = await db.ClassBills.Where(x => x.DatePrepared.Year == DateTime.Now.Year).GroupBy(x => new { x.BillItems.BillItem, x.BillItemsID }, (k, v) => new
+                var list = await db.ClassBills/*.Where(x => x.DatePrepared.Year == DateTime.Now.Year)*/.GroupBy(x => new { x.BillItems.BillItem, x.BillItemsID }, (k, v) => new
                 {
                     k.BillItem,
                     k.BillItemsID,
