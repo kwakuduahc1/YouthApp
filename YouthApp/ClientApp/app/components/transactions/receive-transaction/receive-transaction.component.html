@@ -44,6 +44,22 @@
             <span [ngClass]="form.controls.amount.errors?.minlength ? 'text-danger' : ''" *ngIf="form.controls.amount.errors?.minlength">The minimum length is {{form.controls.amount.errors.minlength.requiredLength}} characters: Current is {{form.controls.amount.errors.minlength.actualLength}}</span>
         </div>
 
+        <!-- Date paid -->
+        <div class="form-group form-row">
+            <label class="col-sm-2 control-label" for="transactionDate">Date paid</label>
+            <div class="col-sm-3" [ngClass]="form.controls.transactionDate?.errors ? 'has-error' : 'has-success'">
+                <input type="date"
+                       class="form-control"
+                       id="transactionDate"
+                       title="date on which this payment was made"
+                       formControlName="transactionDate"
+                       placeholder="Date paid">
+            </div>
+            <span [ngClass]="form.controls.transactionDate.errors?.maxlength ? 'text-danger' : ''" *ngIf="form.controls.transactionDate.errors?.maxlength">The maximum length is {{form.controls.transactionDate.errors.maxlength.requiredLength}} characters: Current is {{form.controls.transactionDate.errors.maxlength.actualLength}}</span>
+            <span [ngClass]="form.controls.transactionDate.errors?.required ? 'text-danger' : ''" *ngIf="form.controls.transactionDate.errors?.required">Date is required</span>
+            <span [ngClass]="form.controls.transactionDate.errors?.minlength ? 'text-danger' : ''" *ngIf="form.controls.transactionDate.errors?.minlength">The minimum length is {{form.controls.transactionDate.errors.minlength.requiredLength}} characters: Current is {{form.controls.transactionDate.errors.minlength.actualLength}}</span>
+        </div>
+
         <!-- Purpose -->
         <div class="form-group form-row">
             <label class="col-sm-2 control-label" for="purpose">Purpose</label>

@@ -60,6 +60,22 @@
             <span [ngClass]="form.controls.purpose.errors?.minlength ? 'text-danger' : ''" *ngIf="form.controls.purpose.errors?.minlength">The minimum length is {{form.controls.purpose.errors.minlength.requiredLength}} characters: Current is {{form.controls.purpose.errors.minlength.actualLength}}</span>
         </div>
 
+        <!-- Date paid -->
+        <div class="form-group form-row">
+            <label class="col-sm-2 control-label" for="transactionDate">Date paid</label>
+            <div class="col-sm-3" [ngClass]="form.controls.transactionDate?.errors ? 'has-error' : 'has-success'">
+                <input type="date"
+                       class="form-control"
+                       id="transactionDate"
+                       title="date on which this payment was made"
+                       formControlName="transactionDate"
+                       placeholder="Date paid">
+            </div>
+            <span [ngClass]="form.controls.transactionDate.errors?.maxlength ? 'text-danger' : ''" *ngIf="form.controls.transactionDate.errors?.maxlength">The maximum length is {{form.controls.transactionDate.errors.maxlength.requiredLength}} characters: Current is {{form.controls.transactionDate.errors.maxlength.actualLength}}</span>
+            <span [ngClass]="form.controls.transactionDate.errors?.required ? 'text-danger' : ''" *ngIf="form.controls.transactionDate.errors?.required">Date is required</span>
+            <span [ngClass]="form.controls.transactionDate.errors?.minlength ? 'text-danger' : ''" *ngIf="form.controls.transactionDate.errors?.minlength">The minimum length is {{form.controls.transactionDate.errors.minlength.requiredLength}} characters: Current is {{form.controls.transactionDate.errors.minlength.actualLength}}</span>
+        </div>
+
         <!-- Button -->
         <div class="offset-sm-2">
             <button [disabled]="form.invalid || processing" type="submit" [ngClass]="form.invalid ? 'btn-danger' : 'btn-success'" class="btn"><span class="glyphicon glyphicon-plus"> Add </span></button>

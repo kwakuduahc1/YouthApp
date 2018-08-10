@@ -36,6 +36,7 @@ export class ReceiveTransactionComponent implements IHttpHelper<ITransactions> {
             amount: ["", Validators.compose([Validators.required, Validators.min(0)])],
             revenuesID: ["", Validators.compose([Validators.required, Validators.min(1)])],
             purpose: ['', Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(100)])],
+            transactionDate: ['', Validators.compose([Validators.required])],
             transactionItemsID: ['', Validators.compose([Validators.required, Validators.min(1)])]
         });
         this.findForm = fb.group({

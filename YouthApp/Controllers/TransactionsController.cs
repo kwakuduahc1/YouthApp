@@ -37,7 +37,7 @@ namespace YouthApp.Controllers
                 return BadRequest(new { Error = "Invalid data was submitted", Message = ModelState.Values.First(x => x.Errors.Count > 0).Errors.Select(t => t.ErrorMessage).First() });
             using (var db = new ApplicationDbContext(dco))
             {
-                transaction.TransactionDate = DateTime.Now;
+                //transaction.TransactionDate = DateTime.Now;
                 transaction.TransactionsTypesID = (byte)TranTypes.Revenue;
                 db.Add(transaction);
                 await db.SaveChangesAsync();
@@ -54,7 +54,7 @@ namespace YouthApp.Controllers
             {
                 transaction.Amount = transaction.Amount * -1;
                 transaction.TransactionsTypesID = (byte)TranTypes.Expenditure;
-                transaction.TransactionDate = DateTime.Now;
+                //transaction.TransactionDate = DateTime.Now;
                 db.Add(transaction);
                 await db.SaveChangesAsync();
             }

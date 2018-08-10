@@ -11,3 +11,44 @@
         </div>
     </fieldset>
 </form>
+<div [hidden]="balances.length===0">
+    <button class="btn btn-outline-secondary" (click)="print()">Print</button>
+</div>
+<div class="" id="print" [hidden]="balances.length===0">
+    <div>
+        <img src="../../../../dist/logo.png" alt="school logo" class="img-fluid" />
+    </div>
+    <div>
+        <h1>{{title()}}</h1>
+        <table class="table table-striped table-responsive">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Item</th>
+                    <th>Expenditure</th>
+                    <th>Revenue</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let b of balances">
+                    <td>{{b.transactionItem}}</td>
+                    <td>{{b.expenditure |number}}</td>
+                    <td>{{b.revenue |number}}</td>
+                </tr>
+            </tbody>
+            <tfoot class="thead-light">
+                <tr>
+                    <th>Total</th>
+                    <th>{{totals().exp}}</th>
+                    <th>{{totals().rev}}</th>
+                </tr>
+                <tr>
+                    <th>Total balance</th>
+                    <th colspan="2" class="text-center">{{(totals().exp + totals().rev) | currency:'GH¢ '}}</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+<div [hidden]="balances.length>0">
+    <span class="alert alert-info alert-dismissible">Search returned no results. Select a quarter from above</span>
+</div>

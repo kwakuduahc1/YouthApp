@@ -41,7 +41,8 @@ export class StudentPaymentsComponent {
         this.std = std;
         this.bForm = this.fb.group({
             gCr: ["", Validators.compose([Validators.required, Validators.minLength(5), Validators.maxLength(50)])],
-            amount: ["", Validators.compose([Validators.required, Validators.min(0.1)])]
+            amount: ["", Validators.compose([Validators.required, Validators.min(0.1)])],
+            datePaid: ['', Validators.compose([Validators.required])]
         });
         this.pay_http.list(std.studentsID).subscribe(res => this.payments = res, (err: HttpErrorResponse) => this.onError(err));
     }

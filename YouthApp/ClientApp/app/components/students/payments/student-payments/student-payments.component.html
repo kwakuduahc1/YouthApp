@@ -66,6 +66,22 @@
                     <span [ngClass]="bForm.controls.amount.errors?.required ? 'text-danger' : ''" *ngIf="bForm.controls.amount.errors?.required">Add the amount</span>
                     <span [ngClass]="bForm.controls.amount.errors?.min ? 'text-danger' : ''" *ngIf="bForm.controls.amount.errors?.min">The minimum is {{bForm.controls.amount.errors.min.min}}</span>
                 </div>
+
+                <!-- Date paid -->
+                <div class="form-group form-row">
+                    <label class="col-md-2 col-bForm-label" for="datePaid" aria-label="datePaid paid">Amount</label>
+                    <div class="col-md-6" aria-labelledby="datePaid" [ngClass]="bForm.controls.datePaid?.errors ? 'has-error' : 'has-success'">
+                        <input type="date"
+                               class="form-control"
+                               id="datePaid"
+                               title="Payment date"
+                               formControlName="datePaid"
+                               placeholder="date paid">
+                    </div>
+                    <span [ngClass]="bForm.controls.datePaid.errors?.max ? 'text-danger' : ''" *ngIf="bForm.controls.datePaid.errors?.max">The maximum  {{bForm.controls.datePaid.errors.max.max}}</span>
+                    <span [ngClass]="bForm.controls.datePaid.errors?.required ? 'text-danger' : ''" *ngIf="bForm.controls.datePaid.errors?.required">Add the date paid</span>
+                    <span [ngClass]="bForm.controls.datePaid.errors?.min ? 'text-danger' : ''" *ngIf="bForm.controls.datePaid.errors?.min">The minimum is {{bForm.controls.datePaid.errors.min.min}}</span>
+                </div>
             </fieldset>
             <div class="offset-md-2"> <button class="btn" [ngClass]="bForm.valid ? 'btn-success' : 'btn-danger'" [disabled]="bForm.invalid">Receive</button></div>
         </form>
