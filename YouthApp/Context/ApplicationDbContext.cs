@@ -87,11 +87,15 @@ namespace YouthApp.Context
                 new TransactionItems { TransactionItem = "T&T", TransactionItemsID = 1 },
                 new TransactionItems { TransactionItem = "Fuel", TransactionItemsID = 2 },
                 new TransactionItems { TransactionItem = "Bank Charges", TransactionItemsID = 3 },
-                new TransactionItems { TransactionItem = "Maintenance", TransactionItemsID = 4 },
+                new TransactionItems { TransactionItem = "Repairs and Maintenance", TransactionItemsID = 4 },
                 new TransactionItems { TransactionItem = "Staff Allowances", TransactionItemsID = 5 },
                 new TransactionItems { TransactionItem = "Stationery", TransactionItemsID = 6 },
-                 new TransactionItems { TransactionItem = "School Fees", TransactionItemsID = 7 },
-                 new TransactionItems { TransactionItem = "Feeding", TransactionItemsID = 8 }
+                new TransactionItems { TransactionItem = "School Fees", TransactionItemsID = 7 },
+                new TransactionItems { TransactionItem = "Imprest", TransactionItemsID = 8 },
+                new TransactionItems { TransactionItem = "NVTI Registration", TransactionItemsID = 9 },
+                new TransactionItems { TransactionItem = "Feeding Grants", TransactionItemsID = 10 },
+                new TransactionItems { TransactionItem = "Administration Grants", TransactionItemsID = 11 },
+                new TransactionItems { TransactionItem = "Salary Advances", TransactionItemsID = 12 }
                 ));
 
             base.OnModelCreating(builder);
