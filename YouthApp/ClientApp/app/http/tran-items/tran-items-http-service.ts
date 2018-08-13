@@ -19,10 +19,10 @@ export class TransactionItemsHttpService implements IHttpMethods<ITransactionIte
         return this.http.post<ITransactionItems>('/TransactionItems/Create', item);
     }
     edit(item: ITransactionItems): Observable<ITransactionItems> {
-        throw new Error("Method not implemented.");
+        return this.http.put<ITransactionItems>('/TransactionItems/Edit', item);
     }
     delete(item: ITransactionItems): Observable<void> {
-        throw new Error("Method not implemented.");
+        return this.http.post<void>('/TransactionItems/Delete', item);
     }
     constructor(private http: HttpClient) {
 

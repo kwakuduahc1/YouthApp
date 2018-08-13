@@ -1,0 +1,26 @@
+﻿<h1 class="h1">Edit an expenditure item</h1>
+<form id="form" name="form" [formGroup]="form" (submit)="add(form.value)">
+    <fieldset>
+        <legend>Provide new values</legend>
+        <div class="form-group form-row">
+            <label class="col-md-2 control-label" for="transactionItem">Bill Item</label>
+            <div class="col-md-6" [ngClass]="form.controls.transactionItem?.errors ? 'has-error' : 'has-success'">
+                <input type="text"
+                       class="form-control"
+                       id="transactionItem"
+                       title="your billing item here"
+                       formControlName="transactionItem"
+                       placeholder="bill item">
+            </div>
+            <span [ngClass]="form.controls.transactionItem.errors?.maxlength ? 'text-danger' : ''" *ngIf="form.controls.transactionItem.errors?.maxlength">The maximum length is {{form.controls.transactionItem.errors.maxlength.requiredLength}} characters: Current is {{form.controls.transactionItem.errors.maxlength.actualLength}}</span>
+            <span [ngClass]="form.controls.transactionItem.errors?.required ? 'text-danger' : ''" *ngIf="form.controls.transactionItem.errors?.required">Input an item</span>
+            <span [ngClass]="form.controls.transactionItem.errors?.minlength ? 'text-danger' : ''" *ngIf="form.controls.transactionItem.errors?.minlength">The minimum length is {{form.controls.transactionItem.errors.minlength.requiredLength}} characters: Current is {{form.controls.transactionItem.errors.minlength.actualLength}}</span>
+        </div>
+        <div class="offset-md-2">
+            <button [disabled]="form.invalid || processing" type="submit" [ngClass]="form.invalid ? 'btn-danger' : 'btn-success'" class="btn"><span class="glyphicon glyphicon-credit-card"> Save changes</span></button>
+        </div>
+    </fieldset>
+</form>
+<div class="row">
+    <span [hidden]="dismiss" class="alert offset-md-2" [ngClass]="error ? 'alert-warning' : 'alert-info'">{{message}} <button class="btn btn-success btn-sm" (click)="this.dismiss=!this.dismiss">Dismiss</button></span>
+</div>
