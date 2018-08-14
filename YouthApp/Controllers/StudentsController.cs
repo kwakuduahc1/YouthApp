@@ -27,7 +27,7 @@ namespace bStudioSchoolManager.Controllers
         public async Task<IEnumerable> List(int id) => await new ApplicationDbContext(dco).Students.Where(x => x.ClassesID == id).OrderBy(x => x.Surname).ThenBy(x => x.UniqueID).ToListAsync();
 
         [HttpGet]
-        public async Task<IActionResult> Find(Guid id)
+        public async Task<IActionResult> Find(long id)
         {
             var std = await new ApplicationDbContext(dco).Students.FindAsync(id);
             return std == null ? (IActionResult)BadRequest(new { message = "No student was found matching that id" }) : Ok(std);

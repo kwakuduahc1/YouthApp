@@ -59,6 +59,9 @@ import { ClassesDebtorsResolver } from './resolvers/classes/ClassDebtorsResolver
 import { QuarterReportsComponent } from './components/revenues/quarter-reports/quarter-reports.component';
 import { TranItemsComponent } from './components/transactions/tran-items/tran-items.component';
 import { EditTranItemComponent } from './components/transactions/edit-tran-item/edit-tran-item.component';
+import { FindPaymentResolver } from './resolvers/payments/find-payment-resolver';
+import { EditStudentPaymentComponent } from './components/students/edit-student-payment/edit-student-payment.component';
+import { StudentResolver } from './resolvers/students/StudentResolver';
 
 @NgModule({
     declarations: [
@@ -87,7 +90,8 @@ import { EditTranItemComponent } from './components/transactions/edit-tran-item/
         DebtorsComponent,
         QuarterReportsComponent,
         TranItemsComponent,
-        EditTranItemComponent
+        EditTranItemComponent,
+        EditStudentPaymentComponent
 
     ],
     imports: [
@@ -118,6 +122,7 @@ import { EditTranItemComponent } from './components/transactions/edit-tran-item/
             { path: 'quarter-report', component: QuarterReportsComponent },
             { path: 'tran-items', component: TranItemsComponent, resolve: { items: TransactionItemsResolver } },
             { path: 'edit-tran-item/:id', component: EditTranItemComponent, resolve: { item: FindTransactionItemResolver } },
+            { path: 'edit-payment/:pid/:id', component: EditStudentPaymentComponent, resolve: { payment: FindPaymentResolver, student: StudentResolver } },
             { path: '**', redirectTo: 'home' }
         ])
     ],
@@ -150,7 +155,9 @@ import { EditTranItemComponent } from './components/transactions/edit-tran-item/
         TransactionItemsResolver,
         ItemBalancesResolver,
         ProgramsResolver,
-        ClassesDebtorsResolver
+        ClassesDebtorsResolver,
+        FindPaymentResolver,
+        StudentResolver
     ]
 })
 export class AppModuleShared {

@@ -9,4 +9,5 @@ export interface IPayments {
     concurrency: string;
     students: IStudents;
     gcr: string;
+    transactionsID: number;
 }

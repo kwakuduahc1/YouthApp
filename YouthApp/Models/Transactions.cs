@@ -38,6 +38,6 @@ namespace YouthApp.Models
 
         public virtual TransactionItems TransactionItems { get; set; }
 
-        public virtual ICollection<Payments> Payments { get; set; }
+        public virtual Payments Payments { get; set; }
     }
 }

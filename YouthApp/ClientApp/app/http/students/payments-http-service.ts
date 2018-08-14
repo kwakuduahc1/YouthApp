@@ -11,20 +11,24 @@ import { IPayments } from '../../models/IPayments';
 export class StudentPaymentsHttpService  {
 
 
-    find(id: string): Observable<IPayments> | null {
-        throw new Error("Method not implemented.");
+    find(id: string): Observable<IPayments> {
+        return this.http.get<IPayments>(`/Payments/Find?id=${id}`);
     }
+
     list(id:number): Observable<IPayments[]> {
         return this.http.get<IPayments[]>(`/Payments/Student/${id}`);
     }
+
     add(item: IPayments): Observable<IPayments> {
         return this.http.post<IPayments>('/Payments/Create', item);
     }
+
     edit(item: IPayments): Observable<IPayments> {
-        throw new Error("Method not implemented.");
+        return this.http.put<IPayments>("/Payments/Edit", item);
     }
+
     delete(item: IPayments): Observable<void> {
-        throw new Error("Method not implemented.");
+        return this.http.post<void>("/Payments/Delete", item);
     }
     constructor(private http: HttpClient) {
 

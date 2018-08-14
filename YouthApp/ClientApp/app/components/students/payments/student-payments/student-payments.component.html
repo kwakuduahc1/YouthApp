@@ -98,7 +98,7 @@
             <th>Date</th>
             <th>Amount</th>
             <th>GCR</th>
-            <th></th>
+            <th>Edit</th>
         </tr>
     </thead>
     <tbody>
@@ -106,7 +106,9 @@
             <td>{{p.datePaid |date}}</td>
             <td>{{p.amount}}</td>
             <td>{{p.gcr}}</td>
-            <td></td>
+            <td>
+                <button class="btn btn-outline-primary" [routerLink]="['/edit-payment',p.paymentsID,p.studentsID]">Edit Payment</button>
+            </td>
         </tr>
     </tbody>
 </table>

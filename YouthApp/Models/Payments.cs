@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace YouthApp.Models
 {
@@ -24,6 +25,7 @@ namespace YouthApp.Models
         public string GCR { get; set; }
 
         [Required]
+        [ForeignKey("Transactions")]
         public long TransactionsID { get; set; }
 
         [Timestamp]
