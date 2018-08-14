@@ -337,9 +337,13 @@ namespace YouthApp.Migrations
 
                     b.Property<long>("StudentsID");
 
+                    b.Property<long>("TransactionsID");
+
                     b.HasKey("PaymentsID");
 
                     b.HasIndex("StudentsID");
+
+                    b.HasIndex("TransactionsID");
 
                     b.ToTable("Payments");
                 });
@@ -507,11 +511,15 @@ namespace YouthApp.Migrations
                         new { TransactionItemsID = (short)1, TransactionItem = "T&T" },
                         new { TransactionItemsID = (short)2, TransactionItem = "Fuel" },
                         new { TransactionItemsID = (short)3, TransactionItem = "Bank Charges" },
-                        new { TransactionItemsID = (short)4, TransactionItem = "Maintenance" },
+                        new { TransactionItemsID = (short)4, TransactionItem = "Repairs and Maintenance" },
                         new { TransactionItemsID = (short)5, TransactionItem = "Staff Allowances" },
                         new { TransactionItemsID = (short)6, TransactionItem = "Stationery" },
                         new { TransactionItemsID = (short)7, TransactionItem = "School Fees" },
-                        new { TransactionItemsID = (short)8, TransactionItem = "Feeding" }
+                        new { TransactionItemsID = (short)8, TransactionItem = "Imprest" },
+                        new { TransactionItemsID = (short)9, TransactionItem = "NVTI Registration" },
+                        new { TransactionItemsID = (short)10, TransactionItem = "Feeding Grants" },
+                        new { TransactionItemsID = (short)11, TransactionItem = "Administration Grants" },
+                        new { TransactionItemsID = (short)12, TransactionItem = "Salary Advances" }
                     );
                 });
 
@@ -658,6 +666,11 @@ namespace YouthApp.Migrations
                         .WithMany("Payments")
                         .HasForeignKey("StudentsID")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("YouthApp.Models.Transactions", "Transactions")
+                        .WithMany("Payments")
+                        .HasForeignKey("TransactionsID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("YouthApp.Models.Students", b =>
@@ -679,7 +692,7 @@ namespace YouthApp.Migrations
             modelBuilder.Entity("YouthApp.Models.Transactions", b =>
                 {
                     b.HasOne("YouthApp.Models.Revenues", "Revenues")
-                        .WithMany()
+                        .WithMany("Transactions")
                         .HasForeignKey("RevenuesID")
                         .OnDelete(DeleteBehavior.Cascade);
 

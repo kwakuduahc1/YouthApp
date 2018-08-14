@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace YouthApp.Migrations
 {
-    public partial class Initial : Migration
+    public partial class PaymentsTransLink : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -396,6 +396,7 @@ namespace YouthApp.Migrations
                     DatePaid = table.Column<DateTime>(nullable: false),
                     Receiver = table.Column<string>(maxLength: 50, nullable: true),
                     GCR = table.Column<string>(maxLength: 20, nullable: false),
+                    TransactionsID = table.Column<long>(nullable: false),
                     Concurrency = table.Column<byte[]>(rowVersion: true, nullable: true)
                 },
                 constraints: table =>
@@ -406,6 +407,12 @@ namespace YouthApp.Migrations
                         column: x => x.StudentsID,
                         principalTable: "Students",
                         principalColumn: "StudentsID",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Payments_Transactions_TransactionsID",
+                        column: x => x.TransactionsID,
+                        principalTable: "Transactions",
+                        principalColumn: "TransactionsID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -438,37 +445,7 @@ namespace YouthApp.Migrations
             migrationBuilder.InsertData(
                 table: "BillItems",
                 columns: new[] { "BillItemsID", "BillItem", "Concurrency", "Description" },
-                values: new object[] { 11, "Bed User Fees", null, null });
-
-            migrationBuilder.InsertData(
-                table: "BillItems",
-                columns: new[] { "BillItemsID", "BillItem", "Concurrency", "Description" },
-                values: new object[] { 10, "Damages : (Per term)", null, null });
-
-            migrationBuilder.InsertData(
-                table: "BillItems",
-                columns: new[] { "BillItemsID", "BillItem", "Concurrency", "Description" },
-                values: new object[] { 8, "First Aid : (Per term)", null, null });
-
-            migrationBuilder.InsertData(
-                table: "BillItems",
-                columns: new[] { "BillItemsID", "BillItem", "Concurrency", "Description" },
-                values: new object[] { 7, "School Badge", null, null });
-
-            migrationBuilder.InsertData(
-                table: "BillItems",
-                columns: new[] { "BillItemsID", "BillItem", "Concurrency", "Description" },
-                values: new object[] { 9, "ICT : (Per term)", null, null });
-
-            migrationBuilder.InsertData(
-                table: "BillItems",
-                columns: new[] { "BillItemsID", "BillItem", "Concurrency", "Description" },
-                values: new object[] { 5, "Utility Charges : (Per term)", null, null });
-
-            migrationBuilder.InsertData(
-                table: "BillItems",
-                columns: new[] { "BillItemsID", "BillItem", "Concurrency", "Description" },
-                values: new object[] { 4, "Sports fee : (Per term)", null, null });
+                values: new object[] { 2, "Development", null, null });
 
             migrationBuilder.InsertData(
                 table: "BillItems",
@@ -478,12 +455,47 @@ namespace YouthApp.Migrations
             migrationBuilder.InsertData(
                 table: "BillItems",
                 columns: new[] { "BillItemsID", "BillItem", "Concurrency", "Description" },
-                values: new object[] { 2, "Development", null, null });
+                values: new object[] { 4, "Sports fee : (Per term)", null, null });
+
+            migrationBuilder.InsertData(
+                table: "BillItems",
+                columns: new[] { "BillItemsID", "BillItem", "Concurrency", "Description" },
+                values: new object[] { 5, "Utility Charges : (Per term)", null, null });
 
             migrationBuilder.InsertData(
                 table: "BillItems",
                 columns: new[] { "BillItemsID", "BillItem", "Concurrency", "Description" },
                 values: new object[] { 6, "ID/Exeat Card", null, null });
+
+            migrationBuilder.InsertData(
+                table: "BillItems",
+                columns: new[] { "BillItemsID", "BillItem", "Concurrency", "Description" },
+                values: new object[] { 7, "School Badge", null, null });
+
+            migrationBuilder.InsertData(
+                table: "BillItems",
+                columns: new[] { "BillItemsID", "BillItem", "Concurrency", "Description" },
+                values: new object[] { 8, "First Aid : (Per term)", null, null });
+
+            migrationBuilder.InsertData(
+                table: "BillItems",
+                columns: new[] { "BillItemsID", "BillItem", "Concurrency", "Description" },
+                values: new object[] { 9, "ICT : (Per term)", null, null });
+
+            migrationBuilder.InsertData(
+                table: "BillItems",
+                columns: new[] { "BillItemsID", "BillItem", "Concurrency", "Description" },
+                values: new object[] { 10, "Damages : (Per term)", null, null });
+
+            migrationBuilder.InsertData(
+                table: "BillItems",
+                columns: new[] { "BillItemsID", "BillItem", "Concurrency", "Description" },
+                values: new object[] { 11, "Bed User Fees", null, null });
+
+            migrationBuilder.InsertData(
+                table: "Programs",
+                columns: new[] { "ProgramsID", "ProgramName" },
+                values: new object[] { (short)7, "ELECTRICAL DEPARTMENT" });
 
             migrationBuilder.InsertData(
                 table: "Programs",
@@ -493,12 +505,12 @@ namespace YouthApp.Migrations
             migrationBuilder.InsertData(
                 table: "Programs",
                 columns: new[] { "ProgramsID", "ProgramName" },
-                values: new object[] { (short)1, "Dress Making" });
+                values: new object[] { (short)5, "AGRICULTURE DEPARTMENT" });
 
             migrationBuilder.InsertData(
                 table: "Programs",
                 columns: new[] { "ProgramsID", "ProgramName" },
-                values: new object[] { (short)2, "Masonry" });
+                values: new object[] { (short)1, "Dress Making" });
 
             migrationBuilder.InsertData(
                 table: "Programs",
@@ -508,22 +520,12 @@ namespace YouthApp.Migrations
             migrationBuilder.InsertData(
                 table: "Programs",
                 columns: new[] { "ProgramsID", "ProgramName" },
+                values: new object[] { (short)2, "Masonry" });
+
+            migrationBuilder.InsertData(
+                table: "Programs",
+                columns: new[] { "ProgramsID", "ProgramName" },
                 values: new object[] { (short)4, "COOKERY DEPARTMENT" });
-
-            migrationBuilder.InsertData(
-                table: "Programs",
-                columns: new[] { "ProgramsID", "ProgramName" },
-                values: new object[] { (short)5, "AGRICULTURE DEPARTMENT" });
-
-            migrationBuilder.InsertData(
-                table: "Programs",
-                columns: new[] { "ProgramsID", "ProgramName" },
-                values: new object[] { (short)7, "ELECTRICAL DEPARTMENT" });
-
-            migrationBuilder.InsertData(
-                table: "Revenues",
-                columns: new[] { "RevenuesID", "AccountName", "AccountNumber", "Bank", "Source" },
-                values: new object[] { (short)2, "Youth Leadership Institute", "9011130007251", "GCB Bank Limited", "IGF" });
 
             migrationBuilder.InsertData(
                 table: "Revenues",
@@ -531,9 +533,9 @@ namespace YouthApp.Migrations
                 values: new object[] { (short)1, "Youth Leadership Training Institute", "3511120000037491", "Tisutaaba Community Bank", "GOG" });
 
             migrationBuilder.InsertData(
-                table: "Terms",
-                columns: new[] { "TermsID", "Description", "Term" },
-                values: new object[] { (byte)9, "Year 3 term 3", 3.3f });
+                table: "Revenues",
+                columns: new[] { "RevenuesID", "AccountName", "AccountNumber", "Bank", "Source" },
+                values: new object[] { (short)2, "Youth Leadership Institute", "9011130007251", "GCB Bank Limited", "IGF" });
 
             migrationBuilder.InsertData(
                 table: "Terms",
@@ -543,12 +545,7 @@ namespace YouthApp.Migrations
             migrationBuilder.InsertData(
                 table: "Terms",
                 columns: new[] { "TermsID", "Description", "Term" },
-                values: new object[] { (byte)6, "Year 2 term 3", 2.3f });
-
-            migrationBuilder.InsertData(
-                table: "Terms",
-                columns: new[] { "TermsID", "Description", "Term" },
-                values: new object[] { (byte)5, "Year 2 term 2", 2.2f });
+                values: new object[] { (byte)9, "Year 3 term 3", 3.3f });
 
             migrationBuilder.InsertData(
                 table: "Terms",
@@ -558,7 +555,7 @@ namespace YouthApp.Migrations
             migrationBuilder.InsertData(
                 table: "Terms",
                 columns: new[] { "TermsID", "Description", "Term" },
-                values: new object[] { (byte)3, "Year 1 term 3", 1.3f });
+                values: new object[] { (byte)6, "Year 2 term 3", 2.3f });
 
             migrationBuilder.InsertData(
                 table: "Terms",
@@ -568,12 +565,47 @@ namespace YouthApp.Migrations
             migrationBuilder.InsertData(
                 table: "Terms",
                 columns: new[] { "TermsID", "Description", "Term" },
+                values: new object[] { (byte)4, "Year 2 term 1", 2.1f });
+
+            migrationBuilder.InsertData(
+                table: "Terms",
+                columns: new[] { "TermsID", "Description", "Term" },
+                values: new object[] { (byte)3, "Year 1 term 3", 1.3f });
+
+            migrationBuilder.InsertData(
+                table: "Terms",
+                columns: new[] { "TermsID", "Description", "Term" },
                 values: new object[] { (byte)1, "Year 1 term 1", 1.1f });
 
             migrationBuilder.InsertData(
                 table: "Terms",
                 columns: new[] { "TermsID", "Description", "Term" },
-                values: new object[] { (byte)4, "Year 2 term 1", 2.1f });
+                values: new object[] { (byte)5, "Year 2 term 2", 2.2f });
+
+            migrationBuilder.InsertData(
+                table: "TransactionItems",
+                columns: new[] { "TransactionItemsID", "TransactionItem" },
+                values: new object[] { (short)12, "Salary Advances" });
+
+            migrationBuilder.InsertData(
+                table: "TransactionItems",
+                columns: new[] { "TransactionItemsID", "TransactionItem" },
+                values: new object[] { (short)11, "Administration Grants" });
+
+            migrationBuilder.InsertData(
+                table: "TransactionItems",
+                columns: new[] { "TransactionItemsID", "TransactionItem" },
+                values: new object[] { (short)10, "Feeding Grants" });
+
+            migrationBuilder.InsertData(
+                table: "TransactionItems",
+                columns: new[] { "TransactionItemsID", "TransactionItem" },
+                values: new object[] { (short)9, "NVTI Registration" });
+
+            migrationBuilder.InsertData(
+                table: "TransactionItems",
+                columns: new[] { "TransactionItemsID", "TransactionItem" },
+                values: new object[] { (short)8, "Imprest" });
 
             migrationBuilder.InsertData(
                 table: "TransactionItems",
@@ -583,12 +615,12 @@ namespace YouthApp.Migrations
             migrationBuilder.InsertData(
                 table: "TransactionItems",
                 columns: new[] { "TransactionItemsID", "TransactionItem" },
-                values: new object[] { (short)1, "T&T" });
+                values: new object[] { (short)5, "Staff Allowances" });
 
             migrationBuilder.InsertData(
                 table: "TransactionItems",
                 columns: new[] { "TransactionItemsID", "TransactionItem" },
-                values: new object[] { (short)2, "Fuel" });
+                values: new object[] { (short)4, "Repairs and Maintenance" });
 
             migrationBuilder.InsertData(
                 table: "TransactionItems",
@@ -598,22 +630,17 @@ namespace YouthApp.Migrations
             migrationBuilder.InsertData(
                 table: "TransactionItems",
                 columns: new[] { "TransactionItemsID", "TransactionItem" },
-                values: new object[] { (short)4, "Maintenance" });
+                values: new object[] { (short)2, "Fuel" });
 
             migrationBuilder.InsertData(
                 table: "TransactionItems",
                 columns: new[] { "TransactionItemsID", "TransactionItem" },
-                values: new object[] { (short)5, "Staff Allowances" });
+                values: new object[] { (short)1, "T&T" });
 
             migrationBuilder.InsertData(
                 table: "TransactionItems",
                 columns: new[] { "TransactionItemsID", "TransactionItem" },
                 values: new object[] { (short)6, "Stationery" });
-
-            migrationBuilder.InsertData(
-                table: "TransactionItems",
-                columns: new[] { "TransactionItemsID", "TransactionItem" },
-                values: new object[] { (short)8, "Feeding" });
 
             migrationBuilder.InsertData(
                 table: "TransactionsTypes",
@@ -768,6 +795,11 @@ namespace YouthApp.Migrations
                 column: "StudentsID");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Payments_TransactionsID",
+                table: "Payments",
+                column: "TransactionsID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Students_ClassesID",
                 table: "Students",
                 column: "ClassesID");
@@ -818,9 +850,6 @@ namespace YouthApp.Migrations
                 name: "StudentsInfo");
 
             migrationBuilder.DropTable(
-                name: "Transactions");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -831,6 +860,9 @@ namespace YouthApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "Terms");
+
+            migrationBuilder.DropTable(
+                name: "Transactions");
 
             migrationBuilder.DropTable(
                 name: "Students");

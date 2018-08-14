@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace YouthApp.Models
@@ -36,5 +37,7 @@ namespace YouthApp.Models
         public virtual TransactionsTypes TransactionsTypes { get; set; }
 
         public virtual TransactionItems TransactionItems { get; set; }
+
+        public virtual ICollection<Payments> Payments { get; set; }
     }
 }

@@ -23,9 +23,14 @@ namespace YouthApp.Models
         [Required(AllowEmptyStrings = false)]
         public string GCR { get; set; }
 
+        [Required]
+        public long TransactionsID { get; set; }
+
         [Timestamp]
         public byte[] Concurrency { get; set; }
 
         public virtual Students Students { get; set; }
+
+        public virtual Transactions Transactions { get; set; }
     }
 }
