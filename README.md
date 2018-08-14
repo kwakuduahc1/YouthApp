@@ -18,7 +18,7 @@
         <!-- Description -->
         <section>
             <h2>Description</h2>
-            <p>The software was developed for YLASTI - Nalerigu to help manage their accounting system. It has been designed to closely align with the day to day running of their accounting system. It can be used in any other institution with similar set-up say secondary schools</p>
+            <p>The software was developed for <abbr title="Youth Leadership and Skills Training Institute - Nalerigu">YLASTI</abbr> - Nalerigu to help manage their accounting system. It has been designed to closely align with the day to day running of their accounting system. It can be used in any other institution with similar set-up say secondary schools</p>
         </section>
         <!-- Usage -->
         <section>
@@ -47,7 +47,7 @@
                     <li class="list-group-item">Generate expenditure and revenue statement</li>
                     <li class="list-group-item">Generate list of debtors and the amount owed each of them</li>
                     <li class="list-group-item">Track all revenue and payments</li>
-                    <li class="list-group-item">Links student fee payments to revenue statements</li>
+                    <li class="list-group-item">Link student fee payments to revenue statements</li>
                 </ul>
             </p>
         </section>
