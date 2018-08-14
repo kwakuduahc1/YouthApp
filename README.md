@@ -1,8 +1,8 @@
 ﻿<link href="wwwroot/dist/bootstrap.min.css" rel="stylesheet" />
 <h1>Youth Leadership and Skills Training Institute - Accounting Software</h1>
-<article>
+<article role="article">
     <!--Author-->
-    <section>
+    <section role="region">
         <h2>Author Information</h2>
         <dl>
             <dt>Name</dt>
@@ -12,13 +12,16 @@
             <dd><a name="email_address" href="mailto:kwakuduahc1@gmail.com" rel="me">kwakuduahc1@gmail.com</a></dd>
             <dt>Telephone & Skype</dt>
             <dd><a name="skype" href="skype:kwakuduahc1">kwakuduahc1</a></dd>
-            <dd><a href="callto:(+233) 245 266 188">+233245266188</a></dd>
+            <dd><a href="callto:+233207531532">+233207531532</a></dd>
+            <dd>
+                <a href="intent://send/+233245266188#Intent;scheme=smsto;package=com.whatsapp;action=android.intent.action.SENDTO;end">Whatsapp : +233245266188</a>
+            </dd>
         </dl>
     </section>
         <!-- Description -->
         <section>
             <h2>Description</h2>
-            <p>The software was developed for <abbr title="Youth Leadership and Skills Training Institute - Nalerigu">YLASTI</abbr> - Nalerigu to help manage their accounting system. It has been designed to closely align with the day to day running of their accounting system. It can be used in any other institution with similar set-up say secondary schools</p>
+            <p>The software was developed for <abbr role="complementary" title="Youth Leadership and Skills Training Institute - Nalerigu">YLASTI</abbr> - Nalerigu to help manage their accounting system. It has been designed to closely align with the day to day running of their accounting system. It can be used in any other institution with similar set-up say secondary schools</p>
         </section>
         <!-- Usage -->
         <section>
