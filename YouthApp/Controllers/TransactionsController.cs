@@ -83,6 +83,9 @@ namespace YouthApp.Controllers
             {
                 if (!await db.Transactions.AnyAsync(x => x.TransactionsID == tran.TransactionsID))
                     return BadRequest(new { message = "Item does not exist" });
+                var pay = await db.Payments.SingleOrDefaultAsync(x => x.TransactionsID == tran.TransactionsID);
+                if (pay != null)
+                    db.Entry(pay).State = EntityState.Deleted;
                 db.Entry(tran).State = EntityState.Deleted;
                 await db.SaveChangesAsync();
             }
