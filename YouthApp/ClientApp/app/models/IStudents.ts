@@ -10,4 +10,7 @@
     uniqueID: string;
     isPromoted: boolean;
     isActive: boolean;
+    model: string;
+    gender: string;
+    level: string;
 }
